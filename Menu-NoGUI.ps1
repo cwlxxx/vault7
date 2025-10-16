@@ -25,18 +25,37 @@ function Set-Console {
     try {
         $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI"
         $ui = $Host.UI.RawUI
-        $width = 200
+
+        # --- Desired dimensions ---
+        $width  = 60
         $height = 44
-        $ui.BufferSize = New-Object System.Management.Automation.Host.Size($width, 9999)
-        $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
+
+        # --- Ensure buffer is never smaller than window ---
+        $bufferWidth  = [Math]::Max($ui.BufferSize.Width, $width)
+        $bufferHeight = [Math]::Max($ui.BufferSize.Height, 3000)
+
+        $ui.BufferSize = New-Object System.Management.Automation.Host.Size($bufferWidth, $bufferHeight)
+
+        # --- Attempt window resize only if host supports it ---
+        if ($ui.WindowSize.Width -ne $width -or $ui.WindowSize.Height -ne $height) {
+            $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
+        }
+
+        # Optional: add subtle visual padding
+        Clear-Host
+        Write-Host "`nConsole resized to ${width}x${height}`n" -ForegroundColor DarkGray
     }
     catch {
-        Write-Host "⚠️ Unable to resize console window — skipping." -ForegroundColor Yellow
+        # Silently skip resize if not supported (like in VS Code / Windows Terminal)
+        if ($_.Exception.Message -notmatch 'RawUI') {
+            Write-Host "⚠️ Unable to resize console window — skipping." -ForegroundColor Yellow
+        }
     }
 }
 # ------------------------------------------------------------
 # 🪟 Section : Console Window Setup - End
 # ------------------------------------------------------------
+
 
 
 # ------------------------------------------------------------
@@ -227,4 +246,5 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
