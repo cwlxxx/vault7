@@ -145,7 +145,7 @@ function Show-MainMenu {
     Write-Host "  	[6] Open User Account Control" -ForegroundColor Cyan
     Write-Host "  	[7] Enable Desktop Icon " -ForegroundColor Cyan -NoNewline
 	Write-Host "( This PC , User , Network , Recycle Bin )" -ForegroundColor Yellow
-    Write-Host "  	[8] Never Sleep Never Turn Off Monitor" -ForegroundColor Cyan
+    Write-Host "  	[8] Sleep > Never | Turn Off Monitor > Never" -ForegroundColor Cyan
     Write-Host "  	[9] Disable Windows Fast Startup " -ForegroundColor Cyan -NoNewline
 	Write-Host "( Current: $faststartupstatus )" -ForegroundColor Green
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
@@ -220,6 +220,7 @@ function Start-LiangMenu {
 # ============================================================
 
 Start-LiangMenu
+
 
 
 
