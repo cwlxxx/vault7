@@ -25,7 +25,7 @@ function Set-Console {
     try {
         $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI"
         $ui = $Host.UI.RawUI
-        $width = 82
+        $width = 200
         $height = 44
         $ui.BufferSize = New-Object System.Management.Automation.Host.Size($width, 9999)
         $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
@@ -227,3 +227,4 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
