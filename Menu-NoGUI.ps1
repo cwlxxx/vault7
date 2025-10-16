@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.2"
+$ScriptVersion = "1.3"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -57,7 +57,6 @@ function Set-Console {
 
         # Optional: visual confirmation (only when resize succeeded)
         Clear-Host
-        Write-Host "`nConsole resized to ${width}x${height}`n" -ForegroundColor DarkGray
     }
     catch {
         # Silently skip resize in hosts that don't support it (VSCode, Windows Terminal, etc.)
@@ -272,3 +271,4 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
