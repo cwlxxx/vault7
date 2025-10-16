@@ -28,7 +28,7 @@ function Set-Console {
 
         # --- Desired dimensions ---
         $width  = 60
-        $height = 44
+        $height = 60
 
         # --- Ensure buffer is never smaller than window ---
         $bufferWidth  = [Math]::Max($ui.BufferSize.Width, $width)
@@ -246,5 +246,6 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
