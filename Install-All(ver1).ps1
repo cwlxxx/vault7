@@ -5,10 +5,10 @@ Add-Type -AssemblyName System.Drawing
 # 💡 Applications List (edit here)
 # ==============================
 $applications = @(
-    @{ Name = "Sougou Pinyin - winget"; Script = "irm 192.168.0.3/powershell/Install-SogouPinyin.ps1 | iex" },
-    @{ Name = "AnyDesk - winget"; Script = "irm 192.168.0.3/powershell/Install-Anydesk.ps1 | iex" },
-    @{ Name = "doPDF 11 - winget"; Script = "irm 192.168.0.3/powershell/Install-doPDF.ps1 | iex" },
-    @{ Name = "WinRAR - winget"; Script = "irm 192.168.0.3/powershell/Install-Winrar.ps1 | iex" },
+    @{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "UltraViewer - winget"; Script = "irm 192.168.0.3/powershell/Install-UltraViewer.ps1 | iex" },
     @{ Name = "IrfanView - winget"; Script = "irm 192.168.0.3/powershell/Install-irfanview.ps1 | iex" },
     @{ Name = "K-Lite Full - winget"; Script = "irm 192.168.0.3/powershell/Install-K-Lite-Full.ps1 | iex" },
@@ -291,3 +291,4 @@ $btnRun.Add_Click({
 # Run Form
 # ==============================
 [void]$form.ShowDialog()
+
