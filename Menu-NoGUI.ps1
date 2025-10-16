@@ -1,6 +1,18 @@
+
 # ============================================================
 # 🧱 Advance Windows Setup Menu - No GUI
 # ============================================================
+
+# ------------------------------------------------------------
+# 🧩 Section : Script Metadata - Start
+# ------------------------------------------------------------
+# Update this version string whenever you edit the script.
+$ScriptVersion = "1.2"
+$ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
+# ------------------------------------------------------------
+# 🧩 Section : Script Metadata - End
+# ------------------------------------------------------------
+
 
 # ------------------------------------------------------------
 # ⚙️ Section : Ensure Administrator - Start
@@ -23,7 +35,9 @@ function Ensure-Admin {
 # ------------------------------------------------------------
 function Set-Console {
     try {
-        $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI"
+        # Use script title for the window title if available
+        if ($ScriptTitle) { $Host.UI.RawUI.WindowTitle = $ScriptTitle } else { $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI" }
+
         $ui = $Host.UI.RawUI
 
         # --- Desired dimensions ---
@@ -41,12 +55,13 @@ function Set-Console {
             $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
         }
 
-        # Optional: add subtle visual padding
+        # Optional: visual confirmation (only when resize succeeded)
         Clear-Host
         Write-Host "`nConsole resized to ${width}x${height}`n" -ForegroundColor DarkGray
     }
     catch {
-        # Silently skip resize if not supported (like in VS Code / Windows Terminal)
+        # Silently skip resize in hosts that don't support it (VSCode, Windows Terminal, etc.)
+        # Only display friendly warning if the exception is not the common RawUI unsupported message.
         if ($_.Exception.Message -notmatch 'RawUI') {
             Write-Host "⚠️ Unable to resize console window — skipping." -ForegroundColor Yellow
         }
@@ -55,6 +70,7 @@ function Set-Console {
 # ------------------------------------------------------------
 # 🪟 Section : Console Window Setup - End
 # ------------------------------------------------------------
+
 
 
 
@@ -114,26 +130,34 @@ catch {
 # ------------------------------------------------------------
 function Show-MainMenu {
     Clear-Host
-    $title = "Advance Windows Setup Menu - No GUI"
+    # Use the script title (includes version) if present
+    $title = if ($ScriptTitle) { $ScriptTitle } else { "Advance Windows Setup Menu - No GUI" }
+
     $psVersion = $PSVersionTable.PSVersion.ToString()
     $computer = $env:COMPUTERNAME
-    $winVersion = Get-WindowsEdition
+    # Use already loaded value if available, otherwise call
+    $winVersion = if ($winVersion) { $winVersion } else { Get-WindowsEdition }
 
+    # --- Header Box ---
     $lineWidth = 80
     $borderLine = "═" * $lineWidth
     Write-Host ""
     Write-Host "╔$borderLine╗" -ForegroundColor DarkCyan
 
+    # Center title (uses $title which includes version)
     $paddedTitle = $title.PadLeft(([math]::Floor(($lineWidth + $title.Length) / 2))).PadRight($lineWidth)
     Write-Host "║$paddedTitle║" -ForegroundColor White
     Write-Host "╠$borderLine╣" -ForegroundColor DarkCyan
 
+    # Info line
     $info = "PC Name: $computer  |  $winVersion  |  PowerShell: $psVersion"
     if ($info.Length -gt $lineWidth) { $info = $info.Substring(0, $lineWidth) }
     $paddedInfo = $info.PadLeft(([math]::Floor(($lineWidth + $info.Length) / 2))).PadRight($lineWidth)
     Write-Host "║$paddedInfo║" -ForegroundColor White
     Write-Host "╚$borderLine╝" -ForegroundColor DarkCyan
     Write-Host ""
+
+    # --- Menu Sections ---
 
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
