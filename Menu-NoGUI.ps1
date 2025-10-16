@@ -79,22 +79,18 @@ catch {
 # ------------------------------------------------------------
 # ⚡ Section : Fast Startup Detection - Start
 # ------------------------------------------------------------
-function Get-FastStartupStatus {
-    try {
-        $key = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power"
-        $value = (Get-ItemProperty -Path $key -Name HiberbootEnabled -ErrorAction SilentlyContinue).HiberbootEnabled
+try {
+    # Load the latest version from GitHub
+    $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-FastStartupDetection.ps1"
+    $null = irm $remoteScript | iex
 
-        switch ($value) {
-            1 { return "Enabled" }
-            0 { return "Disabled" }
-            default { return "Unknown" }
-        }
-    }
-    catch {
-        return "Error"
-    }
+    # Execute the function (assumed defined in Status-PowerStatus.ps1)
+    $sleepstatus = Get-PowerStatus
 }
-$faststartupstatus = Get-FastStartupStatus
+catch {
+    Write-Host "Error loading or Status-FastStartupDetection.ps1: $($_.Exception.Message)" -ForegroundColor Red
+    $sleepstatus = "Error"
+}
 # ------------------------------------------------------------
 # ⚡ Section : Fast Startup Detection - End
 # ------------------------------------------------------------
@@ -241,6 +237,7 @@ Start-LiangMenu
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
