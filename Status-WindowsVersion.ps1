@@ -1,6 +1,3 @@
-# ------------------------------------------------------------
-# 💻 Section : Detect Windows Edition & Version - Start
-# ------------------------------------------------------------
 function Get-WindowsEdition {
     $os = Get-CimInstance Win32_OperatingSystem
     $caption = $os.Caption
@@ -35,6 +32,3 @@ function Get-WindowsEdition {
 
     return $osVer
 }
-# ------------------------------------------------------------
-# 💻 Section : Detect Windows Edition & Version - End
-# ------------------------------------------------------------
