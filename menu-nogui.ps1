@@ -1,7 +1,11 @@
 # ============================================================
-#   Liang Windows Setup Menu - Auto Windows Version Edition
+# 🧱 Liang Windows Setup Menu - Auto Windows Version Edition
 # ============================================================
 
+
+# ------------------------------------------------------------
+# ⚙️ Section : Ensure Administrator - Start
+# ------------------------------------------------------------
 function Ensure-Admin {
     if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
         ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -10,7 +14,14 @@ function Ensure-Admin {
         exit
     }
 }
+# ------------------------------------------------------------
+# ⚙️ Section : Ensure Administrator - End
+# ------------------------------------------------------------
 
+
+# ------------------------------------------------------------
+# 🪟 Section : Console Window Setup - Start
+# ------------------------------------------------------------
 function Set-Console {
     $Host.UI.RawUI.WindowTitle = "Liang Windows Setup Menu"
     $ui = $Host.UI.RawUI
@@ -19,7 +30,14 @@ function Set-Console {
     $ui.BufferSize = New-Object System.Management.Automation.Host.Size($width, 9999)
     $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
 }
+# ------------------------------------------------------------
+# 🪟 Section : Console Window Setup - End
+# ------------------------------------------------------------
 
+
+# ------------------------------------------------------------
+# 💻 Section : Detect Windows Edition & Version - Start
+# ------------------------------------------------------------
 function Get-WindowsEdition {
     $os = Get-CimInstance Win32_OperatingSystem
     $caption = $os.Caption
@@ -34,6 +52,7 @@ function Get-WindowsEdition {
 
     # --- Version Tag Based on Build ---
     switch ($build) {
+        {$_ -ge 26200} { $version = "25H2"; break }
         {$_ -ge 26100} { $version = "24H2"; break }
         {$_ -ge 22621} { $version = "22H2"; break }
         {$_ -ge 22000} { $version = "21H2"; break }
@@ -53,17 +72,20 @@ function Get-WindowsEdition {
 
     return $osVer
 }
+# ------------------------------------------------------------
+# 💻 Section : Detect Windows Edition & Version - End
+# ------------------------------------------------------------
 
+
+# ------------------------------------------------------------
+# 🔋 Section : Power Status Detection - Start
+# ------------------------------------------------------------
 function Get-PowerStatus {
     try {
-        # Get active power scheme GUID
         $scheme = (powercfg /getactivescheme) -replace '.*GUID:\s+([a-f0-9-]+).*', '$1'
-
-        # Extract AC power timeout values (in minutes)
         $monitorTimeout = [int](powercfg /query $scheme SUB_VIDEO VIDEOIDLE | Select-String -Pattern 'Current AC Power Setting Index: ([0-9]+)').Matches.Groups[1].Value
         $sleepTimeout   = [int](powercfg /query $scheme SUB_SLEEP STANDBYIDLE | Select-String -Pattern 'Current AC Power Setting Index: ([0-9]+)').Matches.Groups[1].Value
 
-        # Convert 0 → "Never"
         $monitorStatus = if ($monitorTimeout -eq 0) { "Never" } else { "$monitorTimeout min" }
         $sleepStatus   = if ($sleepTimeout -eq 0) { "Never" } else { "$sleepTimeout min" }
 
@@ -74,7 +96,14 @@ function Get-PowerStatus {
     }
 }
 $sleepstatus = Get-PowerStatus
+# ------------------------------------------------------------
+# 🔋 Section : Power Status Detection - End
+# ------------------------------------------------------------
 
+
+# ------------------------------------------------------------
+# ⚡ Section : Fast Startup Detection - Start
+# ------------------------------------------------------------
 function Get-FastStartupStatus {
     try {
         $key = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power"
@@ -91,7 +120,14 @@ function Get-FastStartupStatus {
     }
 }
 $faststartupstatus = Get-FastStartupStatus
+# ------------------------------------------------------------
+# ⚡ Section : Fast Startup Detection - End
+# ------------------------------------------------------------
 
+
+# ------------------------------------------------------------
+# 🧭 Section : Main Menu Display - Start
+# ------------------------------------------------------------
 function Show-MainMenu {
     Clear-Host
     $title = "Liang Windows Setup Menu"
@@ -99,7 +135,7 @@ function Show-MainMenu {
     $computer = $env:COMPUTERNAME
     $winVersion = Get-WindowsEdition
 
-    # --- Header Box (Fixed Border Widths) ---
+    # --- Header Box ---
     $lineWidth = 80
     $borderLine = "═" * $lineWidth
     Write-Host ""
@@ -110,7 +146,7 @@ function Show-MainMenu {
     Write-Host "║$paddedTitle║" -ForegroundColor White
     Write-Host "╠$borderLine╣" -ForegroundColor DarkCyan
 
-    # --- Center Info Line ---
+    # Info line
     $info = "PC Name: $computer  |  $winVersion  |  PowerShell: $psVersion"
     if ($info.Length -gt $lineWidth) { $info = $info.Substring(0, $lineWidth) }
     $paddedInfo = $info.PadLeft(([math]::Floor(($lineWidth + $info.Length) / 2))).PadRight($lineWidth)
@@ -118,12 +154,11 @@ function Show-MainMenu {
     Write-Host "╚$borderLine╝" -ForegroundColor DarkCyan
     Write-Host ""
 
-
     # --- Menu Sections ---
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
-    Write-Host "  	[1] Basic Software Installer " -ForegroundColor Cyan -NoNewline
-    Write-Host ""
+    Write-Host "  	[1] Basic Software Installer " -ForegroundColor Cyan
+	Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
@@ -164,11 +199,14 @@ function Show-MainMenu {
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 }
+# ------------------------------------------------------------
+# 🧭 Section : Main Menu Display - End
+# ------------------------------------------------------------
 
-# ============================================================
-#   ACTION FUNCTIONS
-# ============================================================
 
+# ------------------------------------------------------------
+# 🧰 Section : Action Functions - Start
+# ------------------------------------------------------------
 function Option1_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-All.ps1 | iex }
 function Option2_Action { irm 192.168.0.3/powershell/Install-mso2024.ps1 | iex; irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
 function Option3_Action { irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
@@ -181,11 +219,14 @@ function Option9_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/ma
 function OptionU1_Action { irm 192.168.0.3/powershell/Uninstall-OneDrive.ps1 | iex }
 function OptionU2_Action { irm 192.168.0.3/powershell/ | iex }
 function OptionC_Action { irm https://get.activated.win | iex }
+# ------------------------------------------------------------
+# 🧰 Section : Action Functions - End
+# ------------------------------------------------------------
 
-# ============================================================
-#   MAIN LOOP
-# ============================================================
 
+# ------------------------------------------------------------
+# 🔁 Section : Main Menu Loop - Start
+# ------------------------------------------------------------
 function Start-LiangMenu {
     Ensure-Admin
     Set-Console
@@ -213,14 +254,15 @@ function Start-LiangMenu {
     }
     Write-Host "`nGoodbye, Liang!" -ForegroundColor Green
 }
+# ------------------------------------------------------------
+# 🔁 Section : Main Menu Loop - End
+# ------------------------------------------------------------
 
-# ============================================================
-#   START
-# ============================================================
 
+# ------------------------------------------------------------
+# 🚀 Section : Script Start - Start
+# ------------------------------------------------------------
 Start-LiangMenu
-
-
-
-
-
+# ------------------------------------------------------------
+# 🚀 Section : Script Start - End
+# ------------------------------------------------------------
