@@ -171,15 +171,15 @@ function Show-MainMenu {
 #   ACTION FUNCTIONS
 # ============================================================
 
-function Option1_Action { irm 192.168.0.3/powershell/Install-All.ps1 | iex }
+function Option1_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-All.ps1 | iex }
 function Option2_Action { irm 192.168.0.3/powershell/Install-mso2024.ps1 | iex; irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
 function Option3_Action { irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
-function Option4_Action { irm 192.168.0.3/powershell/change-pcname.ps1 | iex }
+function Option4_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/change-pcname.ps1 | iex }
 function Option5_Action { irm 192.168.0.3/powershell/ | iex }
-function Option6_Action { irm 192.168.0.3/powershell/Run-UAC-Setting.ps1 | iex }
-function Option7_Action { irm 192.168.0.3/powershell/Enable-DesktopIcons.ps1 | iex }
-function Option8_Action { irm 192.168.0.3/powershell/setting-nosleep-nooffmonitor.ps1 | iex }
-function Option9_Action { irm 192.168.0.3/powershell/Run-disable-windows-fast-startup.ps1 | iex }
+function Option6_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Run-UAC-Setting.ps1 | iex }
+function Option7_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/setting-Enable-DesktopIcons.ps1 | iex }
+function Option8_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex }
+function Option9_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex }
 function OptionU1_Action { irm 192.168.0.3/powershell/Uninstall-OneDrive.ps1 | iex }
 function OptionU2_Action { irm 192.168.0.3/powershell/ | iex }
 function OptionC_Action { irm https://get.activated.win | iex }
@@ -221,3 +221,4 @@ function Start-LiangMenu {
 # ============================================================
 
 Start-LiangMenu
+
