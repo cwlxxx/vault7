@@ -1,5 +1,5 @@
 # ============================================================
-# 🧱 Liang Windows Setup Menu - Auto Windows Version Edition
+# 🧱 Advance Windows Setup - No GUI
 # ============================================================
 
 
@@ -23,7 +23,7 @@ function Ensure-Admin {
 # 🪟 Section : Console Window Setup - Start
 # ------------------------------------------------------------
 function Set-Console {
-    $Host.UI.RawUI.WindowTitle = "Liang Windows Setup Menu"
+    $Host.UI.RawUI.WindowTitle = "Advance Windows Setup - No GUI"
     $ui = $Host.UI.RawUI
     $width = 82
     $height = 44
@@ -130,7 +130,7 @@ $faststartupstatus = Get-FastStartupStatus
 # ------------------------------------------------------------
 function Show-MainMenu {
     Clear-Host
-    $title = "Liang Windows Setup Menu"
+    $title = "Advance Windows Setup - No GUI"
     $psVersion = $PSVersionTable.PSVersion.ToString()
     $computer = $env:COMPUTERNAME
     $winVersion = Get-WindowsEdition
