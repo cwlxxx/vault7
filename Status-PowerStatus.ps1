@@ -1,6 +1,3 @@
-# ------------------------------------------------------------
-# 🔋 Power Status Detection (Locale-Independent)
-# ------------------------------------------------------------
 function Get-PowerStatus {
     try {
         # --- Get the active power scheme GUID ---
@@ -50,10 +47,6 @@ function Get-PowerStatus {
         }
     }
 }
-
-# ------------------------------------------------------------
-# 🖥️ Display current status (simple output)
-# ------------------------------------------------------------
 $status = Get-PowerStatus
 #Write-Host "Monitor : $($status.Monitor)"
 #Write-Host "Sleep   : $($status.Sleep)"
