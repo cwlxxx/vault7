@@ -23,7 +23,7 @@ function Ensure-Admin {
 # 🪟 Section : Console Window Setup - Start
 # ------------------------------------------------------------
 function Set-Console {
-    $Host.UI.RawUI.WindowTitle = "Advance Windows Setup - No GUI"
+    $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI"
     $ui = $Host.UI.RawUI
     $width = 82
     $height = 44
@@ -266,3 +266,4 @@ Start-LiangMenu
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
