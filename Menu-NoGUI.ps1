@@ -178,7 +178,7 @@ function Show-MainMenu {
 # ------------------------------------------------------------
 # 🧰 Section : Action Functions - Start
 # ------------------------------------------------------------
-function Option1_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-All(ver1).ps1 | iex }
+function Option1_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-All-Ver1.ps1 | iex }
 function Option2_Action { irm 192.168.0.3/powershell/Install-mso2024.ps1 | iex; irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
 function Option3_Action { irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
 function Option4_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/change-pcname.ps1 | iex }
@@ -235,5 +235,6 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
