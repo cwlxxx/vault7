@@ -198,7 +198,7 @@ function OptionC_Action { irm https://get.activated.win | iex }
 # ------------------------------------------------------------
 # 🔁 Section : Main Menu Loop - Start
 # ------------------------------------------------------------
-function Start-LiangMenu {
+function Start-MenuNoGUI {
     Ensure-Admin
     Set-Console
 
@@ -223,20 +223,22 @@ function Start-LiangMenu {
             default { Write-Host "`nInvalid selection. Try again." -ForegroundColor Red; Pause }
         }
     }
-    Write-Host "`nGoodbye, Liang!" -ForegroundColor Green
 }
 # ------------------------------------------------------------
 # 🔁 Section : Main Menu Loop - End
 # ------------------------------------------------------------
 
-
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - Start
 # ------------------------------------------------------------
-Start-LiangMenu
+Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
+Would you like me to show this same edit as a patch (so you can copy-paste directly into your script)?
+
+
 
 
 
