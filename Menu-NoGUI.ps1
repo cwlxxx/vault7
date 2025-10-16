@@ -43,16 +43,17 @@ try {
     $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-WindowsVersion.ps1"
     $null = irm $remoteScript | iex
 
-    # Execute the function (assumed defined in Status-PowerStatus.ps1)
-    $sleepstatus = Get-PowerStatus
+    # Execute the function defined in Status-WindowsVersion.ps1
+    $winVersion = Get-WindowsEdition
 }
 catch {
     Write-Host "Error loading or executing Status-WindowsVersion.ps1: $($_.Exception.Message)" -ForegroundColor Red
-    $sleepstatus = "Error"
+    $winVersion = "Unknown Windows Version"
 }
 # ------------------------------------------------------------
 # 💻 Section : Detect Windows Edition & Version - End
 # ------------------------------------------------------------
+
 
 
 # ------------------------------------------------------------
@@ -235,6 +236,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
