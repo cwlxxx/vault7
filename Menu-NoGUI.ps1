@@ -2,7 +2,6 @@
 # 🧱 Advance Windows Setup Menu - No GUI
 # ============================================================
 
-
 # ------------------------------------------------------------
 # ⚙️ Section : Ensure Administrator - Start
 # ------------------------------------------------------------
@@ -23,12 +22,17 @@ function Ensure-Admin {
 # 🪟 Section : Console Window Setup - Start
 # ------------------------------------------------------------
 function Set-Console {
-    $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI"
-    $ui = $Host.UI.RawUI
-    $width = 82
-    $height = 44
-    $ui.BufferSize = New-Object System.Management.Automation.Host.Size($width, 9999)
-    $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
+    try {
+        $Host.UI.RawUI.WindowTitle = "Advance Windows Setup Menu - No GUI"
+        $ui = $Host.UI.RawUI
+        $width = 82
+        $height = 44
+        $ui.BufferSize = New-Object System.Management.Automation.Host.Size($width, 9999)
+        $ui.WindowSize = New-Object System.Management.Automation.Host.Size($width, $height)
+    }
+    catch {
+        Write-Host "⚠️ Unable to resize console window — skipping." -ForegroundColor Yellow
+    }
 }
 # ------------------------------------------------------------
 # 🪟 Section : Console Window Setup - End
@@ -39,11 +43,8 @@ function Set-Console {
 # 💻 Section : Detect Windows Edition & Version - Start
 # ------------------------------------------------------------
 try {
-    # Load the latest version from GitHub
     $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-WindowsVersion.ps1"
-    $null = irm $remoteScript | iex
-
-    # Execute the function defined in Status-WindowsVersion.ps1
+    irm $remoteScript | iex
     $winVersion = Get-WindowsEdition
 }
 catch {
@@ -55,16 +56,12 @@ catch {
 # ------------------------------------------------------------
 
 
-
 # ------------------------------------------------------------
 # 🔋 Section : Power Status Detection - Start
 # ------------------------------------------------------------
 try {
-    # Load the latest version from GitHub
     $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-PowerStatus.ps1"
-    $null = irm $remoteScript | iex
-
-    # Execute the function (assumed defined in Status-PowerStatus.ps1)
+    irm $remoteScript | iex
     $sleepstatus = Get-PowerStatus
 }
 catch {
@@ -76,21 +73,17 @@ catch {
 # ------------------------------------------------------------
 
 
-
 # ------------------------------------------------------------
 # ⚡ Section : Fast Startup Detection - Start
 # ------------------------------------------------------------
 try {
-    # Load the latest version from GitHub
     $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-FastStartupDetection.ps1"
-    $null = irm $remoteScript | iex
-
-    # Execute the function (assumed defined in Status-PowerStatus.ps1)
-    $sleepstatus = Get-PowerStatus
+    irm $remoteScript | iex
+    $faststartupstatus = Get-FastStartupStatus
 }
 catch {
-    Write-Host "Error loading or Status-FastStartupDetection.ps1: $($_.Exception.Message)" -ForegroundColor Red
-    $sleepstatus = "Error"
+    Write-Host "Error loading or executing Status-FastStartupDetection.ps1: $($_.Exception.Message)" -ForegroundColor Red
+    $faststartupstatus = "Error"
 }
 # ------------------------------------------------------------
 # ⚡ Section : Fast Startup Detection - End
@@ -107,18 +100,15 @@ function Show-MainMenu {
     $computer = $env:COMPUTERNAME
     $winVersion = Get-WindowsEdition
 
-    # --- Header Box ---
     $lineWidth = 80
     $borderLine = "═" * $lineWidth
     Write-Host ""
     Write-Host "╔$borderLine╗" -ForegroundColor DarkCyan
 
-    # Center title
     $paddedTitle = $title.PadLeft(([math]::Floor(($lineWidth + $title.Length) / 2))).PadRight($lineWidth)
     Write-Host "║$paddedTitle║" -ForegroundColor White
     Write-Host "╠$borderLine╣" -ForegroundColor DarkCyan
 
-    # Info line
     $info = "PC Name: $computer  |  $winVersion  |  PowerShell: $psVersion"
     if ($info.Length -gt $lineWidth) { $info = $info.Substring(0, $lineWidth) }
     $paddedInfo = $info.PadLeft(([math]::Floor(($lineWidth + $info.Length) / 2))).PadRight($lineWidth)
@@ -126,34 +116,34 @@ function Show-MainMenu {
     Write-Host "╚$borderLine╝" -ForegroundColor DarkCyan
     Write-Host ""
 
-    # --- Menu Sections ---
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
     Write-Host "  	[1] Basic Software Installer " -ForegroundColor Cyan
-	Write-Host ""
+    Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MICROSOFT OFFICE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
     Write-Host "  	[2] Microsoft Office Installer " -ForegroundColor Cyan -NoNewline
-	Write-Host "( Included Shortcuts )" -ForegroundColor Yellow
+    Write-Host "( Included Shortcuts )" -ForegroundColor Yellow
     Write-Host "  	[3] Create Shortcuts " -ForegroundColor Cyan -NoNewline
     Write-Host "( Word , Excel , Outlook , PowerPoint )" -ForegroundColor Yellow
-	Write-Host ""
+    Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ SETTINGS PATCH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host "  	[4] Change PC Name" -ForegroundColor Cyan -NoNewline
-	Write-Host " ( Current: $computer )"  -ForegroundColor Green
+    Write-Host " ( Current: $computer )"  -ForegroundColor Green
     Write-Host "  	[5] " -ForegroundColor Cyan
     Write-Host "  	[6] User Account Control" -ForegroundColor Cyan
     Write-Host "  	[7] Enable Desktop Icon " -ForegroundColor Cyan -NoNewline
-	Write-Host "( This PC , User , Network , Recycle Bin )" -ForegroundColor Yellow
-    Write-Host "  	[8] Sleep > Never | Turn Off Monitor > Never" -ForegroundColor Cyan
+    Write-Host "( This PC , User , Network , Recycle Bin )" -ForegroundColor Yellow
+    Write-Host "  	[8] Sleep > Never | Turn Off Monitor > Never" -ForegroundColor Cyan -NoNewline
+    Write-Host "( Current:`n$sleepstatus )" -ForegroundColor Green
     Write-Host "  	[9] Disable Windows Fast Startup " -ForegroundColor Cyan -NoNewline
-	Write-Host "( Current: $faststartupstatus )" -ForegroundColor Green
+    Write-Host "( Current: $faststartupstatus )" -ForegroundColor Green
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
@@ -166,7 +156,7 @@ function Show-MainMenu {
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ TOOLS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
     Write-Host "  	[C] Microsoft Activation Script " -ForegroundColor Cyan -NoNewline
-	Write-Host "( get.activated.win )" -ForegroundColor Yellow
+    Write-Host "( get.activated.win )" -ForegroundColor Yellow
     Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
@@ -229,6 +219,7 @@ function Start-MenuNoGUI {
 # 🔁 Section : Main Menu Loop - End
 # ------------------------------------------------------------
 
+
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - Start
 # ------------------------------------------------------------
@@ -236,7 +227,3 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
-
-
-
-
