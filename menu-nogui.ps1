@@ -177,7 +177,7 @@ function Option3_Action { irm 192.168.0.3/powershell/create-office-shortcut.ps1 
 function Option4_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/change-pcname.ps1 | iex }
 function Option5_Action { irm 192.168.0.3/powershell/ | iex }
 function Option6_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Run-UAC-Setting.ps1 | iex }
-function Option7_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/setting-Enable-DesktopIcons.ps1 | iex }
+function Option7_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-EnableDesktopIcons.ps1 | iex }
 function Option8_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex }
 function Option9_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex }
 function OptionU1_Action { irm 192.168.0.3/powershell/Uninstall-OneDrive.ps1 | iex }
@@ -221,4 +221,5 @@ function Start-LiangMenu {
 # ============================================================
 
 Start-LiangMenu
+
 
