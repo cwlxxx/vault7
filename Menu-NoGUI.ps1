@@ -130,7 +130,7 @@ $faststartupstatus = Get-FastStartupStatus
 # ------------------------------------------------------------
 function Show-MainMenu {
     Clear-Host
-    $title = "Advance Windows Setup - No GUI"
+    $title = "Advance Windows Setup Menu - No GUI"
     $psVersion = $PSVersionTable.PSVersion.ToString()
     $computer = $env:COMPUTERNAME
     $winVersion = Get-WindowsEdition
@@ -266,5 +266,6 @@ Start-LiangMenu
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
