@@ -80,25 +80,22 @@ function Get-WindowsEdition {
 # ------------------------------------------------------------
 # 🔋 Section : Power Status Detection - Start
 # ------------------------------------------------------------
-function Get-PowerStatus {
-    try {
-        $scheme = (powercfg /getactivescheme) -replace '.*GUID:\s+([a-f0-9-]+).*', '$1'
-        $monitorTimeout = [int](powercfg /query $scheme SUB_VIDEO VIDEOIDLE | Select-String -Pattern 'Current AC Power Setting Index: ([0-9]+)').Matches.Groups[1].Value
-        $sleepTimeout   = [int](powercfg /query $scheme SUB_SLEEP STANDBYIDLE | Select-String -Pattern 'Current AC Power Setting Index: ([0-9]+)').Matches.Groups[1].Value
+try {
+    # Load the latest version from GitHub
+    $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-PowerStatus.ps1"
+    $null = irm $remoteScript | iex
 
-        $monitorStatus = if ($monitorTimeout -eq 0) { "Never" } else { "$monitorTimeout min" }
-        $sleepStatus   = if ($sleepTimeout -eq 0) { "Never" } else { "$sleepTimeout min" }
-
-        return " - Turn off the display: $monitorStatus`n  	    - Put the computer to sleep: $sleepStatus"
-    }
-    catch {
-        return "Error reading power settings"
-    }
+    # Execute the function (assumed defined in Status-PowerStatus.ps1)
+    $sleepstatus = Get-PowerStatus
 }
-$sleepstatus = Get-PowerStatus
+catch {
+    Write-Host "Error loading or executing Status-PowerStatus.ps1: $($_.Exception.Message)" -ForegroundColor Red
+    $sleepstatus = "Error"
+}
 # ------------------------------------------------------------
 # 🔋 Section : Power Status Detection - End
 # ------------------------------------------------------------
+
 
 
 # ------------------------------------------------------------
@@ -266,6 +263,7 @@ Start-LiangMenu
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
