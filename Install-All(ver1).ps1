@@ -5,18 +5,18 @@ Add-Type -AssemblyName System.Drawing
 # 💡 Applications List (edit here)
 # ==============================
 $applications = @(
+    @{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "UltraViewer - winget"; Script = "irm 192.168.0.3/powershell/Install-UltraViewer.ps1 | iex" },
-    @{ Name = "IrfanView - winget"; Script = "irm 192.168.0.3/powershell/Install-irfanview.ps1 | iex" },
-    @{ Name = "K-Lite Full - winget"; Script = "irm 192.168.0.3/powershell/Install-K-Lite-Full.ps1 | iex" },
-    @{ Name = "VLC Player - winget"; Script = "irm 192.168.0.3/powershell/Install-VLC.ps1 | iex" },
-    @{ Name = "Zoom - winget"; Script = "irm 192.168.0.3/powershell/Install-zoom.ps1 | iex" },
-    @{ Name = "Mozilla FireFox - winget"; Script = "irm 192.168.0.3/powershell/Install-FireFox.ps1 | iex" },
-    @{ Name = "Google Chrome - winget"; Script = "irm 192.168.0.3/powershell/Install-GoogleChrome.ps1 | iex" },
-    @{ Name = "Adobe Acrobat Reader - winget"; Script = "irm 192.168.0.3/powershell/Install-AdobeAcrobatReader.ps1 | iex" },
+    @{ Name = "UltraViewer - winget"; Script = "winget install --id DucFabulous.UltraViewer --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "IrfanView - winget"; Script = "winget install --id=IrfanSkiljan.IrfanView --source winget --disable-package-auto-start --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "K-Lite Full - winget"; Script = "winget install --id CodecGuide.K-LiteCodecPack.Full --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "VLC Player - winget"; Script = "winget install --id VideoLAN.VLC --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "Mozilla FireFox - winget"; Script = "winget install --id Mozilla.Firefox --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "Java Runtime - javadl.oracle.com"; Script = "irm 192.168.0.3/powershell/Install-Java.ps1 | iex" },
     @{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm 192.168.0.3/powershell/Install-avira.ps1 | iex" }
 )
@@ -291,4 +291,5 @@ $btnRun.Add_Click({
 # Run Form
 # ==============================
 [void]$form.ShowDialog()
+
 
