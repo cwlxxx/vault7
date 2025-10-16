@@ -1,6 +1,4 @@
-# ------------------------------------------------------------
-# ⚡ Section : Fast Startup Detection - Start
-# ------------------------------------------------------------
+
 function Get-FastStartupStatus {
     try {
         $key = "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power"
@@ -17,6 +15,4 @@ function Get-FastStartupStatus {
     }
 }
 $faststartupstatus = Get-FastStartupStatus
-# ------------------------------------------------------------
-# ⚡ Section : Fast Startup Detection - End
-# ------------------------------------------------------------
+
