@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# 🔋 Section : Power Status Detection - Start
+# 🔋 Power Status Detection (Locale-Independent)
 # ------------------------------------------------------------
 function Get-PowerStatus {
     try {
@@ -14,19 +14,19 @@ function Get-PowerStatus {
         # --- Registry base path for active scheme ---
         $basePath = "HKLM:\SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes\$schemeGuid"
 
-        # --- Registry paths for display & sleep ---
+        # --- Registry keys for Display Off and Sleep timeouts ---
         $videoKey = Join-Path $basePath "7516b95f-f776-4464-8c53-06167f40cc99\3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e"   # SUB_VIDEO\VIDEOIDLE
         $sleepKey = Join-Path $basePath "238C9FA8-0AAD-41ED-83F4-97BE242C8F20\29F6C1DB-86DA-48C5-9FDB-F2B67B1F44DA"   # SUB_SLEEP\STANDBYIDLE
 
-        # --- Read values safely ---
+        # --- Read registry values safely ---
         $videoValue = Get-ItemProperty -Path $videoKey -ErrorAction SilentlyContinue
         $sleepValue = Get-ItemProperty -Path $sleepKey -ErrorAction SilentlyContinue
 
         if (-not $videoValue -or -not $sleepValue) {
-            throw "Cannot read registry values (need admin?)."
+            throw "Cannot read registry values (try running PowerShell as Administrator)."
         }
 
-        # --- Helper to interpret seconds ---
+        # --- Helper: format timeout values into human readable form ---
         $formatTimeout = {
             param($secs)
             if ($null -eq $secs) { return "Unknown" }
@@ -37,27 +37,23 @@ function Get-PowerStatus {
             else { return "$mins min" }
         }
 
-        # --- Return structured object ---
+        # --- Return as simple object (only what we need) ---
         return [pscustomobject]@{
-            ActiveScheme     = $schemeGuid
-            MonitorTimeoutDC = & $formatTimeout $videoValue.DCSettingIndex
-            MonitorTimeoutAC = & $formatTimeout $videoValue.ACSettingIndex
-            SleepTimeoutDC   = & $formatTimeout $sleepValue.DCSettingIndex
-            SleepTimeoutAC   = & $formatTimeout $sleepValue.ACSettingIndex
+            Monitor = & $formatTimeout $videoValue.ACSettingIndex
+            Sleep   = & $formatTimeout $sleepValue.ACSettingIndex
         }
     }
     catch {
         return [pscustomobject]@{
-            ActiveScheme     = "Unknown"
-            MonitorTimeoutDC = "Error"
-            MonitorTimeoutAC = "Error"
-            SleepTimeoutDC   = "Error"
-            SleepTimeoutAC   = "Error"
-            ErrorMessage     = $_.Exception.Message
+            Monitor = "Error"
+            Sleep   = "Error"
         }
     }
 }
 
 # ------------------------------------------------------------
-# 🔋 Section : Power Status Detection - End
+# 🖥️ Display current status (simple output)
 # ------------------------------------------------------------
+$status = Get-PowerStatus
+#Write-Host "Monitor : $($status.Monitor)"
+#Write-Host "Sleep   : $($status.Sleep)"
