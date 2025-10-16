@@ -3,79 +3,61 @@
 # ------------------------------------------------------------
 function Get-PowerStatus {
     try {
-        # get active scheme GUID (robust)
+        # --- Get the active power scheme GUID ---
         $schemeLine = powercfg /getactivescheme 2>$null
-        if ($schemeLine -match 'GUID[:\s]*([0-9a-fA-F\-]+)') {
-            $scheme = $matches[1]
+        if ($schemeLine -match '([0-9a-fA-F\-]{36})') {
+            $schemeGuid = $matches[1]
         } else {
-            # fallback: use "powercfg /getactivescheme" full output trimmed
-            $scheme = ($schemeLine -join "`n").Trim()
+            throw "Unable to detect active power scheme."
         }
 
-        # helper: parse a powercfg /query block and extract AC or DC index (prefer AC)
-        $parseIndex = {
-            param($block)
-            # find lines like:
-            #   Current AC Power Setting Index: 0x00000000
-            #   Current DC Power Setting Index: 0x00000000
-            $ac = $null; $dc = $null
-            foreach ($line in $block) {
-                if ($line -match 'Current\s+AC\s+Power\s+Setting\s+Index:\s*(0x[0-9a-fA-F]+|\d+)') { $ac = $matches[1] }
-                if ($line -match 'Current\s+DC\s+Power\s+Setting\s+Index:\s*(0x[0-9a-fA-F]+|\d+)') { $dc = $matches[1] }
-                if ($line -match 'Current\s+Power\s+Setting\s+Index:\s*(0x[0-9a-fA-F]+|\d+)') {
-                    # some locales/use-cases don't label AC/DC; treat as both
-                    if (-not $ac) { $ac = $matches[1] }
-                    if (-not $dc) { $dc = $matches[1] }
-                }
-            }
-            # prefer AC, then DC, then null
-            return $ac ?? $dc
+        # --- Registry base path for active scheme ---
+        $basePath = "HKLM:\SYSTEM\CurrentControlSet\Control\Power\User\PowerSchemes\$schemeGuid"
+
+        # --- Registry paths for display & sleep ---
+        $videoKey = Join-Path $basePath "7516b95f-f776-4464-8c53-06167f40cc99\3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e"   # SUB_VIDEO\VIDEOIDLE
+        $sleepKey = Join-Path $basePath "238C9FA8-0AAD-41ED-83F4-97BE242C8F20\29F6C1DB-86DA-48C5-9FDB-F2B67B1F44DA"   # SUB_SLEEP\STANDBYIDLE
+
+        # --- Read values safely ---
+        $videoValue = Get-ItemProperty -Path $videoKey -ErrorAction SilentlyContinue
+        $sleepValue = Get-ItemProperty -Path $sleepKey -ErrorAction SilentlyContinue
+
+        if (-not $videoValue -or -not $sleepValue) {
+            throw "Cannot read registry values (need admin?)."
         }
 
-        # get raw blocks for video idle and standby idle
-        $videoBlock = (powercfg /query $scheme SUB_VIDEO VIDEOIDLE) 2>$null
-        $sleepBlock = (powercfg /query $scheme SUB_SLEEP STANDBYIDLE) 2>$null
-
-        $videoIndexRaw = & $parseIndex $videoBlock
-        $sleepIndexRaw = & $parseIndex $sleepBlock
-
-        # convert raw (hex or decimal) to int; null => -1 (unknown)
-        $toInt = {
-            param($raw)
-            if (-not $raw) { return -1 }
-            if ($raw -match '^0x') { return [convert]::ToInt32($raw,16) }
-            else { return [int]$raw }
-        }
-
-        $monitorSeconds = & $toInt $videoIndexRaw
-        $sleepSeconds   = & $toInt $sleepIndexRaw
-
-        # Interpret values: powercfg often stores timeouts in seconds; 0 means 'Never'
+        # --- Helper to interpret seconds ---
         $formatTimeout = {
             param($secs)
-            if ($secs -lt 0) { return "Unknown" }
+            if ($null -eq $secs) { return "Unknown" }
             if ($secs -eq 0) { return "Never" }
-            # if value looks like minutes already (e.g., > 3600 unlikely) still convert to minutes for readability
             $mins = [math]::Floor($secs / 60)
-            if ($mins -eq 0) {
-                return "$secs sec"
-            } elseif ($mins -eq 1) {
-                return "1 min"
-            } else {
-                return "$mins min"
-            }
+            if ($mins -eq 0) { return "$secs sec" }
+            elseif ($mins -eq 1) { return "1 min" }
+            else { return "$mins min" }
         }
 
-        $monitorStatus = & $formatTimeout $monitorSeconds
-        $sleepStatus   = & $formatTimeout $sleepSeconds
-
-        return " - Turn off the display: $monitorStatus`n    - Put the computer to sleep: $sleepStatus"
+        # --- Return structured object ---
+        return [pscustomobject]@{
+            ActiveScheme     = $schemeGuid
+            MonitorTimeoutDC = & $formatTimeout $videoValue.DCSettingIndex
+            MonitorTimeoutAC = & $formatTimeout $videoValue.ACSettingIndex
+            SleepTimeoutDC   = & $formatTimeout $sleepValue.DCSettingIndex
+            SleepTimeoutAC   = & $formatTimeout $sleepValue.ACSettingIndex
+        }
     }
     catch {
-        return "Error reading power settings: $($_.Exception.Message)"
+        return [pscustomobject]@{
+            ActiveScheme     = "Unknown"
+            MonitorTimeoutDC = "Error"
+            MonitorTimeoutAC = "Error"
+            SleepTimeoutDC   = "Error"
+            SleepTimeoutAC   = "Error"
+            ErrorMessage     = $_.Exception.Message
+        }
     }
 }
-$sleepstatus = Get-PowerStatus
+
 # ------------------------------------------------------------
 # 🔋 Section : Power Status Detection - End
 # ------------------------------------------------------------
