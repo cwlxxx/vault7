@@ -235,13 +235,3 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
-
-Would you like me to show this same edit as a patch (so you can copy-paste directly into your script)?
-
-
-
-
-
-
-
-
