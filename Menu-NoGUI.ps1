@@ -27,8 +27,8 @@ function Set-Console {
         $ui = $Host.UI.RawUI
 
         # --- Desired dimensions ---
-        $width  = 85
-        $height = 60
+        $width  = 82
+        $height = 45
 
         # --- Ensure buffer is never smaller than window ---
         $bufferWidth  = [Math]::Max($ui.BufferSize.Width, $width)
@@ -159,8 +159,10 @@ function Show-MainMenu {
     Write-Host "  	[6] User Account Control" -ForegroundColor Cyan
     Write-Host "  	[7] Enable Desktop Icon " -ForegroundColor Cyan -NoNewline
     Write-Host "( This PC , User , Network , Recycle Bin )" -ForegroundColor Yellow
-    Write-Host "  	[8] Sleep > Never | Turn Off Monitor > Never" -ForegroundColor Cyan -NoNewline
-    Write-Host "( Current:`n$sleepstatus )" -ForegroundColor Green
+    Write-Host "  	[8] Sleep > Never | Turn Off Monitor > Never" -ForegroundColor Cyan
+    Write-Host "  	      Current Settings: " -ForegroundColor Green
+	Write-Host "  	       - Turn off Monitor : $($status.Monitor)" -ForegroundColor Green
+	write-host "  	       - Put PC To Sleep  : $($status.Sleep)" -ForegroundColor Green
     Write-Host "  	[9] Disable Windows Fast Startup " -ForegroundColor Cyan -NoNewline
     Write-Host "( Current: $faststartupstatus )" -ForegroundColor Green
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
@@ -246,11 +248,3 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
-
-
-
-
-
-
-
-
