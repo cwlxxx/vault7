@@ -122,15 +122,14 @@ function Show-MainMenu {
     # --- Menu Sections ---
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
-    Write-Host "  	[1] Install Basic Software " -ForegroundColor Cyan -NoNewline
-	Write-Host "( Included all Settings Patch Below )" -ForegroundColor Yellow
+    Write-Host "  	[1] Basic Software Installer " -ForegroundColor Cyan -NoNewline
     Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MICROSOFT OFFICE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
-    Write-Host "  	[2] Microsoft Office Home & Business 2024 " -ForegroundColor Cyan -NoNewline
+    Write-Host "  	[2] Microsoft Office Installer " -ForegroundColor Cyan -NoNewline
 	Write-Host "( Included Shortcuts )" -ForegroundColor Yellow
     Write-Host "  	[3] Create Shortcuts " -ForegroundColor Cyan -NoNewline
     Write-Host "( Word , Excel , Outlook , PowerPoint )" -ForegroundColor Yellow
@@ -142,7 +141,7 @@ function Show-MainMenu {
     Write-Host "  	[4] Change PC Name" -ForegroundColor Cyan -NoNewline
 	Write-Host " ( Current: $computer )"  -ForegroundColor Green
     Write-Host "  	[5] " -ForegroundColor Cyan
-    Write-Host "  	[6] Open User Account Control" -ForegroundColor Cyan
+    Write-Host "  	[6] User Account Control" -ForegroundColor Cyan
     Write-Host "  	[7] Enable Desktop Icon " -ForegroundColor Cyan -NoNewline
 	Write-Host "( This PC , User , Network , Recycle Bin )" -ForegroundColor Yellow
     Write-Host "  	[8] Sleep > Never | Turn Off Monitor > Never" -ForegroundColor Cyan
@@ -220,6 +219,7 @@ function Start-LiangMenu {
 # ============================================================
 
 Start-LiangMenu
+
 
 
 
