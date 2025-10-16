@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.3"
+$ScriptVersion = "1.4"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -214,8 +214,8 @@ function Show-MainMenu {
 # 🧰 Section : Action Functions - Start
 # ------------------------------------------------------------
 function Option1_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-All-Ver1.ps1 | iex }
-function Option2_Action { irm 192.168.0.3/powershell/Install-mso2024.ps1 | iex; irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
-function Option3_Action { irm 192.168.0.3/powershell/create-office-shortcut.ps1 | iex }
+function Option2_Action { irm 192.168.0.3/powershell/Install-mso2024.ps1 | iex; irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-CreateOfficeShortcut.ps1 | iex }
+function Option3_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-CreateOfficeShortcut.ps1 | iex }
 function Option4_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/change-pcname.ps1 | iex }
 function Option5_Action { irm 192.168.0.3/powershell/ | iex }
 function Option6_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Run-UAC-Setting.ps1 | iex }
@@ -271,4 +271,5 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
