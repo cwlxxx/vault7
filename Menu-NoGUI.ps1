@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.4"
+$ScriptVersion = "1.5"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -167,9 +167,9 @@ function Show-MainMenu {
 
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MICROSOFT OFFICE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
-    Write-Host "  	[2] Microsoft Office Installer " -ForegroundColor Cyan -NoNewline
+    Write-Host "  	[2] Office Installer Menu " -ForegroundColor Cyan -NoNewline
     Write-Host "( Included Shortcuts )" -ForegroundColor Yellow
-    Write-Host "  	[3] Create Shortcuts " -ForegroundColor Cyan -NoNewline
+    Write-Host "  	[3] Create Microsoft Office Shortcuts " -ForegroundColor Cyan -NoNewline
     Write-Host "( Word , Excel , Outlook , PowerPoint )" -ForegroundColor Yellow
     Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
@@ -271,5 +271,6 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
