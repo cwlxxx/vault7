@@ -81,18 +81,18 @@ if (Test-Path $HostFile) {
 
 # Print updated hosts file content
 Write-Host "`n=========================================" -ForegroundColor DarkGray
-Write-Host "📄 Updated Hosts File Content" -ForegroundColor Cyan
+Write-Host " Updated Hosts File Content" -ForegroundColor Cyan
 Write-Host "=========================================`n" -ForegroundColor DarkGray
-
+Write-Host ""
 Get-Content $HostFile | ForEach-Object { Write-Host $_ }
-
+Write-Host ""
 Write-Host "`n=========================================" -ForegroundColor DarkGray
-Write-Host "✅ End of Hosts File" -ForegroundColor Green
+Write-Host " End of Hosts File" -ForegroundColor Green
 Write-Host "=========================================`n" -ForegroundColor DarkGray
 
 # Pause 5 seconds before exiting
-Write-Host "⏳ Closing in 5 seconds..." -ForegroundColor Yellow
-Start-Sleep -Seconds 5
+Write-Host "⏳ Closing in 1 seconds..." -ForegroundColor Yellow
+Start-Sleep -Seconds 1
 # ------------------------------------------------------------
 # 🧱 Section : Write Setup Info to Hosts File - End
 # ------------------------------------------------------------
