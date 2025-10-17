@@ -5,7 +5,7 @@ Add-Type -AssemblyName System.Drawing
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "2.0"
+$ScriptVersion = "2.01"
 $ScriptTitle   = "Basic Software And Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -162,9 +162,9 @@ function Add-Checkboxes-TwoColumns {
     )
 
     $colCount = 2
-    $colWidth = 260
-    $xStart = 15
-    $yStart = 25
+    $colWidth = 280
+    $xStart = 20
+    $yStart = 28
     $yOffset = 30
     $rowsPerCol = [int][math]::Ceiling($items.Count / $colCount)
 
