@@ -54,8 +54,8 @@ $runtimes = @(
 # ⚙️ Section : Settings List - Start
 # ------------------------------------------------------------
 $settings = @(
+	@{ Name = "Time Stamp In Host Files"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-TimeStampHostFile.ps1 | iex" },
 	@{ Name = "Open UAC Settings"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex" },
-    @{ Name = "Time Stamp In Host Files"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-TimeStampHostFile.ps1 | iex" },
     @{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
     @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
     @{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
@@ -452,5 +452,6 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
