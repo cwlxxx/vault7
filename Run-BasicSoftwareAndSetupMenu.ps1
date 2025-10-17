@@ -16,20 +16,20 @@ $ScriptTitle   = "Basic Software And Setup Menu - Ver. $ScriptVersion"
 # 💡 Section : Applications List - Start
 # ------------------------------------------------------------
 $applications = @(
-    @{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "UltraViewer - winget"; Script = "winget install --id DucFabulous.UltraViewer --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "IrfanView - winget"; Script = "winget install --id=IrfanSkiljan.IrfanView --source winget --disable-package-auto-start --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "K-Lite Full - winget"; Script = "winget install --id CodecGuide.K-LiteCodecPack.Full --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "VLC Player - winget"; Script = "winget install --id VideoLAN.VLC --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "Mozilla FireFox - winget"; Script = "winget install --id Mozilla.Firefox --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "Java Runtime - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" },
-    @{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" }
+	@{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "UltraViewer - winget"; Script = "winget install --id DucFabulous.UltraViewer --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "IrfanView - winget"; Script = "winget install --id=IrfanSkiljan.IrfanView --source winget --disable-package-auto-start --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "K-Lite Full - winget"; Script = "winget install --id CodecGuide.K-LiteCodecPack.Full --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "VLC Player - winget"; Script = "winget install --id VideoLAN.VLC --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "Mozilla FireFox - winget"; Script = "winget install --id Mozilla.Firefox --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget --accept-package-agreements --accept-source-agreements --silent" },
+	@{ Name = "Java Runtime - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" },
+	@{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" }
 )
 # ------------------------------------------------------------
 # 💡 Section : Applications List - End
@@ -40,7 +40,7 @@ $applications = @(
 # 🧩 Section : Runtime & Frameworks List - Start
 # ------------------------------------------------------------
 $runtimes = @(
-    @{ Name = "Visual C++ Redistributable 2013(x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VisualStudio2013x86.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2013(x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VisualStudio2013x86.ps1 | iex" },
 	@{ Name = "Visual C++ Redistributable 2013(x64)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VisualStudio2013x64.ps1 | iex" },
 	@{ Name = "Visual C++ Redistributable 2015-2022 (x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VC++2015-2022x86.ps1| iex" },
 	@{ Name = "Visual C++ Redistributable 2015-2022 (x64)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VC++2015-2022x64.ps1 | iex" }
@@ -56,9 +56,9 @@ $runtimes = @(
 $settings = @(
 	@{ Name = "Time Stamp In Host Files"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-TimeStampHostFile.ps1 | iex" },
 	@{ Name = "Open UAC Settings"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex" },
-    @{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
-    @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
-    @{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
+	@{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
+	@{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
+	@{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
 )
 # ------------------------------------------------------------
 # ⚙️ Section : Settings List - End
@@ -452,6 +452,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
