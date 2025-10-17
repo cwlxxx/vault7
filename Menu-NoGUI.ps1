@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.7"
+$ScriptVersion = "1.8"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -158,24 +158,24 @@ function Show-MainMenu {
 
     # --- Menu Sections ---
 
-    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
+    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
     Write-Host "  	[1] Basic Software Installer " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
+    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
-    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MICROSOFT OFFICE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
+    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MICROSOFT OFFICE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
     Write-Host "  	[2] Office Installer Menu " -ForegroundColor Cyan -NoNewline
     Write-Host "( Included Shortcuts )" -ForegroundColor Yellow
     Write-Host "  	[3] Create Microsoft Office Shortcuts " -ForegroundColor Cyan -NoNewline
     Write-Host "( Word , Excel , Outlook , PowerPoint )" -ForegroundColor Yellow
     Write-Host ""
-    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
+    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
-    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ SETTINGS PATCH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
+    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ SETTINGS PATCH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host "  	[4] Change PC Name" -ForegroundColor Cyan -NoNewline
     Write-Host " ( Current: $computer )"  -ForegroundColor Green
     Write-Host "  	[5] " -ForegroundColor Cyan
@@ -188,21 +188,21 @@ function Show-MainMenu {
 	write-host "  	       - Put PC To Sleep  : $($status.Sleep)" -ForegroundColor Green
     Write-Host "  	[9] Disable Windows Fast Startup " -ForegroundColor Cyan -NoNewline
     Write-Host "( Current: $faststartupstatus )" -ForegroundColor Green
-    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
+    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
-    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UNINSTALLER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
+    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ UNINSTALLER ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host "  	[U1] Uninstall Microsoft OneDrive" -ForegroundColor Cyan
     Write-Host "  	[U2] Uninstall McAfee Antivirus" -ForegroundColor Cyan
-    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
+    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 
-    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ TOOLS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
+    Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ TOOLS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
     Write-Host "  	[C] Microsoft Activation Script " -ForegroundColor Cyan -NoNewline
     Write-Host "( get.activated.win )" -ForegroundColor Yellow
     Write-Host ""
-    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
+    Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
 }
 # ------------------------------------------------------------
@@ -271,6 +271,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
