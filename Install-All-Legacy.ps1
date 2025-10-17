@@ -5,8 +5,8 @@ Add-Type -AssemblyName System.Drawing
 # 💡 Applications List (edit here)
 # ==============================
 $applications = @(
-    @{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements --silent" },
+    @{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget --accept-package-agreements --accept-source-agreements --silent" },
@@ -17,8 +17,8 @@ $applications = @(
     @{ Name = "Mozilla FireFox - winget"; Script = "winget install --id Mozilla.Firefox --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget --accept-package-agreements --accept-source-agreements --silent" },
     @{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget --accept-package-agreements --accept-source-agreements --silent" },
-    @{ Name = "Java Runtime - javadl.oracle.com"; Script = "irm 192.168.0.3/powershell/Install-Java.ps1 | iex" },
-    @{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm 192.168.0.3/powershell/Install-avira.ps1 | iex" }
+    @{ Name = "Java Runtime - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" },
+    @{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" }
 )
 
 # ==============================
@@ -292,6 +292,7 @@ $btnRun.Add_Click({
 # Run Form
 # ==============================
 [void]$form.ShowDialog()
+
 
 
 
