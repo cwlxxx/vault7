@@ -83,9 +83,7 @@ if (Test-Path $HostFile) {
 Write-Host "`n=========================================" -ForegroundColor DarkGray
 Write-Host " Updated Hosts File Content" -ForegroundColor Cyan
 Write-Host "=========================================`n" -ForegroundColor DarkGray
-Write-Host ""
 Get-Content $HostFile | ForEach-Object { Write-Host $_ }
-Write-Host ""
 Write-Host "`n=========================================" -ForegroundColor DarkGray
 Write-Host " End of Hosts File" -ForegroundColor Green
 Write-Host "=========================================`n" -ForegroundColor DarkGray
