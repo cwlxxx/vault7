@@ -25,9 +25,10 @@ $applications = @(
 # ⚙️ Settings List (edit here)
 # ==============================
 $settings = @(
-    @{ Name = "Open UAC Settings"; Script = "Start-Process UserAccountControlSettings.exe -Wait" },
-    @{ Name = "Enable 'This PC' Icon etc."; Script = "irm 192.168.0.3/powershell/Enable-DesktopIcons.ps1 | iex" },
-    @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm 192.168.0.3/powershell/setting-nosleep-nooffmonitor.ps1 | iex" }
+    @{ Name = "Open UAC Settings"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex" },
+    @{ Name = "Enable 'This PC' Icon etc."; Script = "irm ttps://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
+    @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm 192.168.0.3/powershell/setting-nosleep-nooffmonitor.ps1 | iex" },
+    @{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
 #    @{ Name = "System Information"; Script = "msinfo32" }
 )
 
@@ -291,5 +292,6 @@ $btnRun.Add_Click({
 # Run Form
 # ==============================
 [void]$form.ShowDialog()
+
 
 
