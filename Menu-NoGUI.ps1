@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.8"
+$ScriptVersion = "1.9"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -77,7 +77,7 @@ function Set-Console {
 # 💻 Section : Detect Windows Edition & Version - Start
 # ------------------------------------------------------------
 try {
-    $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-WindowsVersion.ps1"
+    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/main/Status-WindowsVersion.ps1"
     irm $remoteScript | iex
     $winVersion = Get-WindowsEdition
 }
@@ -94,7 +94,7 @@ catch {
 # 🔋 Section : Power Status Detection - Start
 # ------------------------------------------------------------
 try {
-    $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-PowerStatus.ps1"
+    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/main/Status-PowerStatus.ps1"
     irm $remoteScript | iex
     $sleepstatus = Get-PowerStatus
 }
@@ -111,7 +111,7 @@ catch {
 # ⚡ Section : Fast Startup Detection - Start
 # ------------------------------------------------------------
 try {
-    $remoteScript = "https://raw.githubusercontent.com/cwlxx9/vault7/main/Status-FastStartupDetection.ps1"
+    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/main/Status-FastStartupDetection.ps1"
     irm $remoteScript | iex
     $faststartupstatus = Get-FastStartupStatus
 }
@@ -213,15 +213,15 @@ function Show-MainMenu {
 # ------------------------------------------------------------
 # 🧰 Section : Action Functions - Start
 # ------------------------------------------------------------
-function Option1_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-All-Ver1.ps1 | iex }
-function Option2_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Install-Office.ps1 | iex }
-function Option3_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-CreateOfficeShortcut.ps1 | iex }
-function Option4_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/change-pcname.ps1 | iex }
+function Option1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-All-Ver1.ps1 | iex }
+function Option2_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-Office.ps1 | iex }
+function Option3_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-CreateOfficeShortcut.ps1 | iex }
+function Option4_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/change-pcname.ps1 | iex }
 function Option5_Action { irm 192.168.0.3/powershell/ | iex }
-function Option6_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Run-UAC-Setting.ps1 | iex }
-function Option7_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-EnableDesktopIcons.ps1 | iex }
-function Option8_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex }
-function Option9_Action { irm https://raw.githubusercontent.com/cwlxx9/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex }
+function Option6_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex }
+function Option7_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex }
+function Option8_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex }
+function Option9_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex }
 function OptionU1_Action { irm 192.168.0.3/powershell/Uninstall-OneDrive.ps1 | iex }
 function OptionU2_Action { irm 192.168.0.3/powershell/ | iex }
 function OptionC_Action { irm https://get.activated.win | iex }
@@ -271,6 +271,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
