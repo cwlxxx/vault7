@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.11"
+$ScriptVersion = "1.12"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -222,7 +222,7 @@ function Option6_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/ma
 function Option7_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex }
 function Option8_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex }
 function Option9_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex }
-function OptionU1_Action { irm 192.168.0.3/powershell/Uninstall-OneDrive.ps1 | iex }
+function OptionU1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Uninstall-OneDrive.ps1 | iex }
 function OptionU2_Action { irm 192.168.0.3/powershell/ | iex }
 function OptionC_Action { irm https://get.activated.win | iex }
 # ------------------------------------------------------------
@@ -271,6 +271,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
