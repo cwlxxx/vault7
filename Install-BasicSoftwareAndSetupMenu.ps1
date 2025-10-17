@@ -5,7 +5,7 @@ Add-Type -AssemblyName System.Drawing
 # 🧩 Section : Script Metadata - Start
 # ==============================
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.0"
+$ScriptVersion = "1.1"
 $ScriptTitle   = "Basic Software And Setup Menu - Ver. $ScriptVersion"
 
 # ==============================
@@ -34,7 +34,7 @@ $applications = @(
 $settings = @(
     @{ Name = "Open UAC Settings"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex" },
     @{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
-    @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm 192.168.0.3/powershell/setting-nosleep-nooffmonitor.ps1 | iex" },
+    @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
     @{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
 )
 
@@ -269,3 +269,4 @@ $btnRun.Add_Click({
 # Run Form
 # ==============================
 [void]$form.ShowDialog()
+
