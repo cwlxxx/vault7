@@ -9,7 +9,7 @@ Add-Type -AssemblyName System.Drawing
 # 🪟 Section : Form Setup - Start
 # ------------------------------------------------------------
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "Office Installer Menu - Ver0.2"
+$form.Text = "Office Installer Menu - Ver. 0.2"
 $form.StartPosition = "CenterScreen"
 $form.Size = New-Object System.Drawing.Size(800, 600)
 $form.BackColor = [System.Drawing.Color]::FromArgb(30, 30, 30)
