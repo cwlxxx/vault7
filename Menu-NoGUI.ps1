@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.12"
+$ScriptVersion = "1.13"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -216,7 +216,7 @@ function Show-MainMenu {
 function Option1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-BasicSoftwareAndSetupMenu.ps1 | iex }
 function Option2_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-Office.ps1 | iex }
 function Option3_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-CreateOfficeShortcut.ps1 | iex }
-function Option4_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/change-pcname.ps1 | iex }
+function Option4_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-RenamePCName.ps1 | iex }
 function Option5_Action { irm 192.168.0.3/powershell/ | iex }
 function Option6_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex }
 function Option7_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex }
@@ -271,6 +271,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
