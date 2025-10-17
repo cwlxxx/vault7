@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.6"
+$ScriptVersion = "1.7"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -41,7 +41,7 @@ function Set-Console {
         $ui = $Host.UI.RawUI
 
         # --- Desired dimensions ---
-        $width  = 82
+        $width  = 92
         $height = 45
 
         # --- Ensure buffer is never smaller than window ---
@@ -138,7 +138,7 @@ function Show-MainMenu {
     $winVersion = if ($winVersion) { $winVersion } else { Get-WindowsEdition }
 
     # --- Header Box ---
-    $lineWidth = 80
+    $lineWidth = 90
     $borderLine = "═" * $lineWidth
     Write-Host ""
     Write-Host "╔$borderLine╗" -ForegroundColor DarkCyan
@@ -240,7 +240,7 @@ function Start-MenuNoGUI {
     $running = $true
     while ($running) {
         Show-MainMenu
-        $choice = Read-Host "Please enter your selection (Q to quit)"
+        $choice = Read-Host "  	Please enter your selection (Q to quit)"
         switch ($choice.ToUpper()) {
             "1" { Clear-Host; Set-Console; Option1_Action }
             "2" { Clear-Host; Set-Console; Option2_Action }
@@ -271,6 +271,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
