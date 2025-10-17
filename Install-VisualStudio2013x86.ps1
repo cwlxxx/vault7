@@ -26,3 +26,26 @@ catch {
 # ------------------------------------------------------------
 # 🚀 Section : Download Visual Studio 2013 (VC++ 12.0) x86 - End
 # ------------------------------------------------------------
+
+# ------------------------------------------------------------
+# ⚙️ Section : Install Visual Studio 2013 (VC++ 12.0) x86 - Start
+# ------------------------------------------------------------
+
+$installerPath = Join-Path $env:TEMP "Installer\vcredist2013_x86.exe"
+
+if (Test-Path $installerPath) {
+    Write-Host "🧩 Installing Visual Studio 2013 (VC++ 12.0) 32-bit..."
+    
+    # Launch installer with GUI (no /quiet), wait until finish
+    Start-Process -FilePath $installerPath -ArgumentList "/install", "/norestart" -Wait
+
+    Write-Host "✅ Installation completed for Visual Studio 2013 (VC++ 12.0) 32-bit."
+}
+else {
+    Write-Host "⚠️ Installer not found: $installerPath" -ForegroundColor Yellow
+}
+
+# ------------------------------------------------------------
+# ⚙️ Section : Install Visual Studio 2013 (VC++ 12.0) x86 - End
+# ------------------------------------------------------------
+
