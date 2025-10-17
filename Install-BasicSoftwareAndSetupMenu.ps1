@@ -2,6 +2,13 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 # ==============================
+# 🧩 Section : Script Metadata - Start
+# ==============================
+# Update this version string whenever you edit the script.
+$ScriptVersion = "1.0"
+$ScriptTitle   = "Basic Software And Setup Menu - Ver. $ScriptVersion"
+
+# ==============================
 # 💡 Applications List (edit here)
 # ==============================
 $applications = @(
@@ -26,17 +33,16 @@ $applications = @(
 # ==============================
 $settings = @(
     @{ Name = "Open UAC Settings"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex" },
-    @{ Name = "Enable 'This PC' Icon etc."; Script = "irm ttps://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
+    @{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
     @{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm 192.168.0.3/powershell/setting-nosleep-nooffmonitor.ps1 | iex" },
     @{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
-#    @{ Name = "System Information"; Script = "msinfo32" }
 )
 
 # ==============================
 # 🖥️ GUI Layout
 # ==============================
 $form = New-Object System.Windows.Forms.Form
-$form.Text = "Basic Software and Setup"
+$form.Text = $ScriptTitle
 $form.Size = New-Object System.Drawing.Size(1100, 750)
 $form.StartPosition = "CenterScreen"
 $form.BackColor = [System.Drawing.Color]::FromArgb(32,32,32)
@@ -59,7 +65,7 @@ $appGroup.Location = New-Object System.Drawing.Point(15, 40)
 $appGroup.ForeColor = "White"
 $form.Controls.Add($appGroup)
 
-# Settings box (shorter height)
+# Settings box
 $setGroup = New-Object System.Windows.Forms.GroupBox
 $setGroup.Text = "Settings"
 $setGroup.Size = New-Object System.Drawing.Size(550, 200)
@@ -130,16 +136,14 @@ Add-Checkboxes-TwoColumns -items $applications -container $appGroup
 Add-Checkboxes-TwoColumns -items $settings -container $setGroup
 
 # ==============================
-# Buttons (bottom left-aligned, centered under Settings)
+# Buttons (bottom left-aligned)
 # ==============================
-
 [int]$btnY = 670
-[int]$startX = 180   # Shifted right for visual balance
+[int]$startX = 180
 [int]$spacing = 120
 [int]$btnWidth = 100
 [int]$btnHeight = 30
 
-# Define colors properly as System.Drawing.Color objects
 $normalDark = [System.Drawing.Color]::FromArgb(60, 60, 60)
 $hoverDark  = [System.Drawing.Color]::FromArgb(90, 90, 90)
 $white      = [System.Drawing.Color]::White
@@ -157,7 +161,7 @@ function Set-ButtonStyle {
     $btn.Font = New-Object System.Drawing.Font("Segoe UI", 9)
 }
 
-# --- Check All ---
+# Buttons
 $btnCheckAll = New-Object System.Windows.Forms.Button
 $btnCheckAll.Text = "Check All"
 $btnCheckAll.Size = New-Object System.Drawing.Size($btnWidth, $btnHeight)
@@ -165,7 +169,6 @@ $btnCheckAll.Location = New-Object System.Drawing.Point($startX, $btnY)
 Set-ButtonStyle $btnCheckAll $normalDark $hoverDark $white
 $form.Controls.Add($btnCheckAll)
 
-# --- Uncheck All ---
 $btnUncheckAll = New-Object System.Windows.Forms.Button
 $btnUncheckAll.Text = "Uncheck All"
 $btnUncheckAll.Size = New-Object System.Drawing.Size($btnWidth, $btnHeight)
@@ -173,7 +176,6 @@ $btnUncheckAll.Location = New-Object System.Drawing.Point(($startX + $spacing), 
 Set-ButtonStyle $btnUncheckAll $normalDark $hoverDark $white
 $form.Controls.Add($btnUncheckAll)
 
-# --- Run Selected ---
 $btnRun = New-Object System.Windows.Forms.Button
 $btnRun.Text = "Run Selected"
 $btnRun.Size = New-Object System.Drawing.Size(120, $btnHeight)
@@ -181,42 +183,25 @@ $btnRun.Location = New-Object System.Drawing.Point(($startX + (2 * $spacing) + 1
 Set-ButtonStyle $btnRun $blueNormal $blueHover $white
 $form.Controls.Add($btnRun)
 
-
-
-
-
 # ==============================
 # Button Actions
 # ==============================
-$btnCheckAll.Add_Click({
-    foreach ($cb in $checkboxes) { 
-        $cb.Checked = $true 
-    }
-})
-
-$btnUncheckAll.Add_Click({
-    foreach ($cb in $checkboxes) { 
-        $cb.Checked = $false 
-    }
-})
+$btnCheckAll.Add_Click({ foreach ($cb in $checkboxes) { $cb.Checked = $true } })
+$btnUncheckAll.Add_Click({ foreach ($cb in $checkboxes) { $cb.Checked = $false } })
 
 $btnRun.Add_Click({
     $selected = @()
     $appCount = $applications.Count
 
-    # Collect SETTINGS first (run these before applications)
+    # Run SETTINGS first
     for ($j = 0; $j -lt $settings.Count; $j++) {
         $idx = $appCount + $j
-        if ($checkboxes[$idx].Checked) { 
-            $selected += $settings[$j] 
-        }
+        if ($checkboxes[$idx].Checked) { $selected += $settings[$j] }
     }
 
-    # Collect APPLICATIONS after
+    # Then APPLICATIONS
     for ($i = 0; $i -lt $appCount; $i++) {
-        if ($checkboxes[$i].Checked) { 
-            $selected += $applications[$i] 
-        }
+        if ($checkboxes[$i].Checked) { $selected += $applications[$i] }
     }
 
     if ($selected.Count -eq 0) {
@@ -233,7 +218,6 @@ $btnRun.Add_Click({
         $form.Refresh()
 
         try {
-            # Create PowerShell process for full output capture
             $psi = New-Object System.Diagnostics.ProcessStartInfo
             $psi.FileName = "powershell.exe"
             $psi.Arguments = "-NoProfile -ExecutionPolicy Bypass -Command `"$($item.Script)`""
@@ -246,7 +230,6 @@ $btnRun.Add_Click({
             $process.StartInfo = $psi
             $process.Start() | Out-Null
 
-            # Stream output smoothly as it appears
             while (-not $process.HasExited) {
                 while (-not $process.StandardOutput.EndOfStream) {
                     $line = $process.StandardOutput.ReadLine()
@@ -260,15 +243,10 @@ $btnRun.Add_Click({
                 Start-Sleep -Milliseconds 100
             }
 
-            # Read remaining output/errors after process exit
             $remainingOut = $process.StandardOutput.ReadToEnd()
             $remainingErr = $process.StandardError.ReadToEnd()
-            if ($remainingOut) {
-                $logBox.AppendText("$remainingOut`r`n")
-            }
-            if ($remainingErr) {
-                $logBox.AppendText("⚠ Error:`r`n$remainingErr`r`n")
-            }
+            if ($remainingOut) { $logBox.AppendText("$remainingOut`r`n") }
+            if ($remainingErr) { $logBox.AppendText("⚠ Error:`r`n$remainingErr`r`n") }
 
             $logBox.AppendText("✔ Completed: $($item.Name)`r`n`r`n")
             $logBox.SelectionStart = $logBox.Text.Length
@@ -287,12 +265,7 @@ $btnRun.Add_Click({
     [System.Windows.Forms.MessageBox]::Show("All selected items completed.", "Done", "OK", "Information")
 })
 
-
 # ==============================
 # Run Form
 # ==============================
 [void]$form.ShowDialog()
-
-
-
-
