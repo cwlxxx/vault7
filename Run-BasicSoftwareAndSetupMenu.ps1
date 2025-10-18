@@ -29,7 +29,7 @@ $applications = @(
 	@{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget --accept-package-agreements --accept-source-agreements --silent" },
 	@{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget --accept-package-agreements --accept-source-agreements --silent" },
 	@{ Name = "Java Runtime - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" },
-	@{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/ | iex" }
+	@{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/Install-Avira.ps1 | iex" }
 )
 # ------------------------------------------------------------
 # 💡 Section : Applications List - End
@@ -452,6 +452,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
