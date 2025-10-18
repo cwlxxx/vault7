@@ -56,7 +56,7 @@ $runtimes = @(
 # ------------------------------------------------------------
 $settings = @(
 	@{ Name = "Host File Time Stemp"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/HostFileTimeStemp.ps1 | iex" },
-	@{ Name = "Open UAC Settings"; Script = Start-Process "UserAccountControlSettings.exe" },
+	@{ Name = "Open UAC Settings"; Script = "Start-Process 'UserAccountControlSettings.exe'" },
 	@{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/EnableDesktopIcons.ps1 | iex" },
 	@{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/TurnOffSleep.ps1 | iex" },
 	@{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/DisableFastStartup.ps1 | iex" }
@@ -453,6 +453,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
