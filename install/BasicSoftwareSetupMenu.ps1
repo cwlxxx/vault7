@@ -41,10 +41,10 @@ $applications = @(
 # 🧩 Section : Runtime & Frameworks List - Start
 # ------------------------------------------------------------
 $runtimes = @(
-	@{ Name = "Visual C++ Redistributable 2013 x86"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013(x86).ps1 | iex" },
-	@{ Name = "Visual C++ Redistributable 2013 x64"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013(x64).ps1 | iex" },
-	@{ Name = "Visual C++ Redistributable 2015-2022 x86"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022(x86).ps1 | iex" },
-	@{ Name = "Visual C++ Redistributable 2015-2022 x64"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022(x64).ps1 | iex" }
+	@{ Name = "Visual C++ Redistributable 2013 x86"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-32bit.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2013 x64"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-64bit.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2015-2022 x86"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2015-2022 x64"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-64bit.ps1 | iex" }
 )
 # ------------------------------------------------------------
 # 🧩 Section : Runtime & Frameworks List - End
@@ -453,6 +453,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
