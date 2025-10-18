@@ -5,7 +5,7 @@ Add-Type -AssemblyName System.Drawing
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "2.1"
+$ScriptVersion = "2.2"
 $ScriptTitle   = "Basic Software And Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -40,10 +40,10 @@ $applications = @(
 # 🧩 Section : Runtime & Frameworks List - Start
 # ------------------------------------------------------------
 $runtimes = @(
-	@{ Name = "Visual C++ Redistributable 2013(x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VisualStudio2013x86.ps1 | iex" },
-	@{ Name = "Visual C++ Redistributable 2013(x64)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VisualStudio2013x64.ps1 | iex" },
-	@{ Name = "Visual C++ Redistributable 2015-2022 (x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VC++2015-2022x86.ps1| iex" },
-	@{ Name = "Visual C++ Redistributable 2015-2022 (x64)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-VC++2015-2022x64.ps1 | iex" }
+	@{ Name = "Visual C++ Redistributable 2013(x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/Install-VisualStudio2013x86.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2013(x64)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/Install-VisualStudio2013x64.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2015-2022 (x86)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/Install-VC%2B%2B2015-2022x86.ps1 | iex" },
+	@{ Name = "Visual C++ Redistributable 2015-2022 (x64)"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/Install-VC%2B%2B2015-2022x64.ps1 | iex" }
 )
 # ------------------------------------------------------------
 # 🧩 Section : Runtime & Frameworks List - End
@@ -54,11 +54,11 @@ $runtimes = @(
 # ⚙️ Section : Settings List - Start
 # ------------------------------------------------------------
 $settings = @(
-	@{ Name = "Time Stamp In Host Files"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-TimeStampHostFile.ps1 | iex" },
+	@{ Name = "Time Stamp In Host Files"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/Run-TimeStampHostFile.ps1 | iex" },
 	@{ Name = "Open UAC Settings"; Script = Start-Process "UserAccountControlSettings.exe" },
-	@{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://github.com/cwlxxx/vault7/raw/refs/heads/main/Setting-EnableDesktopIcons.ps1 | iex" },
-	@{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://github.com/cwlxxx/vault7/raw/refs/heads/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
-	@{ Name = "Disable Windows Fast Startup"; Script = "irm https://github.com/cwlxxx/vault7/raw/refs/heads/main/Setting-DisableFastStartup.ps1 | iex" }
+	@{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/Setting-EnableDesktopIcons.ps1 | iex" },
+	@{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
+	@{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/Setting-DisableFastStartup.ps1 | iex" }
 )
 # ------------------------------------------------------------
 # ⚙️ Section : Settings List - End
@@ -452,6 +452,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
