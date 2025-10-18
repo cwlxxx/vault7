@@ -1,3 +1,7 @@
+# ============================================================
+# 🧱 Microsoft Visual C++ Redistributable 2013 (VC++ 12.0) Downloader & Silent Installer (x86)
+# ============================================================
+
 # ------------------------------------------------------------
 # 🚀 Section : Download Visual Studio 2013 (VC++ 12.0) x86 - Start
 # ------------------------------------------------------------
@@ -14,38 +18,64 @@ try {
 
     Write-Host "🚀 Downloading Visual Studio 2013 (VC++ 12.0) 32-bit using BITS..."
 
-    # Start BITS download
     Start-BitsTransfer -Source $downloadUrl -Destination $destinationFile -DisplayName "VC++ 2013 x86" -Description "Downloading Visual C++ 2013 Redistributable (x86)"
 
     Write-Host "✅ Download completed successfully: $destinationFile"
 }
 catch {
     Write-Host "❌ Failed to download VC++ 2013 (x86). Error: $($_.Exception.Message)" -ForegroundColor Red
+    exit 1
 }
 
 # ------------------------------------------------------------
 # 🚀 Section : Download Visual Studio 2013 (VC++ 12.0) x86 - End
 # ------------------------------------------------------------
 
+
 # ------------------------------------------------------------
-# ⚙️ Section : Install Visual Studio 2013 (VC++ 12.0) x86 - Start
+# ⚙️ Section : Silent Install Visual Studio 2013 (VC++ 12.0) x86 - Start
 # ------------------------------------------------------------
 
-$installerPath = Join-Path $env:TEMP "Installer\vcredist2013_x86.exe"
-
-if (Test-Path $installerPath) {
-    Write-Host "🧩 Installing Visual Studio 2013 (VC++ 12.0) 32-bit..."
+if (Test-Path $destinationFile) {
+    Write-Host "🧩 Installing Visual Studio 2013 (VC++ 12.0) 32-bit silently..."
     
-    # Launch installer with GUI (no /quiet), wait until finish
-    Start-Process -FilePath $installerPath -ArgumentList "/install", "/norestart" -Wait
-
-    Write-Host "✅ Installation completed for Visual Studio 2013 (VC++ 12.0) 32-bit."
+    # Silent install with simple progress indicator
+    $process = Start-Process -FilePath $destinationFile -ArgumentList "/install", "/quiet", "/norestart" -PassThru
+    while (-not $process.HasExited) {
+        Write-Host "." -NoNewline
+        Start-Sleep -Seconds 2
+    }
+    Write-Host "`n✅ Installation completed successfully."
 }
 else {
-    Write-Host "⚠️ Installer not found: $installerPath" -ForegroundColor Yellow
+    Write-Host "⚠️ Installer not found: $destinationFile" -ForegroundColor Yellow
+    exit 1
 }
 
 # ------------------------------------------------------------
-# ⚙️ Section : Install Visual Studio 2013 (VC++ 12.0) x86 - End
+# ⚙️ Section : Silent Install Visual Studio 2013 (VC++ 12.0) x86 - End
 # ------------------------------------------------------------
 
+
+# ------------------------------------------------------------
+# 🧹 Section : Cleanup Temporary Files - Start
+# ------------------------------------------------------------
+
+try {
+    if (Test-Path $destinationFile) {
+        Remove-Item $destinationFile -Force
+        Write-Host "🧹 Installer file removed from %TEMP%\Installer."
+    }
+
+    if (-not (Get-ChildItem $destinationFolder -ErrorAction SilentlyContinue)) {
+        Remove-Item $destinationFolder -Force
+        Write-Host "🧹 Temporary installer folder cleaned up."
+    }
+}
+catch {
+    Write-Host "⚠️ Cleanup failed: $($_.Exception.Message)" -ForegroundColor Yellow
+}
+
+# ------------------------------------------------------------
+# 🧹 Section : Cleanup Temporary Files - End
+# ------------------------------------------------------------
