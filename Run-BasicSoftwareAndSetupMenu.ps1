@@ -55,10 +55,10 @@ $runtimes = @(
 # ------------------------------------------------------------
 $settings = @(
 	@{ Name = "Time Stamp In Host Files"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-TimeStampHostFile.ps1 | iex" },
-	@{ Name = "Open UAC Settings"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex" },
-	@{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex" },
-	@{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
-	@{ Name = "Disable Windows Fast Startup"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex" }
+	@{ Name = "Open UAC Settings"; Script = Start-Process "UserAccountControlSettings.exe" },
+	@{ Name = "Enable 'This PC' Icon etc."; Script = "irm https://github.com/cwlxxx/vault7/raw/refs/heads/main/Setting-EnableDesktopIcons.ps1 | iex" },
+	@{ Name = "Never Turn Off Monitor and Never Sleep"; Script = "irm https://github.com/cwlxxx/vault7/raw/refs/heads/main/Setting-NoSleepNoMonitorOff.ps1 | iex" },
+	@{ Name = "Disable Windows Fast Startup"; Script = "irm https://github.com/cwlxxx/vault7/raw/refs/heads/main/Setting-DisableFastStartup.ps1 | iex" }
 )
 # ------------------------------------------------------------
 # ⚙️ Section : Settings List - End
@@ -452,6 +452,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
