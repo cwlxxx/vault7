@@ -7,7 +7,7 @@
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
-$ScriptVersion = "1.13"
+$ScriptVersion = "2.0"
 $ScriptTitle   = "Advance Windows Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
@@ -77,12 +77,12 @@ function Set-Console {
 # 💻 Section : Detect Windows Edition & Version - Start
 # ------------------------------------------------------------
 try {
-    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/main/Status-WindowsVersion.ps1"
+    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/status/ViewWindowsVersion.ps1"
     irm $remoteScript | iex
     $winVersion = Get-WindowsEdition
 }
 catch {
-    Write-Host "Error loading or executing Status-WindowsVersion.ps1: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "Error loading or executing ViewWindowsVersion.ps1: $($_.Exception.Message)" -ForegroundColor Red
     $winVersion = "Unknown Windows Version"
 }
 # ------------------------------------------------------------
@@ -94,12 +94,12 @@ catch {
 # 🔋 Section : Power Status Detection - Start
 # ------------------------------------------------------------
 try {
-    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/main/Status-PowerStatus.ps1"
+    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/status/ViewPowerStatus.ps1"
     irm $remoteScript | iex
     $sleepstatus = Get-PowerStatus
 }
 catch {
-    Write-Host "Error loading or executing Status-PowerStatus.ps1: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "Error loading or executing ViewPowerStatus.ps1: $($_.Exception.Message)" -ForegroundColor Red
     $sleepstatus = "Error"
 }
 # ------------------------------------------------------------
@@ -111,12 +111,12 @@ catch {
 # ⚡ Section : Fast Startup Detection - Start
 # ------------------------------------------------------------
 try {
-    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/main/Status-FastStartupDetection.ps1"
+    $remoteScript = "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/status/FastStartupDetection.ps1"
     irm $remoteScript | iex
     $faststartupstatus = Get-FastStartupStatus
 }
 catch {
-    Write-Host "Error loading or executing Status-FastStartupDetection.ps1: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "Error loading or executing FastStartupDetection.ps1: $($_.Exception.Message)" -ForegroundColor Red
     $faststartupstatus = "Error"
 }
 # ------------------------------------------------------------
@@ -160,7 +160,7 @@ function Show-MainMenu {
 
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ NEW PC SETUP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host ""
-    Write-Host "  	[1] Basic Software Installer " -ForegroundColor Cyan
+    Write-Host "  	[1] Basic Software Setup Menu " -ForegroundColor Cyan
     Write-Host ""
     Write-Host " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛" -ForegroundColor White
     Write-Host ""
@@ -178,7 +178,7 @@ function Show-MainMenu {
     Write-Host " ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ SETTINGS PATCH ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓" -ForegroundColor White
     Write-Host "  	[4] Change PC Name" -ForegroundColor Cyan -NoNewline
     Write-Host " ( Current: $computer )"  -ForegroundColor Green
-    Write-Host "  	[5] " -ForegroundColor Cyan
+    Write-Host "  	[5] Empty" -ForegroundColor Cyan
     Write-Host "  	[6] User Account Control" -ForegroundColor Cyan
     Write-Host "  	[7] Enable Desktop Icon " -ForegroundColor Cyan -NoNewline
     Write-Host "( This PC , User , Network , Recycle Bin )" -ForegroundColor Yellow
@@ -213,16 +213,16 @@ function Show-MainMenu {
 # ------------------------------------------------------------
 # 🧰 Section : Action Functions - Start
 # ------------------------------------------------------------
-function Option1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-BasicSoftwareAndSetupMenu.ps1 | iex }
-function Option2_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Install-Office.ps1 | iex }
-function Option3_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-CreateOfficeShortcut.ps1 | iex }
-function Option4_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-RenamePCName.ps1 | iex }
+function Option1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/BasicSoftwareSetupMenu.ps1 | iex }
+function Option2_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OfficeInstaller.ps1 | iex }
+function Option3_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/CreateMSOfficeShortcut.ps1 | iex }
+function Option4_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/RenamePCName.ps1 | iex }
 function Option5_Action { irm 192.168.0.3/powershell/ | iex }
-function Option6_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Run-UAC-Setting.ps1 | iex }
-function Option7_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1 | iex }
-function Option8_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1 | iex }
-function Option9_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1 | iex }
-function OptionU1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/main/Uninstall-OneDrive.ps1 | iex }
+function Option6_Action { Start-Process "UserAccountControlSettings.exe" }
+function Option7_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/EnableDesktopIcons.ps1 | iex }
+function Option8_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/TurnOffSleep.ps1 | iex }
+function Option9_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/DisableFastStartup.ps1 | iex }
+function OptionU1_Action { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/Uninstaller/UninstallOneDrive.ps1 | iex }
 function OptionU2_Action { irm 192.168.0.3/powershell/ | iex }
 function OptionC_Action { irm https://get.activated.win | iex }
 # ------------------------------------------------------------
@@ -271,6 +271,7 @@ Start-MenuNoGUI
 # ------------------------------------------------------------
 # 🚀 Section : Script Start - End
 # ------------------------------------------------------------
+
 
 
 
