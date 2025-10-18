@@ -8,7 +8,7 @@ Add-Type -AssemblyName PresentationFramework
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
 $ScriptName    = "Advance Installer Tools"
-$ScriptVersion = "1.1"
+$ScriptVersion = "3.1"
 $WindowWidth   = 900
 $WindowHeight  = 600
 # ------------------------------------------------------------
@@ -25,24 +25,24 @@ $SettingsBoxItems = @(
         Script  = { Start-Process "UserAccountControlSettings.exe" }
     },
     @{
-        Name    = "TimeStampHostFile"
-        Content = "Add Time Stamp to Hosts File"
-        Script  = { irm "https://github.com/cwlxxx/vault7/raw/refs/heads/main/Run-TimeStampHostFile.ps1" | iex }
+        Name    = "Host File Time Stemp"
+        Content = "Host File Time Stamp"
+        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/HostFileTimeStemp.ps1" | iex }
     },
     @{
         Name    = "EnableIcon"
         Content = "Enable 'This PC' Icon etc."
-        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-EnableDesktopIcons.ps1" | iex }
+        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/EnableDesktopIcons.ps1" | iex }
     },
     @{
         Name    = "NeverSleep"
-        Content = "Never Turn Off Monitor and Never Sleep"
-        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-NoSleepNoMonitorOff.ps1" | iex }
+        Content = "Never Sleep"
+        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/TurnOffSleep.ps1" | iex }
     },
     @{
-        Name    = "NoFastStartup"
+        Name    = "DisableFastStartup"
         Content = "Disable Windows Fast Startup"
-        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/main/Setting-DisableWindowsFastStartup.ps1" | iex }
+        Script  = { irm "https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/DisableFastStartup.ps1" | iex }
     }
 )
 # ------------------------------------------------------------
