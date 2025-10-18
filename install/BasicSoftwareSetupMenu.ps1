@@ -6,7 +6,7 @@ Add-Type -AssemblyName System.Drawing
 # ------------------------------------------------------------
 # Update this version string whenever you edit the script.
 $ScriptVersion = "2.2"
-$ScriptTitle   = "Basic Software And Setup Menu - Ver. $ScriptVersion"
+$ScriptTitle   = "Basic Software Setup Menu - Ver. $ScriptVersion"
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - End
 # ------------------------------------------------------------
@@ -452,6 +452,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
