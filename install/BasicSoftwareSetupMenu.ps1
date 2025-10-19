@@ -16,20 +16,20 @@ $ScriptTitle   = "Basic Software Setup Menu - Ver. $ScriptVersion"
 # 💡 Section : Applications List - Start
 # ------------------------------------------------------------
 $applications = @(
-	@{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "UltraViewer - winget"; Script = "winget install --id DucFabulous.UltraViewer --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "IrfanView - winget"; Script = "winget install --id=IrfanSkiljan.IrfanView --source winget --disable-package-auto-start --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "K-Lite Full - winget"; Script = "winget install --id CodecGuide.K-LiteCodecPack.Full --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "VLC Player - winget"; Script = "winget install --id VideoLAN.VLC --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "Mozilla FireFox - winget"; Script = "winget install --id Mozilla.Firefox --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget --accept-package-agreements --accept-source-agreements --silent" },
-	@{ Name = "Java Runtime x86 (JRE) - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime(x86).ps1 | iex" },
-	@{ Name = "Java Runtime x64 (JRE) - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime(x64).ps1 | iex" },
+	@{ Name = "Sougou Pinyin - winget"; Script = "winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements" },
+	@{ Name = "Zoom - winget"; Script = "winget install --id Zoom.Zoom --source winget" },
+	@{ Name = "AnyDesk - winget"; Script = "winget install --id AnyDesk.AnyDesk --source winget" },
+	@{ Name = "doPDF 11 - winget"; Script = "winget install --id Softland.doPDF.11 --source winget" },
+	@{ Name = "WinRAR - winget"; Script = "winget install --id RARLab.WinRAR --source winget" },
+	@{ Name = "UltraViewer - winget"; Script = "winget install --id DucFabulous.UltraViewer --source winget" },
+	@{ Name = "IrfanView - winget"; Script = "winget install --id=IrfanSkiljan.IrfanView --source winget" },
+	@{ Name = "K-Lite Full - winget"; Script = "winget install --id CodecGuide.K-LiteCodecPack.Full --source winget" },
+	@{ Name = "VLC Player - winget"; Script = "winget install --id VideoLAN.VLC --source winget" },
+	@{ Name = "Mozilla FireFox - winget"; Script = "winget install --id Mozilla.Firefox --source winget" },
+	@{ Name = "Google Chrome - winget"; Script = "winget install --id Google.Chrome --source winget" },
+	@{ Name = "Adobe Acrobat Reader - winget"; Script = "winget install --id Adobe.Acrobat.Reader.64-bit --source winget" },
+	@{ Name = "Java Runtime x86 (JRE) - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime-32bit.ps1 | iex" },
+	@{ Name = "Java Runtime x64 (JRE) - javadl.oracle.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime-64bit.ps1 | iex" },
 	@{ Name = "Avira Anti-Virus - package.avira.com"; Script = "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/AviraAntivirus.ps1 | iex" }
 )
 # ------------------------------------------------------------
@@ -453,6 +453,7 @@ $form.Add_Resize({
 # ------------------------------------------------------------
 # ▶️ Section : Run Form - End
 # ------------------------------------------------------------
+
 
 
 
