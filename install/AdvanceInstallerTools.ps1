@@ -7,7 +7,7 @@ Add-Type -AssemblyName PresentationFramework
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
-$ScriptVersion = "3.2"
+$ScriptVersion = "5.0"
 $ScriptName    = "Advance Installer Tools Ver. $($ScriptVersion)"
 $WindowWidth   = 900
 $WindowHeight  = 600
