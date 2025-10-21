@@ -203,25 +203,113 @@ $XamlTemplate = @'
             <!-- Content Area -->
             <Border Grid.Column="1" Background="{ColorBase}" Padding="24" CornerRadius="8">
                 <Grid x:Name="ContentHost">
+
+                    <!-- 🏠 Home Page -->
                     <Grid x:Name="PageHome" Background="{PageBackgroundColor}">
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="🏠 Home Page Placeholder" Foreground="{ColorText}" FontSize="20" FontWeight="SemiBold" TextAlignment="Center"/>
-                            <TextBlock Text="This section is under development." Foreground="{ColorText}" FontSize="13" Margin="0,8,0,0" TextAlignment="Center"/>
-                            <TextBlock Text="(Placeholder Chicken says hi 🐔)" Foreground="{ColorText}" FontSize="12" Margin="0,4,0,0" TextAlignment="Center"/>
+                            <TextBlock Text="🏠 Home Page Placeholder"
+                                       Foreground="{ColorText}"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center"/>
+                            <TextBlock Text="This section is under development."
+                                       Foreground="{ColorText}"
+                                       FontSize="13"
+                                       Margin="0,8,0,0"
+                                       TextAlignment="Center"/>
+                            <TextBlock Text="(Placeholder Chicken says hi 🐔)"
+                                       Foreground="{ColorText}"
+                                       FontSize="12"
+                                       Margin="0,4,0,0"
+                                       TextAlignment="Center"/>
                         </StackPanel>
                     </Grid>
 
-                    <Grid x:Name="PageInstaller" Background="{PageBackgroundColor}" Visibility="Collapsed">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                            <StackPanel x:Name="InstallerStack" Orientation="Vertical"/>
-                        </ScrollViewer>
-                    </Grid>
-                </Grid>
-            </Border>
-        </Grid>
-    </Border>
+                    <!-- 📦 Installer Page -->
+                    <Grid x:Name="PageInstaller"
+                          Background="{PageBackgroundColor}"
+                          Visibility="Collapsed">
+
+                        <!-- Scroll container for installer group boxes -->
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Disabled">
+
+                        <!-- 🩶 Ultra-Slim Dark ScrollBar (Explorer Style, 3 px) -->
+                        <ScrollViewer.Resources>
+                            <Style TargetType="ScrollBar">
+                                <Setter Property="Width" Value="3"/> <!-- 👈 reduced from 6 to 3 -->
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ScrollBar">
+                                            <Grid Background="{TemplateBinding Background}">
+                                                <Track x:Name="PART_Track"
+                                                       Orientation="Vertical"
+                                                       IsDirectionReversed="True">
+
+                                                    <!-- disable arrow boxes -->
+                                                    <Track.DecreaseRepeatButton>
+                                                        <RepeatButton Height="0" IsEnabled="False"/>
+                                                    </Track.DecreaseRepeatButton>
+                                                    <Track.IncreaseRepeatButton>
+                                                        <RepeatButton Height="0" IsEnabled="False"/>
+                                                    </Track.IncreaseRepeatButton>
+
+                                                    <!-- slim thumb -->
+                                                    <Track.Thumb>
+                                                        <Thumb Background="#3A3F45" BorderBrush="#4A4F55" BorderThickness="0.5">
+                                                            <Thumb.Style>
+                                                                <Style TargetType="Thumb">
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="Thumb">
+                                                                                <Border CornerRadius="2"
+                                                                                        Background="{TemplateBinding Background}"
+                                                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                                                        BorderThickness="{TemplateBinding BorderThickness}"/>
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                    <Style.Triggers>
+                                                                        <!-- Hover -->
+                                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                                            <Setter Property="Background" Value="#4A5056"/>
+                                                                            <Setter Property="BorderBrush" Value="#5A6066"/>
+                                                                        </Trigger>
+                                                                        <!-- Drag -->
+                                                                        <Trigger Property="IsDragging" Value="True">
+                                                                            <Setter Property="Background" Value="#5E656C"/>
+                                                                            <Setter Property="BorderBrush" Value="#6A7076"/>
+                                                                        </Trigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Thumb.Style>
+                                                        </Thumb>
+                                                    </Track.Thumb>
+                                                </Track>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ScrollViewer.Resources>
+
+                        <!-- 📋 Installer GroupBox Stack -->
+                        <StackPanel x:Name="InstallerStack" Orientation="Vertical"/>
+                    </ScrollViewer>
+
+
+
+                </Grid> <!-- end PageInstaller -->
+
+            </Grid> <!-- end ContentHost -->
+        </Border> <!-- end Content Area -->
+    </Grid> <!-- end Main Grid -->
+</Border> <!-- end Outer Border -->
 </Window>
 '@
+
+
 
 # Inject replacements
 $ResizeModeValue = if ($AllowResize) { 'CanResize' } else { 'NoResize' }
@@ -511,6 +599,11 @@ function Set-ActivePage {
     $PageHome = $window.FindName('PageHome')
     $PageInstaller = $window.FindName('PageInstaller')
 
+    if (-not $PageHome -or -not $PageInstaller) {
+        Write-Warning "⚠️ One or more pages (Home/Installer) not found in XAML."
+        return
+    }
+
     switch ($page) {
         'Home' {
             $PageHome.Visibility = 'Visible'
@@ -526,6 +619,7 @@ function Set-ActivePage {
         }
     }
 }
+
 
 ($window.FindName('BtnHome')).Add_Click({ Set-ActivePage 'Home' })
 ($window.FindName('BtnInstaller')).Add_Click({ Set-ActivePage 'Installer' })
