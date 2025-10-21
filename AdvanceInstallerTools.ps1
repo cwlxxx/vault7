@@ -1,9 +1,7 @@
 # ============================================================
 # 🪟 WPF GUI – Advance Installer Tools (PowerShell 7)
 # ============================================================
-
 Add-Type -AssemblyName PresentationFramework
-
 # ------------------------------------------------------------
 # 🧩 Section : Script Metadata - Start
 # ------------------------------------------------------------
@@ -15,7 +13,6 @@ $WindowHeight  = 600
 # 🧩 Section : Script Metadata - End
 # ------------------------------------------------------------
 
-
 # ------------------------------------------------------------
 # ⚙️ Section : Setting Box Content - Start
 # ------------------------------------------------------------
@@ -26,9 +23,9 @@ $SettingsBoxItems = @(
         Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/HostFileTimeStemp.ps1 | iex }
     },
     @{
-        Name    = "UACSettings"
-        Content = "Open UAC Settings"
-        Script  = { Start-Process 'UserAccountControlSettings.exe' }
+        Name    = "DisableUAC"
+        Content = "Disable UAC"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/UAC-Disable.ps1 | iex }
     },
     @{
         Name    = "EnableIcon"
@@ -56,22 +53,22 @@ $SettingsBoxItems = @(
 $VCRedisBoxItems = @(
     @{
         Name    = "VCRedist2013-86"
-        Content = "Visual C++ Redistributable 2013 x86"
+        Content = "Microsoft Visual C++ Redistributable packages 2013 x86"
         Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-32bit.ps1 | iex }
     },
     @{
         Name    = "VCRedist2013-64"
-        Content = "Visual C++ Redistributable 2013 x64"
+        Content = "Microsoft Visual C++ Redistributable packages 2013 x64"
         Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-64bit.ps1 | iex }
     },
     @{
         Name    = "VCRedist2015_2022-32"
-        Content = "Visual C++ Redistributable 2015-2022 x86"
+        Content = "Microsoft Visual C++ Redistributable packages 2015-2022 x86"
         Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex }
     },
     @{
         Name    = "VCRedist2015_2022-64"
-        Content = "Visual C++ Redistributable 2015-2022 x64"
+        Content = "Microsoft Visual C++ Redistributable packages 2015-2022 x64"
         Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex }
     }    
 )
@@ -301,10 +298,10 @@ $JavaRuntimeApps = @(
 # ------------------------------------------------------------
 # ⚙️ Section : Visual C++ 1.1 Box Content - Start
 # ------------------------------------------------------------
-$VCRedisLegacyApps = @(
+$DotNetLegacyApps = @(
     @{
         Name    = "VCRedistLegacy"
-        Content = "Visual C++ Redistributable 1.1"
+        Content = ".NET Framework 1.1"
         Script  = { ReplaceScriptHere }
     }
 )
@@ -687,7 +684,7 @@ $AllGroups = @{
     Communication      = $CommunicationApps, $CommunicationStack
     CompressionTools   = $CompressionToolsApps, $CompressionToolsStack
     JavaRuntime        = $JavaRuntimeApps, $JavaRuntimeStack
-    VCRedisLegacy      = $VCRedisLegacyApps, $VCRedisLegacyStack
+    VCRedisLegacy      = $DotNetLegacyApps, $VCRedisLegacyStack
 }
 
 foreach ($group in $AllGroups.GetEnumerator()) {
@@ -999,7 +996,7 @@ $JavaRuntimeUncheckAll.Add_Click({
 
 # --- Group Box: Visual C++ 1.1 (No Check/Uncheck Buttons) ---
 # This group intentionally has no Check/Uncheck buttons
-# Just loads checkboxes as-is when items exist in $VCRedisLegacyApps
+# Just loads checkboxes as-is when items exist in $DotNetLegacyApps
 
 
 # --- Dynamically resize footer line width (80% of window width) ---
