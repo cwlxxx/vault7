@@ -74,12 +74,12 @@ $VCRedisBoxItems = @(
     @{
         Name    = "VCRedist2012-86"
         Content = "Microsoft Visual C++ Redistributable packages 2012 x86"
-        Script  = { irm https://github.com/cwlxxx/vault7/edit/main/install/VisualStudio2012-32bit.ps1 | iex }
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2012-32bit.ps1 | iex }
     },
     @{
         Name    = "VCRedist2012-64"
         Content = "Microsoft Visual C++ Redistributable packages 2012 x64"
-        Script  = { irm https://github.com/cwlxxx/vault7/edit/main/install/VisualStudio2012-64bit.ps1 | iex }
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2012-64bit.ps1 | iex }
     },
         @{
         Name    = "VCRedist2010-86"
@@ -133,12 +133,12 @@ $BrowserBoxItems = @(
     @{
         Name    = "GoogleChrome"
         Content = "Google Chrome"
-        Script  = { winget install --id Google.Chrome --source winget }
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/GoogleChrome.ps1 | iex }
     },
     @{
         Name    = "FireFox"
         Content = "Mozilla FireFox"
-        Script  = { winget install --id Mozilla.Firefox --source winget }
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/FireFox.ps1 | iex }
     }
 )
 # ------------------------------------------------------------
@@ -152,14 +152,14 @@ $BrowserBoxItems = @(
 
 $VideoPlayerApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
+        Name    = "K-LiteFull"
+        Content = "K-Lite Codec Pack Full"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/K-LiteFull.ps1 | iex }
     },
     @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "VLC-Player"
+        Content = "VLC Player"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VLC-Player.ps1 | iex }
     }
 )
 
@@ -175,14 +175,9 @@ $VideoPlayerApps = @(
 
 $PhotoViewerApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
-    },
-    @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "IrfanView"
+        Content = "IrfanView graphic viewer"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/IrfanView.ps1 | iex }
     }
 )
 
@@ -198,14 +193,9 @@ $PhotoViewerApps = @(
 
 $AntiVirusApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
-    },
-    @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "AviraAntivirus"
+        Content = "Avira Free Antivirus"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/AviraAntivirus.ps1 | iex }
     }
 )
 
@@ -221,14 +211,14 @@ $AntiVirusApps = @(
 
 $RemoteDesktopApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
+        Name    = "AnyDesk "
+        Content = "AnyDesk"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/AnyDesk.ps1 | iex }
     },
     @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "UltraViewer"
+        Content = "UltraViewer"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/UltraViewer.ps1 | iex }
     }
 )
 
@@ -244,14 +234,14 @@ $RemoteDesktopApps = @(
 
 $PDFUtilityApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
+        Name    = "AdobeReader"
+        Content = "Adobe Acrobat Reader DC"
+        Script  = { https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/AdobeReader.ps1 }
     },
     @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "doPDF"
+        Content = "doPDF 11"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/doPDF.ps1 | iex }
     }
 )
 
@@ -267,14 +257,14 @@ $PDFUtilityApps = @(
 
 $LanguageInputApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
+        Name    = "KeyboardLanguageFix"
+        Content = "Keyboard Language Fix"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/KeyboardLanguageCleanup.ps1 | iex }
     },
     @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "sogou.pinyin"
+        Content = "Sogou Pinyin"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/SougouPinyin.ps1 | iex }
     }
 )
 
@@ -290,14 +280,9 @@ $LanguageInputApps = @(
 
 $CommunicationApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
-    },
-    @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "zoom"
+        Content = "Zoom"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/Zoom.ps1 | iex }
     }
 )
 
@@ -310,14 +295,14 @@ $CommunicationApps = @(
 # ------------------------------------------------------------
 $CompressionToolsApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
+        Name    = "WinRAR"
+        Content = "WinRAR"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/WinRAR.ps1 | iex }
     },
     @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "7zip"
+        Content = "7-Zip"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/7zip.ps1 | iex }
     }
 )
 # ------------------------------------------------------------
@@ -330,14 +315,14 @@ $CompressionToolsApps = @(
 # ------------------------------------------------------------
 $JavaRuntimeApps = @(
     @{
-        Name    = "ReplaceNameHere"
-        Content = "Replace Name Here"
-        Script  = { ReplaceScriptHere }
+        Name    = "OrecleJavaRuntime"
+        Content = "Orecle Java Runtime (JRE) - 32bit"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime-32bit.ps1 | iex }
     },
     @{
-        Name    = "ReplaceNameHere2"
-        Content = "Replace Name Here2"
-        Script  = { ReplaceScriptHere2 }
+        Name    = "OrecleJavaRuntime64"
+        Content = "Orecle Java Runtime (JRE) - 64bit"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime-64bit.ps1 | iex }
     }
 )
 # ------------------------------------------------------------
