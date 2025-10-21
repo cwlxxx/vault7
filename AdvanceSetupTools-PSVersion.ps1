@@ -43,11 +43,11 @@ $BtnSpacingY       = 10
 $BtnIconSize       = 16
 
 # 🧩 Installer Page Layout Controls
-$GroupBoxSpacingY     = 14
+$GroupBoxSpacingY     = 20
 $GroupBoxHeaderFont   = 16
 $GroupBoxPadding      = 10
 $CheckBoxFontSize     = 16
-$CheckBoxSpacingY     = 6
+$CheckBoxSpacingY     = 10
 $CheckButtonWidth     = 110
 $CheckButtonHeight    = 32
 $CheckButtonFontSize  = 13
@@ -80,6 +80,16 @@ $XamlTemplate = @'
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="{ResizeMode}">
+        <!-- 🎨 Global Styles -->
+    <Window.Resources>
+        <!-- ✅ Perfect vertical centering for all checkboxes -->
+        <Style TargetType="CheckBox">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,2,0,2"/> <!-- small spacing between rows -->
+        </Style>
+    </Window.Resources>
+
 
     <Border CornerRadius="{CornerRadius}" Background="{ColorBase}" Margin="12" SnapsToDevicePixels="True" ClipToBounds="True">
         <Border.Effect>
@@ -227,87 +237,124 @@ $XamlTemplate = @'
 
                     <!-- 📦 Installer Page -->
                     <Grid x:Name="PageInstaller"
-                          Background="{PageBackgroundColor}"
-                          Visibility="Collapsed">
+                        Background="{PageBackgroundColor}"
+                        Visibility="Collapsed">
 
-                        <!-- Scroll container for installer group boxes -->
-                        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                      HorizontalScrollBarVisibility="Disabled">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                        <!-- 🩶 Ultra-Slim Dark ScrollBar (Explorer Style, 3 px) -->
-                        <ScrollViewer.Resources>
-                            <Style TargetType="ScrollBar">
-                                <Setter Property="Width" Value="3"/> <!-- 👈 reduced from 6 to 3 -->
-                                <Setter Property="Background" Value="Transparent"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ScrollBar">
-                                            <Grid Background="{TemplateBinding Background}">
-                                                <Track x:Name="PART_Track"
-                                                       Orientation="Vertical"
-                                                       IsDirectionReversed="True">
+                            <!-- Scrollable installer content -->
+                            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        Grid.Row="0"
+                                        Margin="0,0,0,0">
+                                <ScrollViewer.Resources>
+                                    <!-- 🩶 Slim Dark ScrollBar -->
+                                    <Style TargetType="ScrollBar">
+                                        <Setter Property="Width" Value="8"/>
+                                        <Setter Property="Background" Value="#1E2328"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ScrollBar">
+                                                    <Grid Background="{TemplateBinding Background}">
+                                                        <Track x:Name="PART_Track" Orientation="Vertical" IsDirectionReversed="True">
+                                                            <Track.DecreaseRepeatButton>
+                                                                <RepeatButton Height="0" IsEnabled="False"/>
+                                                            </Track.DecreaseRepeatButton>
+                                                            <Track.IncreaseRepeatButton>
+                                                                <RepeatButton Height="0" IsEnabled="False"/>
+                                                            </Track.IncreaseRepeatButton>
+                                                            <Track.Thumb>
+                                                                <Thumb Background="#3A3F45" BorderBrush="#4A4F55" BorderThickness="0.5">
+                                                                    <Thumb.Style>
+                                                                        <Style TargetType="Thumb">
+                                                                            <Setter Property="Template">
+                                                                                <Setter.Value>
+                                                                                    <ControlTemplate TargetType="Thumb">
+                                                                                        <Border CornerRadius="4"
+                                                                                                Background="{TemplateBinding Background}"
+                                                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                                                                                    </ControlTemplate>
+                                                                                </Setter.Value>
+                                                                            </Setter>
+                                                                            <Style.Triggers>
+                                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                                    <Setter Property="Background" Value="#4A5056"/>
+                                                                                    <Setter Property="BorderBrush" Value="#5A6066"/>
+                                                                                </Trigger>
+                                                                                <Trigger Property="IsDragging" Value="True">
+                                                                                    <Setter Property="Background" Value="#5E656C"/>
+                                                                                    <Setter Property="BorderBrush" Value="#6A7076"/>
+                                                                                </Trigger>
+                                                                            </Style.Triggers>
+                                                                        </Style>
+                                                                    </Thumb.Style>
+                                                                </Thumb>
+                                                            </Track.Thumb>
+                                                        </Track>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ScrollViewer.Resources>
 
-                                                    <!-- disable arrow boxes -->
-                                                    <Track.DecreaseRepeatButton>
-                                                        <RepeatButton Height="0" IsEnabled="False"/>
-                                                    </Track.DecreaseRepeatButton>
-                                                    <Track.IncreaseRepeatButton>
-                                                        <RepeatButton Height="0" IsEnabled="False"/>
-                                                    </Track.IncreaseRepeatButton>
+                                <!-- 📋 Installer GroupBox Stack -->
+                                <StackPanel x:Name="InstallerStack" Orientation="Vertical" Margin="0,0,0,20"/>
+                            </ScrollViewer>
 
-                                                    <!-- slim thumb -->
-                                                    <Track.Thumb>
-                                                        <Thumb Background="#3A3F45" BorderBrush="#4A4F55" BorderThickness="0.5">
-                                                            <Thumb.Style>
-                                                                <Style TargetType="Thumb">
-                                                                    <Setter Property="Template">
-                                                                        <Setter.Value>
-                                                                            <ControlTemplate TargetType="Thumb">
-                                                                                <Border CornerRadius="2"
-                                                                                        Background="{TemplateBinding Background}"
-                                                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                                                        BorderThickness="{TemplateBinding BorderThickness}"/>
-                                                                            </ControlTemplate>
-                                                                        </Setter.Value>
-                                                                    </Setter>
-                                                                    <Style.Triggers>
-                                                                        <!-- Hover -->
-                                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                                            <Setter Property="Background" Value="#4A5056"/>
-                                                                            <Setter Property="BorderBrush" Value="#5A6066"/>
-                                                                        </Trigger>
-                                                                        <!-- Drag -->
-                                                                        <Trigger Property="IsDragging" Value="True">
-                                                                            <Setter Property="Background" Value="#5E656C"/>
-                                                                            <Setter Property="BorderBrush" Value="#6A7076"/>
-                                                                        </Trigger>
-                                                                    </Style.Triggers>
-                                                                </Style>
-                                                            </Thumb.Style>
-                                                        </Thumb>
-                                                    </Track.Thumb>
-                                                </Track>
-                                            </Grid>
+                            <!-- 📦 Fixed Install Button -->
+                            <Border Grid.Row="1" CornerRadius="8" Margin="0,10,0,10" Background="Transparent">
+                                <Button x:Name="BtnRunInstall"
+                                        Content="Install"
+                                        Width="220" Height="42"
+                                        FontSize="16"
+                                        Foreground="{ColorText}"
+                                        Background="#2B6CB0"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        ToolTip="Run all checked installations">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <!-- 🔹 Use x:Name to make triggers targetable -->
+                                            <Border x:Name="border"
+                                                    CornerRadius="8"
+                                                    Background="{TemplateBinding Background}">
+                                                <ContentPresenter VerticalAlignment="Center"
+                                                                HorizontalAlignment="Center"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <!-- Hover -->
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#3C7DD8"/>
+                                                </Trigger>
+                                                <!-- Pressed -->
+                                                <Trigger Property="IsPressed" Value="True">
+                                                    <Setter TargetName="border" Property="Background" Value="#245C9E"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ScrollViewer.Resources>
+                                    </Button.Template>
+                                </Button>
+                            </Border>
 
-                        <!-- 📋 Installer GroupBox Stack -->
-                        <StackPanel x:Name="InstallerStack" Orientation="Vertical"/>
-                    </ScrollViewer>
+                        </Grid>
+                    </Grid> <!-- end PageInstaller -->
 
 
-
-                </Grid> <!-- end PageInstaller -->
-
-            </Grid> <!-- end ContentHost -->
-        </Border> <!-- end Content Area -->
-    </Grid> <!-- end Main Grid -->
-</Border> <!-- end Outer Border -->
+                </Grid> <!-- end ContentHost -->
+            </Border> <!-- end Content Area -->
+        </Grid> <!-- end Main Grid -->
+    </Border> <!-- end Outer Border -->
 </Window>
 '@
+
 
 
 
@@ -340,6 +387,8 @@ foreach ($key in $replacements.Keys) {
     $XamlTemplate = $XamlTemplate.Replace($key, [string]$replacements[$key])
 }
 # Section : 2 - XAML UI Layout - End
+
+
 
 # Section : 3 - Build Window - Start
 [xml]$xml = $XamlTemplate
@@ -482,7 +531,9 @@ function New-GroupBox {
     $outer.BorderThickness = 1
     $outer.CornerRadius = 6
     $outer.Padding      = $GroupBoxPadding
-    $outer.Margin       = "0,0,0,$GroupBoxSpacingY"
+    $outer.Margin       = "0,0,40,$GroupBoxSpacingY"
+    $outer.HorizontalAlignment = 'Stretch'
+    $outer.Width = [Double]::NaN
 
     # Simple hover feedback — change background on mouse enter/leave
     $outer.Add_MouseEnter({
