@@ -25,9 +25,10 @@ $ColorText       = "#E5E7EB"     # Universal text color
 $ColorHoverExit  = "#4C2B2B"     # Exit hover
 $ColorActiveExit = "#7F1D1D"     # Exit pressed
 
-# 🖼️ Pages & Groups (Unified Background)
 $PageBackgroundColor  = "#181C20"   # Match sidebar color (flat paper look)
-$GroupBoxColor        = "#3A3F45"   # Dark gray tone for contrast
+$GroupBoxColor        = "#23292E"   # Default GroupBox background
+$GroupBoxHoverColor   = "#2A3036"   # Slightly lighter hover tone (~5%)
+$GroupBoxBorderColor  = "#2B3138"   # Soft border outline for definition
 
 # 🧭 Sidebar settings
 $SidebarPadding = 12
@@ -336,19 +337,19 @@ function New-StandardButton {
         [string]$Text
     )
     $btn = New-Object System.Windows.Controls.Button
-    $btn.Content   = $Text
-    $btn.Width     = $CheckButtonWidth
-    $btn.Height    = $CheckButtonHeight
-    $btn.FontSize  = $CheckButtonFontSize
-    $btn.Margin    = '6,0,0,0'
-    $btn.Cursor    = 'Hand'
+    $btn.Content    = $Text
+    $btn.Width      = $CheckButtonWidth
+    $btn.Height     = $CheckButtonHeight
+    $btn.FontSize   = $CheckButtonFontSize
+    $btn.Margin     = '6,0,0,0'
+    $btn.Cursor     = 'Hand'
     $btn.Foreground = (New-SolidColorBrush -Hex $CheckButtonTextColor)
     $btn.Background = (New-SolidColorBrush -Hex $CheckButtonColor)
 
-    # NOTE: this here-string is DOUBLE-QUOTED so $CheckButtonCorner, $ColorHover, $ColorActive are interpolated.
+    # Double-quoted here-string so PS interpolates $CheckButtonCorner / $ColorHover / $ColorActive
     $template = @"
 <ControlTemplate xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' TargetType='Button'>
-  <Border x:Name='bd' CornerRadius='$CheckButtonCorner' Background='{TemplateBinding Background}'>
+  <Border Name='bd' CornerRadius='$CheckButtonCorner' Background='{TemplateBinding Background}'>
     <ContentPresenter HorizontalAlignment='Center' VerticalAlignment='Center'/>
   </Border>
   <ControlTemplate.Triggers>
@@ -367,6 +368,7 @@ function New-StandardButton {
     $btn.Template = [Windows.Markup.XamlReader]::Parse($template)
     return $btn
 }
+
 
 
 function New-CheckBoxItem {
@@ -388,9 +390,20 @@ function New-GroupBox {
     )
     $outer = New-Object System.Windows.Controls.Border
     $outer.Background   = (New-SolidColorBrush -Hex $GroupBoxColor)
+    $outer.BorderBrush  = (New-SolidColorBrush -Hex $GroupBoxBorderColor)
+    $outer.BorderThickness = 1
     $outer.CornerRadius = 6
     $outer.Padding      = $GroupBoxPadding
     $outer.Margin       = "0,0,0,$GroupBoxSpacingY"
+
+    # Simple hover feedback — change background on mouse enter/leave
+    $outer.Add_MouseEnter({
+        $this.Background = New-SolidColorBrush -Hex $GroupBoxHoverColor
+    })
+    $outer.Add_MouseLeave({
+        $this.Background = New-SolidColorBrush -Hex $GroupBoxColor
+    })
+
 
     $stack = New-Object System.Windows.Controls.StackPanel
     $stack.Orientation = 'Vertical'
