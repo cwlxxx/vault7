@@ -333,29 +333,41 @@ function New-SolidColorBrush {
 
 function New-StandardButton {
     param(
-        [string]$Text,
-        [scriptblock]$OnClick
+        [string]$Text
     )
     $btn = New-Object System.Windows.Controls.Button
-    $btn.Content = $Text
-    $btn.Width   = $CheckButtonWidth
-    $btn.Height  = $CheckButtonHeight
-    $btn.FontSize = $CheckButtonFontSize
-    $btn.Margin  = '6,0,0,0'
+    $btn.Content   = $Text
+    $btn.Width     = $CheckButtonWidth
+    $btn.Height    = $CheckButtonHeight
+    $btn.FontSize  = $CheckButtonFontSize
+    $btn.Margin    = '6,0,0,0'
+    $btn.Cursor    = 'Hand'
     $btn.Foreground = (New-SolidColorBrush -Hex $CheckButtonTextColor)
     $btn.Background = (New-SolidColorBrush -Hex $CheckButtonColor)
 
+    # NOTE: this here-string is DOUBLE-QUOTED so $CheckButtonCorner, $ColorHover, $ColorActive are interpolated.
     $template = @"
 <ControlTemplate xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' TargetType='Button'>
-  <Border CornerRadius='$CheckButtonCorner' Background='{TemplateBinding Background}'>
+  <Border x:Name='bd' CornerRadius='$CheckButtonCorner' Background='{TemplateBinding Background}'>
     <ContentPresenter HorizontalAlignment='Center' VerticalAlignment='Center'/>
   </Border>
+  <ControlTemplate.Triggers>
+    <Trigger Property='IsMouseOver' Value='True'>
+      <Setter TargetName='bd' Property='Background' Value='$ColorHover'/>
+    </Trigger>
+    <Trigger Property='IsPressed' Value='True'>
+      <Setter TargetName='bd' Property='Background' Value='$ColorActive'/>
+    </Trigger>
+    <Trigger Property='IsEnabled' Value='False'>
+      <Setter TargetName='bd' Property='Opacity' Value='0.6'/>
+    </Trigger>
+  </ControlTemplate.Triggers>
 </ControlTemplate>
 "@
     $btn.Template = [Windows.Markup.XamlReader]::Parse($template)
-    if ($OnClick) { $btn.Add_Click($OnClick) }
     return $btn
 }
+
 
 function New-CheckBoxItem {
     param([hashtable]$Item)
@@ -408,29 +420,56 @@ function New-GroupBox {
     $checkContainer.Orientation = 'Vertical'
     $checkContainer.Margin = '0,6,0,0'
 
-    $btnCheckAll = New-StandardButton -Text 'Check All' -OnClick {
-        foreach ($child in $checkContainer.Children) {
-            if ($child -is [System.Windows.Controls.CheckBox]) { $child.IsChecked = $true }
+    # Create buttons (Check All / Uncheck All) with reliable event handlers
+    $btnCheckAll   = New-StandardButton -Text 'Check All'
+    $btnUncheckAll = New-StandardButton -Text 'Uncheck All'
+
+    # Store reference to the current checkbox container (avoids closure issue)
+    $btnCheckAll.Tag   = $checkContainer
+    $btnUncheckAll.Tag = $checkContainer
+
+    # Add functional click events using RoutedEventHandler (PowerShell 7 safe)
+    $btnCheckAll.AddHandler(
+        [System.Windows.Controls.Button]::ClickEvent,
+        [System.Windows.RoutedEventHandler]{ param($s,$e)
+            $panel = $s.Tag
+            if ($panel -ne $null) {
+                foreach ($child in $panel.Children) {
+                    if ($child -is [System.Windows.Controls.CheckBox]) { $child.IsChecked = $true }
+                }
+            }
         }
-    }
-    $btnUncheckAll = New-StandardButton -Text 'Uncheck All' -OnClick {
-        foreach ($child in $checkContainer.Children) {
-            if ($child -is [System.Windows.Controls.CheckBox]) { $child.IsChecked = $false }
+    )
+
+    $btnUncheckAll.AddHandler(
+        [System.Windows.Controls.Button]::ClickEvent,
+        [System.Windows.RoutedEventHandler]{ param($s,$e)
+            $panel = $s.Tag
+            if ($panel -ne $null) {
+                foreach ($child in $panel.Children) {
+                    if ($child -is [System.Windows.Controls.CheckBox]) { $child.IsChecked = $false }
+                }
+            }
         }
-    }
-    $btnPanel.Children.Add($btnCheckAll) | Out-Null
+    )
+
+    # Add the buttons into the header panel
+    $btnPanel.Children.Add($btnCheckAll)   | Out-Null
     $btnPanel.Children.Add($btnUncheckAll) | Out-Null
 
+    # Build the header row
     $headerGrid.Children.Add($title) | Out-Null
     $headerGrid.Children.Add($btnPanel) | Out-Null
     $stack.Children.Add($headerGrid) | Out-Null
 
+    # Add all checkbox items under this group
     foreach ($it in $items) {
         $cb = New-CheckBoxItem -Item $it
         $checkContainer.Children.Add($cb) | Out-Null
     }
     $stack.Children.Add($checkContainer) | Out-Null
 
+    # Return the completed group container
     return $outer
 }
 
