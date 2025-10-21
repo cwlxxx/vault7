@@ -52,54 +52,14 @@ $SettingsBoxItems = @(
 # ------------------------------------------------------------
 $VCRedisBoxItems = @(
     @{
-        Name    = "VCRedist2005-86"
-        Content = "Microsoft Visual C++ Redistributable packages 2005 x86"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2005-32bit.ps1 | iex }
+        Name    = "VCRedist2015_2022-32"
+        Content = "Microsoft Visual C++ Redistributable packages 2015-2022 x86"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex }
     },
     @{
-        Name    = "VCRedist2005-64"
-        Content = "Microsoft Visual C++ Redistributable packages 2005 x64"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2005-64bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2008-86"
-        Content = "Microsoft Visual C++ Redistributable packages 2008 x86"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-32bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2008-64"
-        Content = "Microsoft Visual C++ Redistributable packages 2008 x64"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-64bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2008-86"
-        Content = "Microsoft Visual C++ Redistributable packages 2008 x86"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-32bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2008-64"
-        Content = "Microsoft Visual C++ Redistributable packages 2008 x64"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-64bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2010-86"
-        Content = "Microsoft Visual C++ Redistributable packages 2010 x86"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2010-32bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2010-64"
-        Content = "Microsoft Visual C++ Redistributable packages 2010 x64"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2010-64bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2012-86"
-        Content = "Microsoft Visual C++ Redistributable packages 2012 x86"
-        Script  = { irm https://github.com/cwlxxx/vault7/edit/main/install/VisualStudio2012-32bit.ps1 | iex }
-    },
-    @{
-        Name    = "VCRedist2012-64"
-        Content = "Microsoft Visual C++ Redistributable packages 2012 x64"
-        Script  = { irm https://github.com/cwlxxx/vault7/edit/main/install/VisualStudio2012-64bit.ps1 | iex }
+        Name    = "VCRedist2015_2022-64"
+        Content = "Microsoft Visual C++ Redistributable packages 2015-2022 x64"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex }
     },
     @{
         Name    = "VCRedist2013-86"
@@ -112,15 +72,55 @@ $VCRedisBoxItems = @(
         Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-64bit.ps1 | iex }
     },
     @{
-        Name    = "VCRedist2015_2022-32"
-        Content = "Microsoft Visual C++ Redistributable packages 2015-2022 x86"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex }
+        Name    = "VCRedist2012-86"
+        Content = "Microsoft Visual C++ Redistributable packages 2012 x86"
+        Script  = { irm https://github.com/cwlxxx/vault7/edit/main/install/VisualStudio2012-32bit.ps1 | iex }
     },
     @{
-        Name    = "VCRedist2015_2022-64"
-        Content = "Microsoft Visual C++ Redistributable packages 2015-2022 x64"
-        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex }
-    }    
+        Name    = "VCRedist2012-64"
+        Content = "Microsoft Visual C++ Redistributable packages 2012 x64"
+        Script  = { irm https://github.com/cwlxxx/vault7/edit/main/install/VisualStudio2012-64bit.ps1 | iex }
+    },
+        @{
+        Name    = "VCRedist2010-86"
+        Content = "Microsoft Visual C++ Redistributable packages 2010 x86"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2010-32bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2010-64"
+        Content = "Microsoft Visual C++ Redistributable packages 2010 x64"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2010-64bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2008-86"
+        Content = "Microsoft Visual C++ Redistributable packages 2008 x86"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-32bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2008-64"
+        Content = "Microsoft Visual C++ Redistributable packages 2008 x64"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-64bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2008-86"
+        Content = "Microsoft Visual C++ Redistributable packages 2008 x86"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-32bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2008-64"
+        Content = "Microsoft Visual C++ Redistributable packages 2008 x64"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-64bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2005-86"
+        Content = "Microsoft Visual C++ Redistributable packages 2005 x86"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2005-32bit.ps1 | iex }
+    },
+    @{
+        Name    = "VCRedist2005-64"
+        Content = "Microsoft Visual C++ Redistributable packages 2005 x64"
+        Script  = { irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2005-64bit.ps1 | iex }
+    }
 )
 # ------------------------------------------------------------
 # ⚙️ Section : Visual C++ Redistributable Box Content - End
