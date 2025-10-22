@@ -456,7 +456,6 @@ foreach ($key in $replacements.Keys) {
 # Section : 2 - XAML UI Layout - End
 
 
-
 # Section : 3 - Build Window - Start
 [xml]$xml = $XamlTemplate
 $reader = (New-Object System.Xml.XmlNodeReader $xml)
@@ -474,31 +473,34 @@ $BtnExit.Add_Click({ $window.Close() })
 # Section : 4 - Window Behavior - End
 
 
-# Section : 5 - Content Definitions (Manual Arrays) - Start
-# Externalized to .\Modules\ContentDefinitions.ps1
+# -------------------------------------------
+# Section : 5 - Content Definitions (Manual Arrays)
+# -------------------------------------------
+# Always load from GitHub (no local fallback)
 
-$ModuleFileName = 'ContentDefinitions.ps1'
-$ModulePath = Join-Path $PSScriptRoot "Modules/$ModuleFileName"
-$ModuleFlag = "${ModuleFileName}_Loaded" -replace '\.ps1$', ''
+$RemoteModuleURL = 'https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/AdvanceSetupTools-PSVersion/Modules/ContentDefinitions.ps1'
 
 try {
-    if (-not (Test-Path -LiteralPath $ModulePath)) {
-        throw "Missing file: $ModulePath"
+    Write-Host "🌐 Loading ContentDefinitions.ps1 from GitHub..." -ForegroundColor Cyan
+    $scriptText = Invoke-RestMethod -Uri $RemoteModuleURL -UseBasicParsing
+
+    if ([string]::IsNullOrWhiteSpace($scriptText)) {
+        throw "Empty or invalid script content from GitHub."
     }
 
-    if (-not (Get-Variable -Name $ModuleFlag -Scope Script -ErrorAction SilentlyContinue)) {
-        . $ModulePath
-        Set-Variable -Name $ModuleFlag -Value $true -Scope Script
-    }
+    # Evaluate in current scope (like dot-sourcing)
+    Invoke-Expression $scriptText
+
+    Write-Host "✅ ContentDefinitions.ps1 loaded successfully from GitHub." -ForegroundColor Green
 }
 catch {
-    Write-Error "Failed to load external section '$ModuleFileName': $($_.Exception.Message)"
+    Write-Error "❌ Failed to load ContentDefinitions.ps1: $($_.Exception.Message)"
     throw
 }
 
-# Section : 5 - Content Definitions (Manual Arrays) - End
-
-
+# -------------------------------------------
+# Section : 5 - Content Definitions - End
+# -------------------------------------------
 
 
 # Section : 6 - Dynamic Installer Builder - Start
@@ -685,9 +687,9 @@ if ($InstallerStack -ne $null) {
 }
 # Section : 6 - Dynamic Installer Builder - End
 
-
-
+# -------------------------------------------
 # Section : 6.1 - Preset & Install Button Logic
+# -------------------------------------------
 
 # Find buttons from XAML
 $BtnPresetHytec  = $window.FindName('BtnPresetHytec')
@@ -719,8 +721,6 @@ function Apply-PresetProfile {
             }
         }
     }
-
-    # 💤 Silent mode — no MessageBox, just internal apply
 }
 
 # 🔹 Click events for Preset buttons
@@ -770,20 +770,58 @@ if ($BtnRunInstall) {
             return
         }
 
-        $confirm = [System.Windows.MessageBox]::Show("Proceed with installing $($checkedScripts.Count) selected item(s)?", "Confirm Installation", "YesNo", "Question")
-        if ($confirm -eq "Yes") {
-            foreach ($item in $checkedScripts) {
-                try {
-                    Write-Host "Installing: $($item.Content)"
-                    & ([scriptblock]::Create($item.Script))
-                }
-                catch {
-                    Write-Warning "⚠️ Failed to install $($item.Content): $($_.Exception.Message)"
-                }
-            }
+        # ---------------------------------------------
+        # 🧩 Custom Install Sequence (order priority)
+        # ---------------------------------------------
+        $InstallOrder = @(
+            # 1️⃣ .NET first
+            "DotNet1",
+
+            # 2️⃣ Visual C++ Redistributables (dependency order)
+            "VCRedist2005_32bit", "VCRedist2005_64bit",
+            "VCRedist2008_32bit", "VCRedist2008_64bit",
+            "VCRedist2010_32bit", "VCRedist2010_64bit",
+            "VCRedist2012_32bit", "VCRedist2012_64bit",
+            "VCRedist2013_32bit", "VCRedist2013_64bit",
+            "VCRedist2015_2022_32bit", "VCRedist2015_2022_64bit"
+        )
+
+        # Sort checked scripts by custom priority
+        $checkedScripts = $checkedScripts | Sort-Object {
+            $index = $InstallOrder.IndexOf($_.Name)
+            if ($index -ge 0) { $index } else { [int]::MaxValue }
         }
+
+        # ---------------------------------------------
+        # 🪟 Build command sequence for new PowerShell window
+        # ---------------------------------------------
+        $commands = @()
+
+        foreach ($item in $checkedScripts) {
+            $commands += "Write-Host 'Installing: $($item.Content)' -ForegroundColor Cyan"
+            $commands += "try {"
+            $commands += "    Write-Host 'Running command...' -ForegroundColor DarkGray"
+            $commands += "    Invoke-Expression '$($item.Script)'"
+            $commands += "} catch {"
+            $commands += "    Write-Host '⚠️ Failed: $($item.Content) - ' + \$_.Exception.Message -ForegroundColor Red"
+            $commands += "}"
+        }
+
+        $commands += "Write-Host '`n==========================================' -ForegroundColor DarkGray"
+        $commands += "Write-Host '✅ All selected installations have finished.' -ForegroundColor Green"
+        $commands += "Write-Host 'Press Enter to exit...' -ForegroundColor Yellow"
+        $commands += "Read-Host | Out-Null"
+
+        # ---------------------------------------------
+        # 🧩 Save and launch in new PowerShell 7 console
+        # ---------------------------------------------
+        $tempScriptPath = [IO.Path]::Combine([IO.Path]::GetTempPath(), 'InstallBatch_' + (Get-Random) + '.ps1')
+        Set-Content -Path $tempScriptPath -Value ($commands -join [Environment]::NewLine) -Encoding UTF8
+
+        Start-Process 'pwsh.exe' -ArgumentList '-NoExit', '-ExecutionPolicy Bypass', '-File', "`"$tempScriptPath`""
     })
 }
+
 
 
 # Section : 7 - Navigation Logic - Start
