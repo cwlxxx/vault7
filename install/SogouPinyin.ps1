@@ -12,7 +12,7 @@ try {
 
     if (-not $SogouInstalled) {
         Write-Host "➕ Installing Sogou Pinyin via Winget..." -ForegroundColor Yellow
-        winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements
+        winget install --id Sogou.SogouInput --source winget --exact --accept-package-agreements --accept-source-agreements
         Write-Host "✅ Sogou Pinyin installation completed." -ForegroundColor Green
     } else {
         Write-Host "✅ Sogou Pinyin already installed." -ForegroundColor Green
