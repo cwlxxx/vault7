@@ -9,7 +9,7 @@
 # ⚙️ Quick tweak section
 $AppTitle        = "Advance Setup Tools"
 $AppSubtitle     = "PS Edition"
-$AppVersion      = "v2.0"
+$AppVersion      = "v2.01"
 
 $WinWidth        = 1000
 $WinHeight       = 600
@@ -516,17 +516,23 @@ $BtnExit.Add_Click({ $window.Close() })
 # Section : 5 - Content Definitions (Manual Arrays)
 
 # ===========================================
-# 🌐 Remote Module Loader Template (v3)
+# 🌐 Remote Module Loader Template (v3 - No-Cache Enabled)
 # ===========================================
 
-# 🔧 Define the remote file location and name
+# 🔧 Define the remote file location, name, and local fallback path
+$headers = @{
+    "Cache-Control" = "no-cache"
+    "Pragma"        = "no-cache"
+    "Expires"       = "0"
+}
+
 $RemoteModuleURL_ContentDefinitions = 'https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/AdvanceSetupTools-PSVersion/Modules/ContentDefinitions.ps1'
 $RemoteModuleName_ContentDefinitions = 'ContentDefinitions.ps1'
 $LocalModulePath_ContentDefinitions  = Join-Path $PSScriptRoot "Modules\$RemoteModuleName_ContentDefinitions"
 
 try {
     Write-Host "🌐 Loading $RemoteModuleName_ContentDefinitions from GitHub..." -ForegroundColor Cyan
-    $scriptText_ContentDefinitions = Invoke-RestMethod -Uri $RemoteModuleURL_ContentDefinitions -UseBasicParsing -ErrorAction Stop
+    $scriptText_ContentDefinitions = Invoke-RestMethod -Uri $RemoteModuleURL_ContentDefinitions -Headers $headers -ErrorAction Stop
 
     if ([string]::IsNullOrWhiteSpace($scriptText_ContentDefinitions)) {
         throw "Empty or invalid script content from GitHub."
@@ -538,7 +544,7 @@ try {
 }
 catch {
     Write-Warning "⚠️ Failed to load ${RemoteModuleName_ContentDefinitions} from GitHub: $($_.Exception.Message)"
-    
+
     # 🔁 Attempt local fallback
     if (Test-Path $LocalModulePath_ContentDefinitions) {
         Write-Host "📁 Attempting to load local copy: $LocalModulePath_ContentDefinitions" -ForegroundColor Yellow
@@ -559,8 +565,9 @@ catch {
 }
 
 # ===========================================
-# 🌐 End Remote Module Loader Template
+# 🌐 End Remote Module Loader Template (v3 - No-Cache)
 # ===========================================
+
 
 
 # Section : 5 - Content Definitions - End
@@ -569,17 +576,23 @@ catch {
 
 
 # ===========================================
-# 🌐 Remote Module Loader Template (v3)
+# 🌐 Remote Module Loader Template (v3 - No-Cache Enabled)
 # ===========================================
 
-# 🔧 Define the remote file location and name
+# 🔧 Define the remote file location, name, and local fallback path
+$headers = @{
+    "Cache-Control" = "no-cache"
+    "Pragma"        = "no-cache"
+    "Expires"       = "0"
+}
+
 $RemoteModuleURL_BasicSoftwarePage  = 'https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/AdvanceSetupTools-PSVersion/Modules/BasicSoftwarePage.ps1'
 $RemoteModuleName_BasicSoftwarePage = 'BasicSoftwarePage.ps1'
 $LocalModulePath_BasicSoftwarePage  = Join-Path $PSScriptRoot "Modules\$RemoteModuleName_BasicSoftwarePage"
 
 try {
     Write-Host "🌐 Loading $RemoteModuleName_BasicSoftwarePage from GitHub..." -ForegroundColor Cyan
-    $scriptText_BasicSoftwarePage = Invoke-RestMethod -Uri $RemoteModuleURL_BasicSoftwarePage -UseBasicParsing -ErrorAction Stop
+    $scriptText_BasicSoftwarePage = Invoke-RestMethod -Uri $RemoteModuleURL_BasicSoftwarePage -Headers $headers -ErrorAction Stop
 
     if ([string]::IsNullOrWhiteSpace($scriptText_BasicSoftwarePage)) {
         throw "Empty or invalid script content from GitHub."
@@ -591,7 +604,7 @@ try {
 }
 catch {
     Write-Warning "⚠️ Failed to load ${RemoteModuleName_BasicSoftwarePage} from GitHub: $($_.Exception.Message)"
-    
+
     # 🔁 Attempt local fallback
     if (Test-Path $LocalModulePath_BasicSoftwarePage) {
         Write-Host "📁 Attempting to load local copy: $LocalModulePath_BasicSoftwarePage" -ForegroundColor Yellow
@@ -612,8 +625,9 @@ catch {
 }
 
 # ===========================================
-# 🌐 End Remote Module Loader Template
+# 🌐 End Remote Module Loader Template (v3 - No-Cache)
 # ===========================================
+
 
 
 
