@@ -1,1 +1,1 @@
-winget install --id Google.Chrome --source winget
+winget install --id Google.Chrome --source winget --exact
