@@ -165,6 +165,7 @@ function New-GroupBox {
 $InstallerStack = $window.FindName('InstallerStack')
 if ($InstallerStack -ne $null) {
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'LangInput'  -headerText 'Language & Input Tool'                             -items $LangInputBoxItems)) | Out-Null
+    $InstallerStack.Children.Add((New-GroupBox -groupKey 'OtherTools' -headerText 'Other Tools'                                       -items $OtherToolsBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'AntiVirus'  -headerText 'Anti-Virus'                                        -items $AntiVirusBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'Games'      -headerText 'Games'                                             -items $GamesBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'WebBrowser' -headerText 'Web Browser'                                       -items $WebBrowserBoxItems)) | Out-Null
@@ -177,7 +178,6 @@ if ($InstallerStack -ne $null) {
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'Java'       -headerText 'Java Runtime'                                      -items $JavaBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'VC'         -headerText 'Microsoft Visual C++ Redistributable Packages'     -items $VCRedisBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'DotNet'     -headerText '.NET Framework'                                    -items $DotNetBoxItems)) | Out-Null
-    $InstallerStack.Children.Add((New-GroupBox -groupKey 'OtherTools' -headerText 'Other Tools'                                       -items $OtherToolsBoxItems)) | Out-Null
 }
 # Section : 6 - Dynamic Installer Builder - End
 
