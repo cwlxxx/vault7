@@ -8,7 +8,7 @@ $GamesBoxItems = @(
     @{ Name="Steam"; Content="Steam Client"; Script="irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/steam.ps1 | iex" }
 )
 $OtherToolsBoxItems = @( 
-    @{ Name="CoreTemp"; Content="CoreTemp"; Script="https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/CoreTemp.ps1 | iex" }
+    @{ Name="CoreTemp"; Content="CoreTemp"; Script="irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/CoreTemp.ps1 | iex" }
 )
 $LangInputBoxItems = @(
     @{ Name="KeyboardFix"; Content="Keyboard Fix - Set English (US) as Default and Remove English (My)"; Script="irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/settings/keyboard-RemoveEnglishMY.ps1 | iex" },
