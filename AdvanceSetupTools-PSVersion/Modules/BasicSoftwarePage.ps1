@@ -312,7 +312,8 @@ if ($BtnRunInstall) {
         $tempScriptPath = [IO.Path]::Combine([IO.Path]::GetTempPath(), 'InstallBatch_' + (Get-Random) + '.ps1')
         Set-Content -Path $tempScriptPath -Value ($commands -join [Environment]::NewLine) -Encoding UTF8
 
-        Start-Process 'pwsh.exe' -ArgumentList '-ExecutionPolicy Bypass', '-File', "`"$tempScriptPath`""
+        Start-Process 'pwsh.exe' -ArgumentList '-ExecutionPolicy Bypass', '-File', "`"$tempScriptPath`"" -Wait
+
 
     })
 }
