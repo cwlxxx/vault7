@@ -1,1 +1,1 @@
-winget install --id Mozilla.Firefox --source winget
+winget install --id Mozilla.Firefox --source winget --exact
