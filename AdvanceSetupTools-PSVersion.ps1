@@ -308,7 +308,7 @@ $XamlTemplate = @'
                             </ScrollViewer>
 
                             <!-- 📦 Fixed Install Button -->
-                            <Border Grid.Row="1" CornerRadius="8" Margin="0,10,0,10" Background="Transparent">
+                            <Border Grid.Row="1" CornerRadius="8" Margin="0,25,0,0" Background="Transparent">
                                 <Button x:Name="BtnRunInstall"
                                         Content="Install"
                                         Width="220" Height="42"
