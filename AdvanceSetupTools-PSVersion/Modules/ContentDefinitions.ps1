@@ -70,7 +70,10 @@ $HytecPreset = @(
 # ⚙️ Easy PC preset
 $EasyPCPreset = @(
     "Steam",
-    "MozillaFirefox",
+    "FireFox",
     "WinRAR",
-    "TeamViewer"
+    "GoogleChrome",
+    "VLCPlayer",
+    "AdobeAcrobatReader64bit"
+    
 )
