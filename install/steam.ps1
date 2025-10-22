@@ -1,1 +1,1 @@
-winget install --id Valve.Steam --source winget  
+winget install --id Valve.Steam --source winget --exact
