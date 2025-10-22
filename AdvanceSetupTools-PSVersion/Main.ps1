@@ -44,13 +44,13 @@ $BtnIconSize       = 16
 
 # 🧩 Installer Page Layout Controls
 $GroupBoxSpacingY     = 20
-$GroupBoxHeaderFont   = 16
+$GroupBoxHeaderFont   = 20
 $GroupBoxPadding      = 10
-$CheckBoxFontSize     = 16
+$CheckBoxFontSize     = 12
 $CheckBoxSpacingY     = 10
 $CheckButtonWidth     = 110
-$CheckButtonHeight    = 32
-$CheckButtonFontSize  = 13
+$CheckButtonHeight    = 24
+$CheckButtonFontSize  = 12
 $CheckButtonColor     = "#374151"
 $CheckButtonTextColor = "#E5E7EB"
 $CheckButtonCorner    = 6
@@ -307,42 +307,106 @@ $XamlTemplate = @'
                                 <StackPanel x:Name="InstallerStack" Orientation="Vertical" Margin="0,0,0,20"/>
                             </ScrollViewer>
 
-                            <!-- 📦 Fixed Install Button -->
+
+                            <!-- 📦 Fixed Install Button Group -->
                             <Border Grid.Row="1" CornerRadius="8" Margin="0,25,0,0" Background="Transparent">
-                                <Button x:Name="BtnRunInstall"
-                                        Content="Install"
-                                        Width="220" Height="42"
-                                        FontSize="16"
-                                        Foreground="{ColorText}"
-                                        Background="#2B6CB0"
-                                        BorderThickness="0"
-                                        Cursor="Hand"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        ToolTip="Run all checked installations">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <!-- 🔹 Use x:Name to make triggers targetable -->
-                                            <Border x:Name="border"
-                                                    CornerRadius="8"
-                                                    Background="{TemplateBinding Background}">
-                                                <ContentPresenter VerticalAlignment="Center"
-                                                                HorizontalAlignment="Center"/>
-                                            </Border>
-                                            <ControlTemplate.Triggers>
-                                                <!-- Hover -->
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="#3C7DD8"/>
-                                                </Trigger>
-                                                <!-- Pressed -->
-                                                <Trigger Property="IsPressed" Value="True">
-                                                    <Setter TargetName="border" Property="Background" Value="#245C9E"/>
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Margin="0,0,50,10">
+
+                                    <!-- For Hytec -->
+                                    <Button x:Name="BtnPresetHytec"
+                                            Content="For Hytec"
+                                            Width="110" Height="32"
+                                            FontSize="13"
+                                            Foreground="{ColorText}"
+                                            Background="{CheckButtonColor}"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Margin="0,0,10,0">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="bd" CornerRadius="6" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <!-- hover color -->
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#47505A"/>
+                                                    </Trigger>
+                                                    <!-- pressed color -->
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#2F363E"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <!-- For Easy PC -->
+                                    <Button x:Name="BtnPresetEasyPC"
+                                            Content="For Easy PC"
+                                            Width="110" Height="32"
+                                            FontSize="13"
+                                            Foreground="{ColorText}"
+                                            Background="{CheckButtonColor}"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Margin="0,0,10,0">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="bd" CornerRadius="6" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <!-- hover color -->
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#47505A"/>
+                                                    </Trigger>
+                                                    <!-- pressed color -->
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#2F363E"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                    <!-- Install -->
+                                    <Button x:Name="BtnRunInstall"
+                                            Content="Install"
+                                            Width="110" Height="32"
+                                            FontSize="13"
+                                            Foreground="{ColorText}"
+                                            Background="#2B6CB0"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            ToolTip="Run all checked installations">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="bd" CornerRadius="6" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <!-- hover color -->
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#3C7DD8"/>
+                                                    </Trigger>
+                                                    <!-- pressed color -->
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#245C9E"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
+                                </StackPanel>
+
                             </Border>
+
+
 
                         </Grid>
                     </Grid> <!-- end PageInstaller -->
@@ -382,6 +446,9 @@ $replacements = @{
     '{BtnCornerRadius}'    = $BtnCornerRadius
     '{PageBackgroundColor}'= $PageBackgroundColor
     '{ColorText}'          = $ColorText
+    '{CheckButtonColor}'     = $CheckButtonColor
+    '{CheckButtonTextColor}' = $CheckButtonTextColor
+
 }
 foreach ($key in $replacements.Keys) {
     $XamlTemplate = $XamlTemplate.Replace($key, [string]$replacements[$key])
@@ -408,56 +475,30 @@ $BtnExit.Add_Click({ $window.Close() })
 
 
 # Section : 5 - Content Definitions (Manual Arrays) - Start
-# Replace “dummy” entries with your real app scripts later.
-$LangInputBoxItems = @(
-    @{ Name="LangInput1"; Content="dummy 1"; Script={ "dummy 1" } },
-    @{ Name="LangInput2"; Content="dummy 2"; Script={ "dummy 2" } }
-)
-$AntiVirusBoxItems = @(@{ Name="AntiVirus1"; Content="dummy 3"; Script={ "dummy 3" } })
-$WebBrowserBoxItems = @(
-    @{ Name="WebBrowser1"; Content="dummy 4"; Script={ "dummy 4" } },
-    @{ Name="WebBrowser2"; Content="dummy 5"; Script={ "dummy 5" } }
-)
-$CompToolsBoxItems = @(
-    @{ Name="CompTools1"; Content="dummy 6"; Script={ "dummy 6" } },
-    @{ Name="CompTools2"; Content="dummy 7"; Script={ "dummy 7" } }
-)
-$PDFBoxItems = @(
-    @{ Name="PDF1"; Content="dummy 8"; Script={ "dummy 8" } },
-    @{ Name="PDF2"; Content="dummy 9"; Script={ "dummy 9" } }
-)
-$RDPBoxItems = @(
-    @{ Name="RDP1"; Content="dummy 10"; Script={ "dummy 10" } },
-    @{ Name="RDP2"; Content="dummy 11"; Script={ "dummy 11" } }
-)
-$VideoBoxItems = @(
-    @{ Name="Video1"; Content="dummy 12"; Script={ "dummy 12" } },
-    @{ Name="Video2"; Content="dummy 13"; Script={ "dummy 13" } }
-)
-$PhotoBoxItems = @(@{ Name="Photo1"; Content="dummy 14"; Script={ "dummy 14" } })
-$CommsBoxItems = @(@{ Name="Comms1"; Content="dummy 15"; Script={ "dummy 15" } })
-$JavaBoxItems = @(
-    @{ Name="Java1"; Content="dummy 16"; Script={ "dummy 16" } },
-    @{ Name="Java2"; Content="dummy 17"; Script={ "dummy 17" } }
-)
-$VCRedisBoxItems = @(
-    @{ Name="VCRedist1"; Content="dummy 18"; Script={ "dummy 18" } },
-    @{ Name="VCRedist2"; Content="dummy 19"; Script={ "dummy 19" } },
-    @{ Name="VCRedist3"; Content="dummy 20"; Script={ "dummy 20" } },
-    @{ Name="VCRedist4"; Content="dummy 21"; Script={ "dummy 21" } },
-    @{ Name="VCRedist5"; Content="dummy 22"; Script={ "dummy 22" } },
-    @{ Name="VCRedist6"; Content="dummy 23"; Script={ "dummy 23" } },
-    @{ Name="VCRedist7"; Content="dummy 24"; Script={ "dummy 24" } },
-    @{ Name="VCRedist8"; Content="dummy 25"; Script={ "dummy 25" } },
-    @{ Name="VCRedist9"; Content="dummy 26"; Script={ "dummy 26" } },
-    @{ Name="VCRedist10"; Content="dummy 27"; Script={ "dummy 27" } },
-    @{ Name="VCRedist11"; Content="dummy 28"; Script={ "dummy 28" } },
-    @{ Name="VCRedist12"; Content="dummy 29"; Script={ "dummy 29" } },
-    @{ Name="VCRedist13"; Content="dummy 30"; Script={ "dummy 30" } },
-    @{ Name="VCRedist14"; Content="dummy 31"; Script={ "dummy 31" } }
-)
-$DotNetBoxItems = @(@{ Name="DotNet1"; Content="dummy 32"; Script={ "dummy 32" } })
+# Externalized to .\Modules\ContentDefinitions.ps1
+
+$ModuleFileName = 'ContentDefinitions.ps1'
+$ModulePath = Join-Path $PSScriptRoot "Modules/$ModuleFileName"
+$ModuleFlag = "${ModuleFileName}_Loaded" -replace '\.ps1$', ''
+
+try {
+    if (-not (Test-Path -LiteralPath $ModulePath)) {
+        throw "Missing file: $ModulePath"
+    }
+
+    if (-not (Get-Variable -Name $ModuleFlag -Scope Script -ErrorAction SilentlyContinue)) {
+        . $ModulePath
+        Set-Variable -Name $ModuleFlag -Value $true -Scope Script
+    }
+}
+catch {
+    Write-Error "Failed to load external section '$ModuleFileName': $($_.Exception.Message)"
+    throw
+}
+
 # Section : 5 - Content Definitions (Manual Arrays) - End
+
+
 
 
 # Section : 6 - Dynamic Installer Builder - Start
@@ -628,8 +669,9 @@ function New-GroupBox {
 # Build the Installer page groups
 $InstallerStack = $window.FindName('InstallerStack')
 if ($InstallerStack -ne $null) {
-    $InstallerStack.Children.Add((New-GroupBox -groupKey 'LangInput'  -headerText 'Language & Input Tool'                            -items $LangInputBoxItems)) | Out-Null
+    $InstallerStack.Children.Add((New-GroupBox -groupKey 'LangInput'  -headerText 'Language & Input Tool'                             -items $LangInputBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'AntiVirus'  -headerText 'Anti-Virus'                                        -items $AntiVirusBoxItems)) | Out-Null
+    $InstallerStack.Children.Add((New-GroupBox -groupKey 'Games' -headerText 'Games'                                                  -items $GamesBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'WebBrowser' -headerText 'Web Browser'                                       -items $WebBrowserBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'CompTools'  -headerText 'Compression Tools'                                 -items $CompToolsBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'PDF'        -headerText 'PDF Utility'                                       -items $PDFBoxItems)) | Out-Null
@@ -642,6 +684,106 @@ if ($InstallerStack -ne $null) {
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'DotNet'     -headerText '.NET Framework'                                    -items $DotNetBoxItems)) | Out-Null
 }
 # Section : 6 - Dynamic Installer Builder - End
+
+
+
+# Section : 6.1 - Preset & Install Button Logic
+
+# Find buttons from XAML
+$BtnPresetHytec  = $window.FindName('BtnPresetHytec')
+$BtnPresetEasyPC = $window.FindName('BtnPresetEasyPC')
+$BtnRunInstall   = $window.FindName('BtnRunInstall')
+
+# 🔹 Helper function: Apply preset profile (exclusive check)
+function Apply-PresetProfile {
+    param([string[]]$PresetNames)
+
+    $InstallerStack = $window.FindName('InstallerStack')
+    if ($InstallerStack -eq $null) { return }
+
+    foreach ($child in $InstallerStack.Children) {
+        if ($child -is [System.Windows.Controls.Border]) {
+            $stackPanel = $child.Child
+            if ($stackPanel -and $stackPanel.Children.Count -gt 0) {
+                foreach ($sub in $stackPanel.Children) {
+                    if ($sub -is [System.Windows.Controls.StackPanel]) {
+                        foreach ($cb in $sub.Children) {
+                            if ($cb -is [System.Windows.Controls.CheckBox]) {
+                                # If checkbox Name matches preset list → check it
+                                # Otherwise → uncheck it
+                                $cb.IsChecked = ($PresetNames -contains $cb.Name)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    # 💤 Silent mode — no MessageBox, just internal apply
+}
+
+# 🔹 Click events for Preset buttons
+if ($BtnPresetHytec) {
+    $BtnPresetHytec.Add_Click({
+        Apply-PresetProfile -PresetNames $HytecPreset
+    })
+}
+
+if ($BtnPresetEasyPC) {
+    $BtnPresetEasyPC.Add_Click({
+        Apply-PresetProfile -PresetNames $EasyPCPreset
+    })
+}
+
+# 🔹 Click event for Install button
+if ($BtnRunInstall) {
+    $BtnRunInstall.Add_Click({
+        $InstallerStack = $window.FindName('InstallerStack')
+        if ($InstallerStack -eq $null) { return }
+
+        $checkedScripts = @()
+
+        foreach ($child in $InstallerStack.Children) {
+            if ($child -is [System.Windows.Controls.Border]) {
+                $stackPanel = $child.Child
+                if ($stackPanel -and $stackPanel.Children.Count -gt 0) {
+                    foreach ($sub in $stackPanel.Children) {
+                        if ($sub -is [System.Windows.Controls.StackPanel]) {
+                            foreach ($cb in $sub.Children) {
+                                if ($cb -is [System.Windows.Controls.CheckBox] -and $cb.IsChecked) {
+                                    $cbName = $cb.Name
+                                    foreach ($box in Get-Variable -Scope Script | Where-Object { $_.Name -like '*BoxItems' }) {
+                                        $found = $box.Value | Where-Object { $_.Name -eq $cbName }
+                                        if ($found) { $checkedScripts += $found }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($checkedScripts.Count -eq 0) {
+            [System.Windows.MessageBox]::Show("No items selected for installation.", "Installer", "OK", "Information") | Out-Null
+            return
+        }
+
+        $confirm = [System.Windows.MessageBox]::Show("Proceed with installing $($checkedScripts.Count) selected item(s)?", "Confirm Installation", "YesNo", "Question")
+        if ($confirm -eq "Yes") {
+            foreach ($item in $checkedScripts) {
+                try {
+                    Write-Host "Installing: $($item.Content)"
+                    & ([scriptblock]::Create($item.Script))
+                }
+                catch {
+                    Write-Warning "⚠️ Failed to install $($item.Content): $($_.Exception.Message)"
+                }
+            }
+        }
+    })
+}
 
 
 # Section : 7 - Navigation Logic - Start
