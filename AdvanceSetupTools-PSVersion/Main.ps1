@@ -477,28 +477,46 @@ $BtnExit.Add_Click({ $window.Close() })
 # Section : 5 - Content Definitions (Manual Arrays)
 
 # ===========================================
-# 🌐 Remote Module Loader Template
+# 🌐 Remote Module Loader Template (v3)
 # ===========================================
 
-# Always load from GitHub (no local fallback)
+# 🔧 Define the remote file location and name
 $RemoteModuleURL_ContentDefinitions = 'https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/AdvanceSetupTools-PSVersion/Modules/ContentDefinitions.ps1'
+$RemoteModuleName_ContentDefinitions = 'ContentDefinitions.ps1'
+$LocalModulePath_ContentDefinitions  = Join-Path $PSScriptRoot "Modules\$RemoteModuleName_ContentDefinitions"
 
 try {
-    Write-Host "🌐 Loading ContentDefinitions.ps1 from GitHub..." -ForegroundColor Cyan
-    $scriptText_ContentDefinitions = Invoke-RestMethod -Uri $RemoteModuleURL_ContentDefinitions -UseBasicParsing
+    Write-Host "🌐 Loading $RemoteModuleName_ContentDefinitions from GitHub..." -ForegroundColor Cyan
+    $scriptText_ContentDefinitions = Invoke-RestMethod -Uri $RemoteModuleURL_ContentDefinitions -UseBasicParsing -ErrorAction Stop
 
     if ([string]::IsNullOrWhiteSpace($scriptText_ContentDefinitions)) {
         throw "Empty or invalid script content from GitHub."
     }
 
-    # Evaluate in current scope (like dot-sourcing)
+    # ✅ Successfully loaded from GitHub
     Invoke-Expression $scriptText_ContentDefinitions
-
-    Write-Host "✅ ContentDefinitions.ps1 loaded successfully from GitHub." -ForegroundColor Green
+    Write-Host "✅ $RemoteModuleName_ContentDefinitions loaded successfully from GitHub." -ForegroundColor Green
 }
 catch {
-    Write-Error "❌ Failed to load ContentDefinitions.ps1: $($_.Exception.Message)"
-    throw
+    Write-Warning "⚠️ Failed to load ${RemoteModuleName_ContentDefinitions} from GitHub: $($_.Exception.Message)"
+    
+    # 🔁 Attempt local fallback
+    if (Test-Path $LocalModulePath_ContentDefinitions) {
+        Write-Host "📁 Attempting to load local copy: $LocalModulePath_ContentDefinitions" -ForegroundColor Yellow
+        try {
+            $scriptText_ContentDefinitions = Get-Content -Path $LocalModulePath_ContentDefinitions -Raw -ErrorAction Stop
+            Invoke-Expression $scriptText_ContentDefinitions
+            Write-Host "✅ Local copy of $RemoteModuleName_ContentDefinitions loaded successfully." -ForegroundColor Green
+        }
+        catch {
+            Write-Error "❌ Failed to load local copy of ${RemoteModuleName_ContentDefinitions}: $($_.Exception.Message)"
+            throw
+        }
+    }
+    else {
+        Write-Error "❌ Neither remote nor local copy of ${RemoteModuleName_ContentDefinitions} could be loaded."
+        throw
+    }
 }
 
 # ===========================================
@@ -512,34 +530,52 @@ catch {
 
 
 # ===========================================
-# 🌐 Remote Module Loader Template
+# 🌐 Remote Module Loader Template (v3)
 # ===========================================
 
 # 🔧 Define the remote file location and name
 $RemoteModuleURL_BasicSoftwarePage  = 'https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/AdvanceSetupTools-PSVersion/Modules/BasicSoftwarePage.ps1'
 $RemoteModuleName_BasicSoftwarePage = 'BasicSoftwarePage.ps1'
+$LocalModulePath_BasicSoftwarePage  = Join-Path $PSScriptRoot "Modules\$RemoteModuleName_BasicSoftwarePage"
 
 try {
     Write-Host "🌐 Loading $RemoteModuleName_BasicSoftwarePage from GitHub..." -ForegroundColor Cyan
-    $scriptText_BasicSoftwarePage = Invoke-RestMethod -Uri $RemoteModuleURL_BasicSoftwarePage -UseBasicParsing
+    $scriptText_BasicSoftwarePage = Invoke-RestMethod -Uri $RemoteModuleURL_BasicSoftwarePage -UseBasicParsing -ErrorAction Stop
 
     if ([string]::IsNullOrWhiteSpace($scriptText_BasicSoftwarePage)) {
         throw "Empty or invalid script content from GitHub."
     }
 
-    # ⚙️ Evaluate in current scope (acts like dot-sourcing)
+    # ✅ Successfully loaded from GitHub
     Invoke-Expression $scriptText_BasicSoftwarePage
-
     Write-Host "✅ $RemoteModuleName_BasicSoftwarePage loaded successfully from GitHub." -ForegroundColor Green
 }
 catch {
-    Write-Error "❌ Failed to load ${RemoteModuleName_BasicSoftwarePage}: $($_.Exception.Message)"
-    throw
+    Write-Warning "⚠️ Failed to load ${RemoteModuleName_BasicSoftwarePage} from GitHub: $($_.Exception.Message)"
+    
+    # 🔁 Attempt local fallback
+    if (Test-Path $LocalModulePath_BasicSoftwarePage) {
+        Write-Host "📁 Attempting to load local copy: $LocalModulePath_BasicSoftwarePage" -ForegroundColor Yellow
+        try {
+            $scriptText_BasicSoftwarePage = Get-Content -Path $LocalModulePath_BasicSoftwarePage -Raw -ErrorAction Stop
+            Invoke-Expression $scriptText_BasicSoftwarePage
+            Write-Host "✅ Local copy of $RemoteModuleName_BasicSoftwarePage loaded successfully." -ForegroundColor Green
+        }
+        catch {
+            Write-Error "❌ Failed to load local copy of ${RemoteModuleName_BasicSoftwarePage}: $($_.Exception.Message)"
+            throw
+        }
+    }
+    else {
+        Write-Error "❌ Neither remote nor local copy of ${RemoteModuleName_BasicSoftwarePage} could be loaded."
+        throw
+    }
 }
 
 # ===========================================
 # 🌐 End Remote Module Loader Template
 # ===========================================
+
 
 
 
