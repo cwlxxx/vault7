@@ -2,8 +2,8 @@
 # Section : Sogou Pinyin Installer & Language Adjuster
 # Author  : Liang Edition
 # Target  : PowerShell 7+
-# Desc    : Installs Sogou Pinyin via winget, removes Microsoft Pinyin,
-#           keeps English (US) as default. No popups, no pause.
+# Desc    : Installs Sogou Pinyin via Winget, removes Microsoft Pinyin,
+#           keeps English (US) default and zh-Hans-CN second.
 # =========================================================
 
 try {
@@ -21,44 +21,62 @@ try {
 
     # --- Step 2 : Adjust Windows language list ---
     Write-Host "⚙️ Adjusting language settings..." -ForegroundColor Cyan
-    $langList = Get-WinUserLanguageList
+    $originalLangList = Get-WinUserLanguageList
 
-    # --- Step 3 : Ensure English (US) is default ---
+    # Deep clone into editable generic list
+    $langList = [System.Collections.Generic.List[
+        Microsoft.InternationalSettings.Commands.WinUserLanguage]]::new()
+    foreach ($lang in $originalLangList) { $langList.Add($lang) }
+
+    # --- Step 3 : Ensure English (US) is present and default ---
     $usLang = $langList | Where-Object { $_.LanguageTag -eq 'en-US' }
     if ($usLang) {
         Write-Host "✅ English (US) found — setting as default."
-        $langList = @($usLang) + ($langList | Where-Object { $_.LanguageTag -ne 'en-US' })
-    } else {
+        foreach ($lang in $usLang) { $null = $langList.Remove($lang) }
+        foreach ($lang in [array]$usLang) { $langList.Insert(0, $lang) }
+    }
+    else {
         Write-Host "⚠️ English (US) not found — adding manually."
         $usLang = New-WinUserLanguageList en-US
-        $langList = @($usLang) + $langList
+        $langList.Insert(0, $usLang[0])
     }
 
     # --- Step 4 : Remove Microsoft Pinyin (zh-CN) if exists ---
-    $before = $langList.Count
-    $langList = $langList | Where-Object {
+    $beforeCount = $langList.Count
+    $filtered = $langList | Where-Object {
         if ($_.LanguageTag -eq 'zh-CN') {
             Write-Host "🗑️ Removing Microsoft Pinyin (zh-CN)..." -ForegroundColor Yellow
             $false
-        } else {
-            $true
-        }
+        } else { $true }
     }
-    if ($before -ne $langList.Count) {
+    $langList = [System.Collections.Generic.List[
+        Microsoft.InternationalSettings.Commands.WinUserLanguage]]::new()
+    foreach ($lang in $filtered) { $langList.Add($lang) }
+    if ($langList.Count -lt $beforeCount) {
         Write-Host "✅ Microsoft Pinyin removed from language list." -ForegroundColor Green
     }
 
-    # --- Step 5 : Apply updated language list ---
+    # --- Step 5 : Ensure Chinese (Simplified, zh-Hans-CN) is present ---
+    if (-not ($langList | Where-Object { $_.LanguageTag -match 'zh-Hans-CN' })) {
+        Write-Host "➕ Adding Chinese (Simplified, zh-Hans-CN) for Sogou IME..." -ForegroundColor Cyan
+        $zhHans = New-WinUserLanguageList zh-Hans-CN
+        foreach ($lang in $zhHans) { $langList.Add($lang) }
+    } else {
+        Write-Host "✅ zh-Hans-CN already present (Sogou compatible)." -ForegroundColor Green
+    }
+
+    # --- Step 6 : Apply updated language list ---
     Set-WinUserLanguageList $langList -Force | Out-Null
     Write-Host "✅ Updated language configuration applied." -ForegroundColor Green
 
-    # --- Step 6 : Refresh input method bar (ctfmon restart) ---
+    # --- Step 7 : Refresh input service (ctfmon) ---
     Write-Host "🔄 Refreshing input service..." -ForegroundColor Cyan
     Start-Process -FilePath "cmd.exe" -ArgumentList '/c taskkill /im ctfmon.exe /f' -WindowStyle Hidden | Out-Null
     Start-Sleep -Milliseconds 800
     Start-Process -FilePath "$env:SystemRoot\System32\ctfmon.exe" -WindowStyle Hidden | Out-Null
 
-    Write-Host "`n📋 Final language list:"
+    # --- Step 8 : Show summary ---
+    Write-Host "`n📋 Final language list:" -ForegroundColor Cyan
     Get-WinUserLanguageList | ForEach-Object { Write-Host " - $($_.LanguageTag)" }
 
     Write-Host "`n✅ Sogou Pinyin ready — Microsoft Pinyin removed, English (US) default." -ForegroundColor Cyan
