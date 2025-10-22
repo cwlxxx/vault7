@@ -1,1 +1,1 @@
-winget install --id RARLab.WinRAR --source winget
+winget install --id RARLab.WinRAR --source winget --exact
