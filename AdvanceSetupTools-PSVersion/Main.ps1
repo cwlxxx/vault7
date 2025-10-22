@@ -42,7 +42,7 @@ $BtnFontSize       = 18
 $BtnSpacingY       = 10
 $BtnIconSize       = 16
 
-# 🧩 Installer Page Layout Controls
+# 🧩 Basic Software Installer Page Layout Controls
 $GroupBoxSpacingY     = 20
 $GroupBoxHeaderFont   = 20
 $GroupBoxPadding      = 10
@@ -148,7 +148,7 @@ $XamlTemplate = @'
                             </ToggleButton.Style>
                         </ToggleButton>
 
-                        <ToggleButton x:Name="BtnInstaller" Content="Installer"
+                        <ToggleButton x:Name="BtnInstaller" Content="Basic Software"
                                       Width="{BtnWidth}" Height="{BtnHeight}"
                                       Foreground="{ColorText}" Background="Transparent"
                                       BorderThickness="0" FontSize="{BtnFontSize}"
@@ -235,7 +235,7 @@ $XamlTemplate = @'
                         </StackPanel>
                     </Grid>
 
-                    <!-- 📦 Installer Page -->
+                    <!-- 📦 Basic Software Installer Page -->
                     <Grid x:Name="PageInstaller"
                         Background="{PageBackgroundColor}"
                         Visibility="Collapsed">
@@ -668,7 +668,7 @@ function New-GroupBox {
     return $outer
 }
 
-# Build the Installer page groups
+# Build the Basic Software Installer Page groups
 $InstallerStack = $window.FindName('InstallerStack')
 if ($InstallerStack -ne $null) {
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'LangInput'  -headerText 'Language & Input Tool'                             -items $LangInputBoxItems)) | Out-Null
