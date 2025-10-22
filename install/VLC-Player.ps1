@@ -5,7 +5,7 @@
 Write-Host "Installing VLC Media Player..." -ForegroundColor Cyan
 
 # Run the Winget installation (silent mode)
-Start-Process "winget.exe" -ArgumentList "install --id VideoLAN.VLC --source winget --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
+Start-Process "winget.exe" -ArgumentList "install --id VideoLAN.VLC --source winget --exact --accept-package-agreements --accept-source-agreements" -NoNewWindow -Wait
 
 Write-Host "⏳ Waiting for VLC installation to complete..." -ForegroundColor Cyan
 
