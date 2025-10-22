@@ -9,7 +9,7 @@
 # ⚙️ Quick tweak section
 $AppTitle        = "Advance Setup Tools"
 $AppSubtitle     = "PS Edition"
-$AppVersion      = "v2.01"
+$AppVersion      = "v3.1"
 
 $WinWidth        = 1000
 $WinHeight       = 600
