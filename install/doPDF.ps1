@@ -9,7 +9,7 @@ try {
 
     # Try Winget install (throws if Winget exits with non-zero code)
     $wingetProcess = Start-Process -FilePath "winget.exe" `
-        -ArgumentList 'install --id Softland.doPDF.11 --source winget --silent --accept-package-agreements --accept-source-agreements' `
+        -ArgumentList 'install --id Softland.doPDF.11 --source winget --exact --silent --accept-package-agreements --accept-source-agreements' `
         -NoNewWindow -Wait -PassThru
 
     if ($wingetProcess.ExitCode -eq 0) {
