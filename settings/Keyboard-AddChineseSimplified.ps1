@@ -1,6 +1,6 @@
 # =========================================================
 # Section : Smart Input Language Setup (Silent Edition)
-# Author  : Liang Edition
+# Author  : Liang Edition (Fixed PowerShell 7 Safe)
 # Target  : PowerShell 7+
 # Desc    : Auto configure English (US) + Microsoft Pinyin (zh-CN)
 #           Removes English (MY), skips Pinyin if Sogou installed.
@@ -9,15 +9,20 @@ try {
     Write-Host "🔍 Checking current keyboard language list..." -ForegroundColor Cyan
     $langList = Get-WinUserLanguageList
 
+    # Convert to editable list (PowerShell 7 safe)
+    $langList = [System.Collections.Generic.List[Microsoft.InternationalSettings.Commands.WinUserLanguage]]::new($langList)
+
     # --- Step 1 : Ensure English (US) is present and default ---
     $usLang = $langList | Where-Object { $_.LanguageTag -eq 'en-US' }
     if ($usLang) {
         Write-Host "✅ English (US) found — setting as default."
-        $langList = @($usLang) + ($langList | Where-Object { $_.LanguageTag -ne 'en-US' })
-    } else {
+        $langList.Remove($usLang)
+        $langList.Insert(0, $usLang)
+    }
+    else {
         Write-Host "⚠️ English (US) not found — adding it manually."
         $usLang = New-WinUserLanguageList en-US
-        $langList = @($usLang) + $langList
+        $langList.Insert(0, $usLang[0])
     }
 
     # --- Step 2 : Remove English (Malaysia) if present ---
@@ -40,7 +45,9 @@ try {
         if (-not ($langList | Where-Object { $_.LanguageTag -eq 'zh-CN' })) {
             Write-Host "➕ Adding Microsoft Pinyin (zh-CN)..."
             $zhCN = New-WinUserLanguageList zh-CN
-            $langList += $zhCN
+            foreach ($lang in $zhCN) {
+                $langList.Add($lang)
+            }
         } else {
             Write-Host "✅ Chinese (Simplified, zh-CN) already present."
         }
