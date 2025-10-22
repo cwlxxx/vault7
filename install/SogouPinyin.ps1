@@ -1,9 +1,10 @@
 # =========================================================
-# Section : Sogou Pinyin Installer & Language Adjuster
+# Section : Sogou Pinyin Installer & Language Adjuster (Safe IME Switch)
 # Author  : Liang Edition
 # Target  : PowerShell 7+
-# Desc    : Installs Sogou Pinyin via Winget, removes Microsoft Pinyin,
-#           keeps English (US) default and zh-Hans-CN second.
+# Desc    : Installs/updates Sogou Pinyin via Winget, ensures en-US first,
+#           ensures zh-Hans-CN is present, and switches zh IME to Sogou TIP.
+#           Does NOT remove the zh language; only switches its input method.
 # =========================================================
 
 try {
@@ -14,8 +15,7 @@ try {
         Write-Host "➕ Installing Sogou Pinyin via Winget..." -ForegroundColor Yellow
         winget install --id Sogou.SogouInput --source winget --accept-package-agreements --accept-source-agreements
         Write-Host "✅ Sogou Pinyin installation completed." -ForegroundColor Green
-    }
-    else {
+    } else {
         Write-Host "✅ Sogou Pinyin already installed." -ForegroundColor Green
     }
 
@@ -34,50 +34,63 @@ try {
         Write-Host "✅ English (US) found — setting as default."
         foreach ($lang in $usLang) { $null = $langList.Remove($lang) }
         foreach ($lang in [array]$usLang) { $langList.Insert(0, $lang) }
-    }
-    else {
+    } else {
         Write-Host "⚠️ English (US) not found — adding manually."
         $usLang = New-WinUserLanguageList en-US
         $langList.Insert(0, $usLang[0])
     }
 
-    # --- Step 4 : Remove Microsoft Pinyin (zh-CN / zh-Hans-CN) ---
-    $beforeCount = $langList.Count
-    $filtered = $langList | Where-Object {
-        if ($_.LanguageTag -match 'zh-(CN|Hans-CN)') {
-            # Verify if IME belongs to Microsoft (not Sogou)
-            $isMicrosoftIME = $true
-            try {
-                $imeKey = "HKCU:\Software\Microsoft\CTF\TIP"
-                if (Test-Path $imeKey) {
-                    $isMicrosoftIME = (Get-ChildItem $imeKey -Recurse -ErrorAction SilentlyContinue |
-                        Where-Object { $_.Name -match "Sogou" }) -eq $null
-                }
-            } catch { }
-
-            if ($isMicrosoftIME) {
-                Write-Host "🗑️ Removing Microsoft Pinyin (zh-CN / zh-Hans-CN)..." -ForegroundColor Yellow
-                $false
-            } else { $true }
-        } else { $true }
-    }
-
-    # Re-wrap filtered list to remain editable
-    $langList = [System.Collections.Generic.List[
-        Microsoft.InternationalSettings.Commands.WinUserLanguage]]::new()
-    foreach ($lang in $filtered) { $langList.Add($lang) }
-
-    if ($langList.Count -lt $beforeCount) {
-        Write-Host "✅ Microsoft Pinyin removed from language list." -ForegroundColor Green
-    }
-
-    # --- Step 5 : Ensure zh-Hans-CN present for Sogou ---
-    if (-not ($langList | Where-Object { $_.LanguageTag -match 'zh-Hans-CN' })) {
-        Write-Host "➕ Adding Chinese (Simplified, zh-Hans-CN) for Sogou IME..." -ForegroundColor Cyan
+    # --- Step 4 : Ensure zh-Hans-CN is present (for Sogou) ---
+    $zhEntry = $langList | Where-Object { $_.LanguageTag -match 'zh-(CN|Hans-CN)' } | Select-Object -First 1
+    if (-not $zhEntry) {
+        Write-Host "➕ Adding Chinese (Simplified, zh-Hans-CN)..." -ForegroundColor Cyan
         $zhHans = New-WinUserLanguageList zh-Hans-CN
-        foreach ($lang in $zhHans) { $langList.Add($lang) }
+        foreach ($l in $zhHans) { $langList.Add($l) }
+        $zhEntry = $langList | Where-Object { $_.LanguageTag -match 'zh-(CN|Hans-CN)' } | Select-Object -First 1
     } else {
-        Write-Host "✅ zh-Hans-CN already present (Sogou compatible)." -ForegroundColor Green
+        Write-Host "✅ zh-Hans-CN already present." -ForegroundColor Green
+    }
+
+    # --- Step 5 : Switch zh IME to Sogou TIP (don’t remove zh language) ---
+    function Get-SogouZhTips {
+        $tips = @()
+        $base = "HKCU:\Software\Microsoft\CTF\TIP"
+        if (Test-Path $base) {
+            foreach ($tip in Get-ChildItem $base -ErrorAction SilentlyContinue) {
+                $isSogou = $false
+                # quick name check
+                if ($tip.Name -match "Sogou") { $isSogou = $true }
+                # description check
+                $lpPath = Join-Path $tip.PSPath "LanguageProfile\0x00000804"
+                if (-not $isSogou -and (Test-Path $lpPath)) {
+                    foreach ($lp in Get-ChildItem $lpPath -ErrorAction SilentlyContinue) {
+                        try {
+                            $desc = (Get-ItemProperty $lp.PSPath -ErrorAction SilentlyContinue).Description
+                            if ($desc -match "Sogou") { $isSogou = $true }
+                        } catch {}
+                    }
+                }
+                if ($isSogou -and (Test-Path $lpPath)) {
+                    foreach ($lp in Get-ChildItem $lpPath -ErrorAction SilentlyContinue) {
+                        $guid = $lp.PSChildName # e.g. {XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}
+                        if ($guid) { $tips += $guid }
+                    }
+                }
+            }
+        }
+        return $tips | Select-Object -Unique
+    }
+
+    if ($zhEntry) {
+        $sogouTips = Get-SogouZhTips
+        if ($sogouTips.Count -gt 0) {
+            $preferred = $sogouTips[0]
+            # IME TIP format is LANGID:GUID, where zh-CN = 0x0804 -> "0804"
+            $zhEntry.InputMethodTips = @("0804:$preferred")
+            Write-Host "🎯 Set zh IME to Sogou ($preferred)." -ForegroundColor Yellow
+        } else {
+            Write-Host "⚠️ Sogou TIP not detected in registry yet. Keeping current zh IME." -ForegroundColor DarkYellow
+        }
     }
 
     # --- Step 6 : Apply updated language list ---
@@ -94,7 +107,7 @@ try {
     Write-Host "`n📋 Final language list:" -ForegroundColor Cyan
     Get-WinUserLanguageList | ForEach-Object { Write-Host " - $($_.LanguageTag)" }
 
-    Write-Host "`n✅ Sogou Pinyin ready — Microsoft Pinyin removed, English (US) default." -ForegroundColor Cyan
+    Write-Host "`n✅ Sogou Pinyin ready — English (US) default, zh uses Sogou IME." -ForegroundColor Cyan
 }
 catch {
     Write-Host "❌ Error during setup: $($_.Exception.Message)" -ForegroundColor Red
