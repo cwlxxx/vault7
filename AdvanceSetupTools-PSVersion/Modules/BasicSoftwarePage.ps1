@@ -317,3 +317,32 @@ if ($BtnRunInstall) {
 
     })
 }
+# 🔹 Click event for Uncheck Everything button
+$BtnUncheckAllGlobal = $window.FindName('BtnUncheckAllGlobal')
+if ($BtnUncheckAllGlobal) {
+    $BtnUncheckAllGlobal.Add_Click({
+        $InstallerStack = $window.FindName('InstallerStack')
+        if ($InstallerStack -eq $null) { return }
+
+        # Loop through every group and uncheck all checkboxes
+        foreach ($child in $InstallerStack.Children) {
+            if ($child -is [System.Windows.Controls.Border]) {
+                $stackPanel = $child.Child
+                if ($stackPanel -and $stackPanel.Children.Count -gt 0) {
+                    foreach ($sub in $stackPanel.Children) {
+                        if ($sub -is [System.Windows.Controls.StackPanel]) {
+                            foreach ($cb in $sub.Children) {
+                                if ($cb -is [System.Windows.Controls.CheckBox]) {
+                                    $cb.IsChecked = $false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        Write-Host "🧹 All checkboxes have been unchecked (global action)." -ForegroundColor Yellow
+    })
+}
+
