@@ -76,6 +76,7 @@ $EasyPCPreset = @(
     "VLCPlayer",
     "AdobeAcrobatReader64bit",
     "KeyboardFix",
-    "mspinyin"
+    "mspinyin",
+    "zoom"
     
 )
