@@ -41,22 +41,37 @@ try {
         $langList.Insert(0, $usLang[0])
     }
 
-    # --- Step 4 : Remove Microsoft Pinyin (zh-CN) if exists ---
+    # --- Step 4 : Remove Microsoft Pinyin (zh-CN / zh-Hans-CN) ---
     $beforeCount = $langList.Count
     $filtered = $langList | Where-Object {
-        if ($_.LanguageTag -eq 'zh-CN') {
-            Write-Host "🗑️ Removing Microsoft Pinyin (zh-CN)..." -ForegroundColor Yellow
-            $false
+        if ($_.LanguageTag -match 'zh-(CN|Hans-CN)') {
+            # Verify if IME belongs to Microsoft (not Sogou)
+            $isMicrosoftIME = $true
+            try {
+                $imeKey = "HKCU:\Software\Microsoft\CTF\TIP"
+                if (Test-Path $imeKey) {
+                    $isMicrosoftIME = (Get-ChildItem $imeKey -Recurse -ErrorAction SilentlyContinue |
+                        Where-Object { $_.Name -match "Sogou" }) -eq $null
+                }
+            } catch { }
+
+            if ($isMicrosoftIME) {
+                Write-Host "🗑️ Removing Microsoft Pinyin (zh-CN / zh-Hans-CN)..." -ForegroundColor Yellow
+                $false
+            } else { $true }
         } else { $true }
     }
+
+    # Re-wrap filtered list to remain editable
     $langList = [System.Collections.Generic.List[
         Microsoft.InternationalSettings.Commands.WinUserLanguage]]::new()
     foreach ($lang in $filtered) { $langList.Add($lang) }
+
     if ($langList.Count -lt $beforeCount) {
         Write-Host "✅ Microsoft Pinyin removed from language list." -ForegroundColor Green
     }
 
-    # --- Step 5 : Ensure Chinese (Simplified, zh-Hans-CN) is present ---
+    # --- Step 5 : Ensure zh-Hans-CN present for Sogou ---
     if (-not ($langList | Where-Object { $_.LanguageTag -match 'zh-Hans-CN' })) {
         Write-Host "➕ Adding Chinese (Simplified, zh-Hans-CN) for Sogou IME..." -ForegroundColor Cyan
         $zhHans = New-WinUserLanguageList zh-Hans-CN
