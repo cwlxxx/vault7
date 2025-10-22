@@ -68,6 +68,16 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase
 $BtnWidth = [math]::Round($SidebarWidth * $BtnWidthRatio)
 # Section : 1 - Safety / Prereqs - End
 
+# Section : 1.5 - Safe Path Handling - Start
+# Ensure $PSScriptRoot is defined even when running via irm | iex
+if (-not $PSScriptRoot -or [string]::IsNullOrWhiteSpace($PSScriptRoot)) {
+    try {
+        $global:PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+    } catch {
+        $global:PSScriptRoot = (Get-Location).Path
+    }
+}
+# Section : 1.5 - Safe Path Handling - End
 
 # Section : 2 - XAML UI Layout - Start
 $XamlTemplate = @'
