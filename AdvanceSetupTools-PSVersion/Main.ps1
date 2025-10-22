@@ -325,6 +325,35 @@ $XamlTemplate = @'
                                             VerticalAlignment="Center"
                                             Margin="0,0,50,10">
 
+                                    <!-- Uncheck Everything -->
+                                    <Button x:Name="BtnUncheckAllGlobal"
+                                            Content="Uncheck All"
+                                            Width="110" Height="32"
+                                            FontSize="13"
+                                            Foreground="{ColorText}"
+                                            Background="{CheckButtonColor}"
+                                            BorderThickness="0"
+                                            Cursor="Hand"
+                                            Margin="0,0,10,0">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border x:Name="bd" CornerRadius="6" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <!-- hover color -->
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#47505A"/>
+                                                    </Trigger>
+                                                    <!-- pressed color -->
+                                                    <Trigger Property="IsPressed" Value="True">
+                                                        <Setter TargetName="bd" Property="Background" Value="#2F363E"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+
                                     <!-- For Hytec -->
                                     <Button x:Name="BtnPresetHytec"
                                             Content="For Hytec"
