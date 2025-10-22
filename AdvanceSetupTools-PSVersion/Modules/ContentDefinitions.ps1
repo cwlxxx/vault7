@@ -74,6 +74,8 @@ $EasyPCPreset = @(
     "WinRAR",
     "GoogleChrome",
     "VLCPlayer",
-    "AdobeAcrobatReader64bit"
+    "AdobeAcrobatReader64bit",
+    "KeyboardFix",
+    "mspinyin"
     
 )
