@@ -177,7 +177,7 @@ if ($InstallerStack -ne $null) {
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'Java'       -headerText 'Java Runtime'                                      -items $JavaBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'VC'         -headerText 'Microsoft Visual C++ Redistributable Packages'     -items $VCRedisBoxItems)) | Out-Null
     $InstallerStack.Children.Add((New-GroupBox -groupKey 'DotNet'     -headerText '.NET Framework'                                    -items $DotNetBoxItems)) | Out-Null
-    $InstallerStack.Children.Add((New-GroupBox -groupKey 'OtherTools' -headerText 'Other Tools'                                   -items $$OtherToolsBoxItems)) | Out-Null
+    $InstallerStack.Children.Add((New-GroupBox -groupKey 'OtherTools' -headerText 'Other Tools'                                       -items $$OtherToolsBoxItems)) | Out-Null
 }
 # Section : 6 - Dynamic Installer Builder - End
 
