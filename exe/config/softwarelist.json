@@ -1,1 +1,77 @@
-#empty
+{
+  "SoftwareGroups": [
+    {
+      "Header": "🧩 Language & Input Tools",
+      "Items": [
+        "Keyboard Fix (Set US, Remove MY)",
+        "Sogou Pinyin",
+        "Microsoft Pinyin (Simplified)"
+      ]
+    },
+    {
+      "Header": "🧰 Other Tools",
+      "Items": ["CoreTemp"]
+    },
+    {
+      "Header": "🛡 Anti-Virus",
+      "Items": ["Avira"]
+    },
+    {
+      "Header": "🎮 Games",
+      "Items": ["Steam"]
+    },
+    {
+      "Header": "🌐 Web Browsers",
+      "Items": ["Google Chrome", "Mozilla Firefox"]
+    },
+    {
+      "Header": "🗜 Compression Tools",
+      "Items": ["WinRAR", "7-Zip"]
+    },
+    {
+      "Header": "📄 PDF Utilities",
+      "Items": ["Adobe Acrobat Reader (64-bit)", "doPDF 11"]
+    },
+    {
+      "Header": "🖥 Remote Desktop",
+      "Items": ["AnyDesk", "UltraViewer"]
+    },
+    {
+      "Header": "🎥 Video Players",
+      "Items": ["VLC Player", "K-Lite Codec Pack Full"]
+    },
+    {
+      "Header": "🖼 Photo Viewers",
+      "Items": ["IrfanView"]
+    },
+    {
+      "Header": "💬 Communication & Conferencing",
+      "Items": ["Zoom"]
+    },
+    {
+      "Header": "☕ Java Runtime",
+      "Items": ["Java Runtime 32-bit", "Java Runtime 64-bit"]
+    },
+    {
+      "Header": "🧱 VC++ Redistributables",
+      "Items": [
+        "VC++ 2005 (x86)",
+        "VC++ 2005 (x64)",
+        "VC++ 2008 (x86)",
+        "VC++ 2008 (x64)",
+        "VC++ 2010 (x86)",
+        "VC++ 2010 (x64)",
+        "VC++ 2012 (x86)",
+        "VC++ 2012 (x64)",
+        "VC++ 2013 (x86)",
+        "VC++ 2013 (x64)",
+        "VC++ 2015–2022 (x86)",
+        "VC++ 2015–2022 (x64)"
+      ]
+    },
+    {
+      "Header": ".NET Framework",
+      "Items": [".NET Framework"]
+    }
+  ]
+}
