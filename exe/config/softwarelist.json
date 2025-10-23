@@ -40,6 +40,19 @@
       ]
     },
     {
+      "Header": "\uD83D\uDCC4 PDF Viewer",
+      "Items": [
+        {
+          "Name": "Adobe Acrobat Reader DC 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/AdobeReader.ps1 | iex"
+        },
+        {
+          "Name": "doPDF 11",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/doPDF.ps1 | iex"
+        }
+      ]
+    },
+    {
       "Header": "\uD83E\uDDF0 Compression Tools",
       "Items": [
         {
@@ -58,11 +71,15 @@
         {
           "Name": "Steam",
           "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/steam.ps1 | iex"
+        },
+        {
+          "Name": "Epic Games Launcher",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/EpicGamesLauncher.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "\uD83D\uDDA5\uFE0F Remote \u0026 Utility",
+      "Header": "\uD83D\uDDA5\uFE0F Remote Desktop",
       "Items": [
         {
           "Name": "AnyDesk",
@@ -75,7 +92,7 @@
       ]
     },
     {
-      "Header": "\uD83C\uDFAC Media Tools",
+      "Header": "\uD83D\uDCFA Media Viewer",
       "Items": [
         {
           "Name": "VLC Player",
@@ -84,6 +101,10 @@
         {
           "Name": "K-Lite Codec Pack",
           "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/K-LiteFull.ps1 | iex"
+        },
+        {
+          "Name": "IrfanView Graphic Viewer",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/IrfanView.ps1 | irm"
         }
       ]
     },
@@ -97,28 +118,68 @@
       ]
     },
     {
-      "Header": "\uD83D\uDCBB System Runtimes",
+      "Header": "\u2699\uFE0F Microsoft Visual C\u002B\u002B Redistributable Packages",
       "Items": [
         {
-          "Name": "Microsoft Visual C\u002B\u002B Redistributables (All-in-One)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VC_Redist_All.ps1 | iex"
+          "Name": "Microsoft VCRedist 2015-2022 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-32bit.ps1 | iex"
         },
         {
-          "Name": ".NET Framework 4.8",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/DotNet48.ps1 | iex"
+          "Name": "Microsoft VCRedist 2015-2022 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2015-2022-64bit.ps1 | iex"
         },
         {
-          "Name": ".NET Desktop Runtime 8",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/DotNet8Desktop.ps1 | iex"
+          "Name": "Microsoft VCRedist 2013 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-32bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2013 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2013-64bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2012 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2012-32bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2012 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2012-64bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2010 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2010-32bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2010 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2010-64bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2008 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-32bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2008 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2008-64bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2005 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2005-32bit.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft VCRedist 2005 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/VisualStudio2005-64bit.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "PDF Viewer",
+      "Header": "\u2615 Java Runtime",
       "Items": [
         {
-          "Name": "Adobe Acrobat Reader DC 64-bit",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/AdobeReader.ps1 | iex"
+          "Name": "Java Runtime 32bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime-32bit.ps1 | iex"
+        },
+        {
+          "Name": "Java Runtime 64bit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/OrecleJavaRuntime-64bit.ps1 | iex"
         }
       ]
     }
@@ -128,8 +189,13 @@
       "Name": "Hytec",
       "Items": [
         "7-Zip",
+        "Adobe Acrobat Reader DC 64bit",
         "AnyDesk",
+        "doPDF 11",
         "Google Chrome",
+        "IrfanView Graphic Viewer",
+        "Java Runtime 32bit",
+        "Java Runtime 64bit",
         "K-Lite Codec Pack",
         "Keyboard Fix (Set US, Remove MY)",
         "Mozilla Firefox",
@@ -143,6 +209,7 @@
     {
       "Name": "Easy PC",
       "Items": [
+        "Adobe Acrobat Reader DC 64bit",
         "CoreTemp",
         "Google Chrome",
         "Keyboard Fix (Set US, Remove MY)",
