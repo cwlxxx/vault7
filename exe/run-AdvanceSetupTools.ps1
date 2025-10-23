@@ -1,11 +1,26 @@
 # AdvanceSetupTools - Web Installer Bootstrapper
 # Author: CWL
-# Description:
-#   1️⃣ Check for .NET 8 Desktop Runtime
-#   2️⃣ Install via winget if missing
-#   3️⃣ Download latest Release.zip to %TEMP%\AdvanceSetupTools
-#   4️⃣ Unzip, run AdvanceSetupTools.exe, wait, then clean up
-#   5️⃣ Exit PowerShell gracefully
+
+Add-Type -Name Window -Namespace Console -MemberDefinition @"
+    [DllImport("kernel32.dll")]
+    public static extern IntPtr GetConsoleWindow();
+    [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+"@
+
+function Hide-Console {
+    $consolePtr = [Console.Window]::GetConsoleWindow()
+    if ($consolePtr -ne [IntPtr]::Zero) {
+        [Console.Window]::ShowWindow($consolePtr, 0)  # 0 = SW_HIDE
+    }
+}
+
+function Show-Console {
+    $consolePtr = [Console.Window]::GetConsoleWindow()
+    if ($consolePtr -ne [IntPtr]::Zero) {
+        [Console.Window]::ShowWindow($consolePtr, 5)  # 5 = SW_SHOW
+    }
+}
 
 # region ───── Helper: Safe folder setup ─────
 $TempRoot = Join-Path $env:TEMP "AdvanceSetupTools"
@@ -15,7 +30,6 @@ $ExePath  = Join-Path $TempRoot "AdvanceSetupTools.exe"
 if (-not (Test-Path $TempRoot)) {
     New-Item -ItemType Directory -Path $TempRoot | Out-Null
 }
-
 # endregion
 
 # region ───── Step 1: Check .NET 8 Desktop Runtime ─────
@@ -24,8 +38,7 @@ Write-Host "🔍 Checking for .NET 8 Desktop Runtime..." -ForegroundColor Cyan
 $dotnetInstalled = $false
 try {
     $versionOutput = & dotnet --list-runtimes 2>$null
-    if ($versionOutput -match "Microsoft\.WindowsDesktop\.App 8\.")
-    {
+    if ($versionOutput -match "Microsoft\.WindowsDesktop\.App 8\.") {
         $dotnetInstalled = $true
         Write-Host "✅ .NET 8 Desktop Runtime found." -ForegroundColor Green
     }
@@ -35,7 +48,6 @@ try {
 
 if (-not $dotnetInstalled) {
     Write-Host "🚀 Installing .NET 8 Desktop Runtime via winget..." -ForegroundColor Cyan
-
     try {
         winget install --id Microsoft.DotNet.DesktopRuntime.8 -e --accept-package-agreements --accept-source-agreements -h
     } catch {
@@ -45,7 +57,6 @@ if (-not $dotnetInstalled) {
         exit
     }
 }
-
 # endregion
 
 # region ───── Step 2: Download Release.zip ─────
@@ -59,7 +70,6 @@ try {
     Write-Host "❌ Failed to download Release.zip" -ForegroundColor Red
     exit
 }
-
 # endregion
 
 # region ───── Step 3: Extract ZIP ─────
@@ -71,10 +81,9 @@ try {
     Write-Host "❌ Failed to extract ZIP file." -ForegroundColor Red
     exit
 }
-
 # endregion
 
-# region ───── Step 4: Run the app and wait ─────
+# region ───── Step 4: Run the app and hide console ─────
 if (-not (Test-Path $ExePath)) {
     Write-Host "❌ Could not find AdvanceSetupTools.exe after extraction." -ForegroundColor Red
     exit
@@ -82,9 +91,16 @@ if (-not (Test-Path $ExePath)) {
 
 Write-Host "🚀 Launching AdvanceSetupTools.exe..." -ForegroundColor Cyan
 
-$process = Start-Process -FilePath $ExePath -Wait -PassThru
-Write-Host "🧹 Cleaning up temporary files..." -ForegroundColor DarkGray
+# 🪄 Hide PowerShell window while the app runs
+Hide-Console
 
+# Start EXE (wait until closed)
+Start-Process -FilePath $ExePath -Wait
+
+# Restore console after EXE closes
+Show-Console
+
+Write-Host "🧹 Cleaning up temporary files..." -ForegroundColor DarkGray
 # endregion
 
 # region ───── Step 5: Cleanup ─────
