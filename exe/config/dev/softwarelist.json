@@ -1,1 +1,26 @@
-#empty
+{
+  "SoftwareGroups": [
+    {
+      "Header": "🧪 Dev Testing Group",
+      "Items": [
+        "Fake Installer A (Dev Only)",
+        "Fake Installer B (Dev Only)",
+        "Fake Installer C (Dev Only)"
+      ]
+    },
+    {
+      "Header": "🧱 Debugging Tools (Dev Mode)",
+      "Items": [
+        "Performance Logger",
+        "UI Layout Tester"
+      ]
+    },
+    {
+      "Header": "🧩 Experimental Features",
+      "Items": [
+        "JSON Parser Sandbox",
+        "Network Connection Simulator"
+      ]
+    }
+  ]
+}
