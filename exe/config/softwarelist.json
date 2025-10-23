@@ -1,7 +1,29 @@
 {
+  "Presets": [
+    {
+      "Name": "Hytec",
+      "Items": [
+        "Steam",
+        "Google Chrome",
+        "7-Zip",
+        "AnyDesk"
+      ]
+    },
+    {
+      "Name": "Easy PC",
+      "Items": [
+        "Steam",
+        "Mozilla Firefox",
+        "WinRAR",
+        "Google Chrome",
+        "VLC Player",
+        "Zoom"
+      ]
+    }
+  ],
   "SoftwareGroups": [
     {
-      "Header": "🧩 Language & Input Tools",
+      "Header": "🧩 Language & Input",
       "Items": [
         {
           "Name": "Keyboard Fix (Set US, Remove MY)",
@@ -18,187 +40,131 @@
       ]
     },
     {
-      "Header": "🧰 Other Tools",
-      "Items": [
-        {
-          "Name": "CoreTemp",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/CoreTemp.ps1 | iex"
-        }
-      ]
-    },
-    {
-      "Header": "🛡 Anti-Virus",
-      "Items": [
-        {
-          "Name": "Avira",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/AviraAntivirus.ps1 | iex"
-        }
-      ]
-    },
-    {
-      "Header": "🎮 Games",
-      "Items": [
-        {
-          "Name": "Steam",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/steam.ps1 | iex"
-        }
-      ]
-    },
-    {
       "Header": "🌐 Web Browsers",
       "Items": [
         {
           "Name": "Google Chrome",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/GoogleChrome.ps1 | iex"
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Chrome.ps1 | iex"
         },
         {
           "Name": "Mozilla Firefox",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/FireFox.ps1 | iex"
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Firefox.ps1 | iex"
+        },
+        {
+          "Name": "Microsoft Edge",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Edge.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "🗜 Compression Tools",
+      "Header": "💻 System Runtimes",
       "Items": [
         {
-          "Name": "WinRAR",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/WinRAR.ps1 | iex"
+          "Name": "Microsoft Visual C++ Redistributables (All-in-One)",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VC_Redist_All.ps1 | iex"
         },
+        {
+          "Name": ".NET Framework 4.8",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/DotNet48.ps1 | iex"
+        },
+        {
+          "Name": ".NET Desktop Runtime 8",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/DotNet8Desktop.ps1 | iex"
+        }
+      ]
+    },
+    {
+      "Header": "🧰 Compression Tools",
+      "Items": [
         {
           "Name": "7-Zip",
           "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/7zip.ps1 | iex"
-        }
-      ]
-    },
-    {
-      "Header": "📄 PDF Utilities",
-      "Items": [
-        {
-          "Name": "Adobe Acrobat Reader (64-bit)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/AdobeReader.ps1 | iex"
         },
         {
-          "Name": "doPDF 11",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/doPDF.ps1 | iex"
+          "Name": "WinRAR",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/WinRAR.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "🖥 Remote Desktop",
+      "Header": "🎮 Gaming Platforms",
+      "Items": [
+        {
+          "Name": "Steam",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Steam.ps1 | iex"
+        },
+        {
+          "Name": "Epic Games Launcher",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/EpicGames.ps1 | iex"
+        }
+      ]
+    },
+    {
+      "Header": "🖥️ Remote & Utility",
       "Items": [
         {
           "Name": "AnyDesk",
           "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/AnyDesk.ps1 | iex"
         },
         {
-          "Name": "UltraViewer",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/UltraViewer.ps1 | iex"
+          "Name": "TeamViewer",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/TeamViewer.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "🎥 Video Players",
+      "Header": "🎬 Media Tools",
       "Items": [
         {
           "Name": "VLC Player",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VLC-Player.ps1 | iex"
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VLC.ps1 | iex"
         },
         {
-          "Name": "K-Lite Codec Pack Full",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/K-LiteFull.ps1 | iex"
+          "Name": "K-Lite Codec Pack",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/KLiteCodecPack.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "🖼 Photo Viewers",
+      "Header": "📦 Office Tools",
       "Items": [
         {
-          "Name": "IrfanView",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/IrfanView.ps1 | iex"
+          "Name": "Microsoft Office",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/MicrosoftOffice.ps1 | iex"
+        },
+        {
+          "Name": "WPS Office",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/WPSOffice.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "💬 Communication & Conferencing",
+      "Header": "💬 Communication Tools",
       "Items": [
+        {
+          "Name": "Discord",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Discord.ps1 | iex"
+        },
         {
           "Name": "Zoom",
           "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Zoom.ps1 | iex"
+        },
+        {
+          "Name": "Telegram",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/Telegram.ps1 | iex"
         }
       ]
     },
     {
-      "Header": "☕ Java Runtime",
+      "Header": "🧹 Cleanup & Tools",
       "Items": [
         {
-          "Name": "Java Runtime 32-bit",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/OrecleJavaRuntime-32bit.ps1 | iex"
+          "Name": "BleachBit",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/BleachBit.ps1 | iex"
         },
         {
-          "Name": "Java Runtime 64-bit",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/OrecleJavaRuntime-64bit.ps1 | iex"
-        }
-      ]
-    },
-    {
-      "Header": "🧱 VC++ Redistributables",
-      "Items": [
-        {
-          "Name": "VC++ 2005 (x86)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2005-32bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2005 (x64)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2005-64bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2008 (x86)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2008-32bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2008 (x64)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2008-64bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2010 (x86)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2010-32bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2010 (x64)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2010-64bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2012 (x86)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2012-32bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2012 (x64)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2012-64bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2013 (x86)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2013-32bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2013 (x64)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2013-64bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2015–2022 (x86)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2015-2022-32bit.ps1 | iex"
-        },
-        {
-          "Name": "VC++ 2015–2022 (x64)",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/VisualStudio2015-2022-64bit.ps1 | iex"
-        }
-      ]
-    },
-    {
-      "Header": ".NET Framework",
-      "Items": [
-        {
-          "Name": ".NET Framework",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/.NET-Framework.ps1 | iex"
+          "Name": "CCleaner",
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/main/install/CCleaner.ps1 | iex"
         }
       ]
     }
