@@ -189,8 +189,13 @@
       "Name": "Hytec",
       "Items": [
         "7-Zip",
+        "Adobe Acrobat Reader DC 64bit",
         "AnyDesk",
+        "doPDF 11",
         "Google Chrome",
+        "IrfanView Graphic Viewer",
+        "Java Runtime 32bit",
+        "Java Runtime 64bit",
         "K-Lite Codec Pack",
         "Keyboard Fix (Set US, Remove MY)",
         "Mozilla Firefox",
@@ -204,6 +209,7 @@
     {
       "Name": "Easy PC",
       "Items": [
+        "Adobe Acrobat Reader DC 64bit",
         "CoreTemp",
         "Google Chrome",
         "Keyboard Fix (Set US, Remove MY)",
