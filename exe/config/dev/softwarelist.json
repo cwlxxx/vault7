@@ -1,19 +1,41 @@
 {
+  "Presets": [
+    {
+      "Name": "Dev Testing Profile",
+      "Items": [
+        "Fake Installer 1",
+        "Fake Installer 2"
+      ]
+    }
+  ],
   "SoftwareGroups": [
     {
       "Header": "🧪 Dev Testing Group",
       "Items": [
         {
-          "Name": "Fake Installer A",
-          "Script": "Write-Host 'Installing Fake A (Dev)' -ForegroundColor Yellow; Start-Sleep -Seconds 2;"
+          "Name": "Fake Installer 1",
+          "Script": "Write-Host 'Running fake installer 1 (DEV)' -ForegroundColor Yellow; Start-Sleep -Seconds 1"
         },
         {
-          "Name": "Fake Installer B",
-          "Script": "Write-Host 'Installing Fake B (Dev)' -ForegroundColor Cyan; Start-Sleep -Seconds 2;"
+          "Name": "Fake Installer 2",
+          "Script": "Write-Host 'Running fake installer 2 (DEV)' -ForegroundColor Cyan; Start-Sleep -Seconds 1"
         },
         {
-          "Name": "Fake Installer C",
-          "Script": "Write-Host 'Installing Fake C (Dev)' -ForegroundColor Green; Start-Sleep -Seconds 2;"
+          "Name": "Fake Installer 3",
+          "Script": "Write-Host 'Running fake installer 3 (DEV)' -ForegroundColor Green; Start-Sleep -Seconds 1"
+        }
+      ]
+    },
+    {
+      "Header": "🧱 Dev Sandbox (Extra Group)",
+      "Items": [
+        {
+          "Name": "PowerShell Version Check",
+          "Script": "Write-Host 'PowerShell Version:' $PSVersionTable.PSVersion"
+        },
+        {
+          "Name": "Network Ping Test",
+          "Script": "Test-Connection github.com -Count 2 | Out-Host"
         }
       ]
     }
