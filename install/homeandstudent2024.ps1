@@ -2,13 +2,13 @@
 # 🏢 Microsoft Office 2024 - Home and Student (Download Only)
 # ============================================================
 
-# Create download directory
+# Create folder
 $downloadPath = Join-Path $env:TEMP "OfficeInstaller"
 if (!(Test-Path $downloadPath)) {
     New-Item -ItemType Directory -Path $downloadPath | Out-Null
 }
 
-# Define installer name and target
+# Define file path
 $installerName = "Office_Home_Student_2024.exe"
 $targetFile = Join-Path $downloadPath $installerName
 
@@ -18,15 +18,14 @@ $url = "https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=
 Write-Host "Downloading Microsoft Office 2024 Home and Student..." -ForegroundColor Cyan
 Write-Host "Destination: $targetFile" -ForegroundColor Yellow
 
-# Start BITS download
-Start-BitsTransfer -Source $url -Destination $targetFile -DisplayName "Office 2024 Home and Student" -Description "Downloading Office setup..." -Priority High
-
-# Confirm completion
-if (Test-Path $targetFile) {
+try {
+    # ✅ Use Invoke-WebRequest for modern HTTPS streaming
+    Invoke-WebRequest -Uri $url -OutFile $targetFile -UseBasicParsing
     Write-Host "`n✅ Download completed successfully!" -ForegroundColor Green
     Write-Host "File saved to: $targetFile" -ForegroundColor White
-} else {
-    Write-Host "`n❌ Download failed. Please check your internet connection or URL." -ForegroundColor Red
+}
+catch {
+    Write-Host "`n❌ Download failed: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 Pause
