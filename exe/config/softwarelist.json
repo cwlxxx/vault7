@@ -104,7 +104,7 @@
         },
         {
           "Name": "IrfanView Graphic Viewer",
-          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/IrfanView.ps1 | irm"
+          "Script": "irm https://raw.githubusercontent.com/cwlxxx/vault7/refs/heads/main/install/IrfanView.ps1 | iex"
         }
       ]
     },
