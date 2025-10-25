@@ -80,5 +80,5 @@ Remove-Item -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\OneDrive" -Recurse -Forc
     [System.Windows.MessageBoxImage]::Information
 )
 
-# Automatically close the PowerShell window
+# Automatically close PowerShell window
 Stop-Process -Id $PID
