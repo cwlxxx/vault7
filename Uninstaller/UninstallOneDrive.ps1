@@ -4,13 +4,18 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
     exit
 }
 
-# --- Step 2: Confirmation Prompt ---
-Write-Host "WARNING: This script will perform a complete uninstallation of Microsoft OneDrive." -ForegroundColor Yellow
-Write-Host "This will affect all user profiles on this PC." -ForegroundColor Yellow
-$confirmation = Read-Host "Are you sure you want to proceed? (Y/N)"
+Add-Type -AssemblyName PresentationFramework
 
-if ($confirmation -notmatch '^[yY]$') {
-    Write-Host "Uninstallation cancelled by user. Exiting script." -ForegroundColor Red
+# --- Step 2: Confirmation Prompt (using Windows popup) ---
+$result = [System.Windows.MessageBox]::Show(
+    "WARNING: This script will perform a complete uninstallation of Microsoft OneDrive.`n`nThis will affect all user profiles on this PC.`n`nAre you sure you want to proceed?",
+    "Confirm Uninstall",
+    [System.Windows.MessageBoxButton]::YesNo,
+    [System.Windows.MessageBoxImage]::Warning
+)
+
+if ($result -ne [System.Windows.MessageBoxResult]::Yes) {
+    [System.Windows.MessageBox]::Show("Uninstallation cancelled by user.", "Cancelled", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
     exit
 }
 
@@ -22,7 +27,6 @@ Write-Host "OneDrive processes stopped." -ForegroundColor Green
 # --- Step 4: Run the official uninstaller for all users ---
 Write-Host "Running OneDrive uninstaller for all users..." -ForegroundColor Yellow
 try {
-    # Find the path to the OneDrive uninstaller
     $setupPath = "$env:SystemRoot\SysWOW64\OneDriveSetup.exe"
     if (-not (Test-Path -Path $setupPath)) {
         $setupPath = "$env:SystemRoot\System32\OneDriveSetup.exe"
@@ -49,20 +53,16 @@ foreach ($user in $users) {
     $oneDriveProgramData = "$env:ProgramData\Microsoft OneDrive"
     $oneDriveProfileFolder = "$userProfilePath\OneDrive"
 
-    # Remove user-specific OneDrive folder
     if (Test-Path -Path $oneDriveProfileFolder) {
         Remove-Item -Path $oneDriveProfileFolder -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
     }
-
-    # Remove user-specific AppData folder
     if (Test-Path -Path $oneDriveAppData) {
         Remove-Item -Path $oneDriveAppData -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
     }
 }
 
-# Remove all-user program data folder
-if (Test-Path -Path $oneDriveProgramData) {
-    Remove-Item -Path $oneDriveProgramData -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
+if (Test-Path -Path "$env:ProgramData\Microsoft OneDrive") {
+    Remove-Item -Path "$env:ProgramData\Microsoft OneDrive" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
 }
 
 Write-Host "Leftover files and folders have been removed." -ForegroundColor Green
@@ -80,15 +80,17 @@ else {
 
 # --- Step 7: Clean up remaining registry keys ---
 Write-Host "Cleaning up remaining registry keys..." -ForegroundColor Yellow
-# Disable OneDrive Group Policy (prevents it from starting)
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC" -Value 1 -ErrorAction SilentlyContinue | Out-Null
-
-# Remove OneDrive uninstall key
 Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
 Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
 Remove-Item -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
 
 Write-Host "Registry cleanup complete." -ForegroundColor Green
 
-Write-Host "`nMicrosoft OneDrive has been completely uninstalled." -ForegroundColor Green
-Write-Host "A system restart may be required for all changes to take effect." -ForegroundColor Green
+# --- Step 8: Completion Message ---
+[System.Windows.MessageBox]::Show(
+    "Microsoft OneDrive has been completely uninstalled.`nA system restart may be required for all changes to take effect.",
+    "Uninstall Complete",
+    [System.Windows.MessageBoxButton]::OK,
+    [System.Windows.MessageBoxImage]::Information
+)
