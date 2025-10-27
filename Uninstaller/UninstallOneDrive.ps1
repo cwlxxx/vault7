@@ -72,13 +72,8 @@ Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\OneDrive" -Recurse -Force -ErrorActi
 Remove-Item -Path "HKLM:\SOFTWARE\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
 Remove-Item -Path "HKLM:\SOFTWARE\WOW6432Node\Microsoft\OneDrive" -Recurse -Force -ErrorAction SilentlyContinue | Out-Null
 
-# --- Step 8: Completion message and exit ---
-[System.Windows.MessageBox]::Show(
-    "Microsoft OneDrive has been completely uninstalled.`nA system restart may be required for all changes to take effect.",
-    "Uninstall Complete",
-    [System.Windows.MessageBoxButton]::OK,
-    [System.Windows.MessageBoxImage]::Information
-)
+
 
 # Automatically close PowerShell window
 Stop-Process -Id $PID
+
